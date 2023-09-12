@@ -20,7 +20,7 @@ export class RegisterComponent {
     console.log("pass: " + this.passInput);
 
     // Send the new user to the backend
-    this.http.post('http://localhost:5001/userpass', {pass: this.passInput, userId: this.usernameInput})
+    this.http.post('http://localhost:5002/userpass', {pass: this.passInput, userId: this.usernameInput})
       .subscribe(response => {
         this.usernameInput = ''; // Clear the input field
         this.passInput = ''; // Clear the input field

@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const UserPass = require('./userpass');
 const app = express();
-const port = 5001;
+const port = 5002;
 
 app.use(cors());
 app.use(express.json());
