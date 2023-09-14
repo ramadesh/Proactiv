@@ -47,10 +47,10 @@ app.use((req, res, next) => {
 
 app.post('/userpass', (req, res) => {
   
-  const { pass, userId } = req.body; // Assuming the data and userId are sent as properties in the request body
+  const { pass, userId, email } = req.body;
   
   // Create a new instance of the Data model
-  const newData = new UserPass({ pass, userId });
+  const newData = new UserPass({ pass, userId, email });
 
   // Save the data to MongoDB
   newData.save()
