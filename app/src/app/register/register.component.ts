@@ -19,7 +19,7 @@ export class RegisterComponent {
   signup() {
     console.log("username: " + this.usernameInput);
     console.log("pass: " + this.passInput);
-    console.log("email: " + this.passInput);
+    console.log("email: " + this.emailInput);
 
     // Send the new user to the backend
     this.http.post('http://localhost:5002/userpass', {pass: this.passInput, userId: this.usernameInput, email: this.emailInput})
