@@ -11,6 +11,7 @@ export class RegisterComponent {
   public usernameInput = '';
   public passInput = '';
   public emailInput = '';
+  showPassword: boolean = false;
   
   constructor(private http: HttpClient) {
 
