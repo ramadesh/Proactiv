@@ -64,18 +64,26 @@ app.post('/userpass', (req, res) => {
 });
 
   
-app.get('/userpass', (req, res) => {
-  const userId = req.query.userId; // Assuming the userId is sent as a query parameter
-  // Retrieve the data entries for the specified userId
-  UserPass.find({ userId })
-    .then(data => {
-      res.status(200).json(data);
-    })
-    .catch(error => {
-      console.error('Failed to retrieve data:', error);
-      res.status(500).json({ error: 'Failed to retrieve data' });
-    });
-});
+app.get('/userpass', async (req, res) => {
+    const { userId, pass } = req.query; // Use req.query to access query parameters
+  
+    try {
+      // Search for a user in the database with the provided userId and pass
+      const user = await UserPass.findOne({ userId, pass });
+  
+      if (!user) {
+        // If no matching user is found, return a 404 status code
+        return res.status(404).json({ message: 'Username and password do not match' });
+      }
+  
+      // If a matching user is found, return the user data
+      res.status(200).json(user);
+    } catch (error) {
+      console.error('Error searching for user:', error);
+      res.status(500).json({ error: 'Failed to retrieve user data' });
+    }
+  });
+  
   
 // Start the server
 app.listen(port, () => {
