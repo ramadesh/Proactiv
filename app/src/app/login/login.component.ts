@@ -9,6 +9,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 })
 export class LoginComponent {
 
+
   public usernameInput = '';
   public passInput = '';
   public emailInput = '';
