@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DashComponent } from './dash/dash.component';
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { DashComponent } from './dash/dash.component';
     LoginComponent,
     RegisterComponent,
     DashComponent,
+    ForgotPassComponent,
   ],
   imports: [
     BrowserModule,
