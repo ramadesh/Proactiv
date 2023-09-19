@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { RouterModule, Routes, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,12 @@ export class LoginComponent {
   public usernameInput = '';
   public passInput = '';
   public emailInput = '';
+  public errorMessage = '';
   
-  constructor(private http: HttpClient, public router: Router) {
-
-  }
+  constructor(
+    private http: HttpClient, public router: Router,
+    private toastr: ToastrService 
+    ) {}
 
   login() {
     console.log("username: " + this.usernameInput);
@@ -35,7 +38,9 @@ export class LoginComponent {
         this.router.navigate(["/dash"]);
       },
       (error) => {
-        console.error('Error:', error);
+        console.error('Error:', error.error.message);
+        this.errorMessage = error.error.message
+        // this.toastr.error('Invalid username or password', 'Login Error');
       }
     );
   }

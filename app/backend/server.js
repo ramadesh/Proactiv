@@ -73,7 +73,7 @@ app.get('/userpass', async (req, res) => {
   
       if (!user) {
         // If no matching user is found, return a 404 status code
-        return res.status(404).json({ message: 'Username and password do not match' });
+        return res.status(404).json({ message: 'Incorrect username or password' });
       }
   
       // If a matching user is found, return the user data

@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { DashComponent } from './dash/dash.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +25,9 @@ import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
