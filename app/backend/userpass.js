@@ -14,6 +14,14 @@ const dataSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  school: {
+    type: String,
+    required: true
+  },
+  birthday: {
+    type: String,
+    required: true
+  }, 
   timestamp: {
     type: Date,
     default: Date.now

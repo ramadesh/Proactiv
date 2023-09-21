@@ -47,16 +47,16 @@ app.use((req, res, next) => {
 
 app.post('/userpass', async (req, res) => {
   
-  const { pass, userId, email } = req.body;
+  const { pass, userId, email, school, birthday } = req.body;
   
   // Create a new instance of the Data model
-  const newData = new UserPass({ pass, userId, email });
+  const newData = new UserPass({ pass, userId, email, school, birthday });
 
   const existingUser = await UserPass.findOne({userId:userId});
   console.log("EXISTING USER", existingUser);
 
   if (existingUser) {
-    return res.status(404).json({ message: 'Username already taken!' })
+    return res.status(500).json({ message: 'Username already taken!' })
   } else {
     // Save the data to MongoDB
     newData.save()
