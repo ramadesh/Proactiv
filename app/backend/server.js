@@ -45,15 +45,21 @@ app.use((req, res, next) => {
 });
 
 
-app.post('/userpass', (req, res) => {
+app.post('/userpass', async (req, res) => {
   
   const { pass, userId, email } = req.body;
   
   // Create a new instance of the Data model
   const newData = new UserPass({ pass, userId, email });
 
-  // Save the data to MongoDB
-  newData.save()
+  const existingUser = await UserPass.findOne({userId:userId});
+  console.log("EXISTING USER", existingUser);
+
+  if (existingUser) {
+    return res.status(404).json({ message: 'Username already taken!' })
+  } else {
+    // Save the data to MongoDB
+    newData.save()
     .then(savedData => {
       res.status(200).json(savedData); // Return the saved data as the response
     })
@@ -61,6 +67,7 @@ app.post('/userpass', (req, res) => {
       console.error('Failed to save data:', error);
       res.status(500).json({ error: 'Failed to save data' });
     });
+  }
 });
 
   
