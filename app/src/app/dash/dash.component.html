@@ -75,17 +75,23 @@
         <nav>
             <div class="navbar-buttons">
                 <img class="navbar-logo" src="assets/P.png" style="width: 50px; height: 50px; margin: 0%; padding: 0px" alt="Image" />
-                <button>My Tasks</button>
+                <button routerLink="/todo">My Tasks</button>
                 &nbsp;
                 &nbsp;
-                <button>My Maps</button>
+                <button routerLink="/maps">My Maps</button>
                 &nbsp;
                 &nbsp;
-                <button>My Music</button>
+                <button routerLink="/music">My Music</button>
+                &nbsp;
+                &nbsp;
+                <button routerLink="/profile">Profile</button>
+                &nbsp;
+                &nbsp;
+                <button routerLink="/settings">Settings</button>
             </div>
         </nav>
         
-
+        
         <button (click)="logout()">
             <span class="ml-3">
                 Log Out

@@ -12,6 +12,11 @@ import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { MusicComponent } from './music/music.component';
+import { MapsComponent } from './maps/maps.component';
+import { TodoComponent } from './todo/todo.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +25,11 @@ import { ToastrModule } from 'ngx-toastr';
     RegisterComponent,
     DashComponent,
     ForgotPassComponent,
+    MusicComponent,
+    MapsComponent,
+    TodoComponent,
+    SettingsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
