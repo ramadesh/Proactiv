@@ -45,6 +45,11 @@ export class RegisterComponent {
       
       // Log a message when the registration is successfully saved
       console.log('User saved to the database.', response);
+    }, (error) => {
+      alert(error.error.error)
+      //console.error('Error:', error.error.message);
+       
+      // this.toastr.error('Invalid username or password', 'Login Error');
     })
     }
   }

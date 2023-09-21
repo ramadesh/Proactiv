@@ -54,10 +54,8 @@ app.post('/userpass', async (req, res) => {
 
   const existingUser = await UserPass.findOne({userId:userId});
   console.log("EXISTING USER", existingUser);
-
-  if (existingUser) {
-    return res.status(500).json({ message: 'Username already taken!' })
-  } else {
+console.log("hi");
+  if (!existingUser) {
     // Save the data to MongoDB
     newData.save()
     .then(savedData => {
@@ -67,6 +65,9 @@ app.post('/userpass', async (req, res) => {
       console.error('Failed to save data:', error);
       res.status(500).json({ error: 'Failed to save data' });
     });
+  } else {
+    console.log("Username already exists")
+  res.status(404).json({ error: 'Username already taken!' })
   }
 });
 
