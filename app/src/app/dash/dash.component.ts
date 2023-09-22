@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 })
 export class DashComponent {
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) { }
+  
   logout() {
     this.router.navigate(["/login"]);
     console.log("You've been successfully logged out.");

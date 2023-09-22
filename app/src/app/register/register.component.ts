@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { min } from 'rxjs';
 
 @Component({
@@ -16,9 +17,7 @@ export class RegisterComponent {
   public bdayInput = '';
   showPassword: boolean = false;
   
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient, private router: Router) { }
   
   signup() {
     console.log("username: " + this.usernameInput);
@@ -42,6 +41,8 @@ export class RegisterComponent {
       this.emailInput = '';
       this.schoolInput = '';
       this.bdayInput = '';
+
+      this.router.navigate(["/login"]);
       
       // Log a message when the registration is successfully saved
       console.log('User saved to the database.', response);

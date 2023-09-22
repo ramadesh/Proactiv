@@ -11,6 +11,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/login', pathMatch: 'full' },
   {component: RegisterComponent, path: 'register'},
   {component: LoginComponent, path: 'login'},
   {component: DashComponent, path: 'dash'},
