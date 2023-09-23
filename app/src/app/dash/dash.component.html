@@ -8,6 +8,7 @@
         body {
             margin: 0;
             padding: 0;
+            padding-top: 70px;
             font-family: Arial, sans-serif;
         }
 
@@ -70,24 +71,25 @@
         }
     </style>
 </head>
+
 <body>
     <div class="navbar" style="padding-left: 10px; padding-right: 10px;">
         <nav>
             <div class="navbar-buttons">
                 <img class="navbar-logo" src="assets/P.png" style="width: 50px; height: 50px; margin: 0%; padding: 0px" alt="Image" />
-                <button routerLink="/todo">My Tasks</button>
+                <button routerLink="/dash/todo">My Tasks</button>
                 &nbsp;
                 &nbsp;
-                <button routerLink="/maps">My Maps</button>
+                <button routerLink="/dash/maps">My Maps</button>
                 &nbsp;
                 &nbsp;
-                <button routerLink="/music">My Music</button>
+                <button routerLink="/dash/music">My Music</button>
                 &nbsp;
                 &nbsp;
-                <button routerLink="/profile">Profile</button>
+                <button routerLink="/dash/profile">Profile</button>
                 &nbsp;
                 &nbsp;
-                <button routerLink="/settings">Settings</button>
+                <button routerLink="/dash/settings">Settings</button>
             </div>
         </nav>
         
@@ -97,6 +99,9 @@
             </span>
         </button>
     </div>
+
+    <router-outlet></router-outlet>
+    
     <div class="background"></div> <!-- This is the full-width and full-height background -->
 </body>
 </html>

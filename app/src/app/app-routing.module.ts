@@ -14,13 +14,16 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
   {component: RegisterComponent, path: 'register'},
   {component: LoginComponent, path: 'login'},
-  {component: DashComponent, path: 'dash'},
   {component: ForgotPassComponent, path: 'forgotpass'},
-  {component: MapsComponent, path: 'maps'},
-  {component: MusicComponent, path: 'music'},
-  {component: ProfileComponent, path: 'profile'},
-  {component: SettingsComponent, path: 'settings'},
-  {component: TodoComponent, path: 'todo'}
+  {component: DashComponent, path: 'dash', 
+    children: [
+      {component: TodoComponent, path: 'todo'}, 
+      {component: MapsComponent, path: 'maps'},
+      {component: MusicComponent, path: 'music'},
+      {component: ProfileComponent, path: 'profile'},
+      {component: SettingsComponent, path: 'settings'}
+    ]
+  }
 ];
 
 @NgModule({
