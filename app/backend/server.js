@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const UserPass = require('./userpass');
 const app = express();
 const port = 5002;
+const sgMail = require('@sendgrid/mail');
+const shortid = require('shortid');
+
 
 app.use(cors());
 app.use(express.json());
@@ -47,19 +50,29 @@ app.use((req, res, next) => {
 
 app.post('/userpass', async (req, res) => {
   
-  const { pass, userId, email, school, birthday } = req.body;
+  const { pass, userId, email, school, birthday, token } = req.body;
+  token = shortid.generate();
   
   // Create a new instance of the Data model
-  const newData = new UserPass({ pass, userId, email, school, birthday });
+  const newData = new UserPass({ pass, userId, email, school, birthday, token });
 
   const existingUser = await UserPass.findOne({userId:userId});
-  console.log("EXISTING USER", existingUser);
-console.log("hi");
   if (!existingUser) {
     // Save the data to MongoDB
     newData.save()
     .then(savedData => {
       res.status(200).json(savedData); // Return the saved data as the response
+
+      sgMail.setApiKey("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");
+      const msg = {
+        to: email,
+        from: 'proactivapp2023@gmail.com',
+        subject: 'Verify your Proactiv account!',
+        text: 'Here is your unique token: ' + token + '\nPaste this onto the Proactiv Web app.',
+      };
+      sgMail.send(msg);
+
+
     })
     .catch(error => {
       console.error('Failed to save data:', error);
