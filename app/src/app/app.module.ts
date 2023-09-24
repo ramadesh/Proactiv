@@ -19,6 +19,7 @@ import { MapsComponent } from './maps/maps.component';
 import { TodoComponent } from './todo/todo.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { ProfileComponent } from './profile/profile.component';
     MapsComponent,
     TodoComponent,
     SettingsComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

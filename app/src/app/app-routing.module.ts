@@ -9,6 +9,7 @@ import { MapsComponent } from './maps/maps.component';
 import { MusicComponent } from './music/music.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
       {component: MapsComponent, path: 'maps'},
       {component: MusicComponent, path: 'music'},
       {component: ProfileComponent, path: 'profile'},
-      {component: SettingsComponent, path: 'settings'}
+      {component: SettingsComponent, path: 'settings'},
+      {component: PastjournalsComponent, path: ''}
     ]
   }
 ];
