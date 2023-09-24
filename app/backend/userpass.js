@@ -17,6 +17,9 @@ const dataSchema = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now
+  },
+  token: {
+    type: String
   }
 });
 

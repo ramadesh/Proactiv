@@ -1,27 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { min } from 'rxjs';
+import { DataService } from "../data.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   
   public usernameInput = '';
   public passInput = '';
   public emailInput = '';
   showPassword: boolean = false;
   
-  constructor(private http: HttpClient) {
+  subscription: Subscription = new Subscription;
 
+  //ngOnInit() {
+    //this.subscription = this.data.currentUser.subscribe(u => this.usernameInput = u)
+  //}
+  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  constructor(private http: HttpClient, public data: DataService) {
   }
   
   signup() {
     console.log("username: " + this.usernameInput);
     console.log("pass: " + this.passInput);
     console.log("email: " + this.emailInput);
+    this.data.user = this.usernameInput;
 
     var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     var minChars = 8;

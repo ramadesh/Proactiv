@@ -12,6 +12,8 @@ import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { VerifyComponent } from './verify/verify.component';
+import {DataService} from './data.service'
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     RegisterComponent,
     DashComponent,
     ForgotPassComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
