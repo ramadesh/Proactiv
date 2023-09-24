@@ -13,7 +13,12 @@ import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { VerifyComponent } from './verify/verify.component';
-import {DataService} from './data.service'
+import { DataService } from './data.service'
+import { MusicComponent } from './music/music.component';
+import { MapsComponent } from './maps/maps.component';
+import { TodoComponent } from './todo/todo.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +28,11 @@ import {DataService} from './data.service'
     DashComponent,
     ForgotPassComponent,
     VerifyComponent,
+    MusicComponent,
+    MapsComponent,
+    TodoComponent,
+    SettingsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

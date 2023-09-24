@@ -50,11 +50,11 @@ app.use((req, res, next) => {
 
 app.post('/userpass', async (req, res) => {
   
-  const { pass, userId, email } = req.body;
-  const token = shortid.generate();
+  const { pass, userId, email, school, birthday, token } = req.body;
+  token = shortid.generate();
   
   // Create a new instance of the Data model
-  const newData = new UserPass({ pass, userId, email, token });
+  const newData = new UserPass({ pass, userId, email, school, birthday, token });
 
   const existingUser = await UserPass.findOne({userId:userId});
   if (!existingUser) {
