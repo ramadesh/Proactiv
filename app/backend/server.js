@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 
 app.post('/userpass', async (req, res) => {
   
-  const { pass, userId, email, school, birthday, token } = req.body;
+  let { pass, userId, email, school, birthday, token } = req.body;
   token = shortid.generate();
   
   // Create a new instance of the Data model

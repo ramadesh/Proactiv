@@ -46,8 +46,6 @@ export class RegisterComponent {
       this.emailInput = '';
       this.schoolInput = '';
       this.bdayInput = '';
-
-      this.router.navigate(["/login"]);
       
       // Log a message when the registration is successfully saved
       console.log('User saved to the database.', response);
