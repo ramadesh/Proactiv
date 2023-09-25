@@ -20,6 +20,7 @@ import { TodoComponent } from './todo/todo.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
+import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PastjournalsComponent } from './pastjournals/pastjournals.component';
     MapsComponent,
     TodoComponent,
     SettingsComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddjournalentryComponent
   ],
   imports: [
     BrowserModule,

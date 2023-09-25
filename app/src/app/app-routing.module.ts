@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { TodoComponent } from './todo/todo.component';
+import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const routes: Routes = [
       {component: MusicComponent, path: 'music'},
       {component: ProfileComponent, path: 'profile'},
       {component: SettingsComponent, path: 'settings'},
-      {component: PastjournalsComponent, path: ''}
+      {component: PastjournalsComponent, path: ''},
+      {component: AddjournalentryComponent, path: 'addjournalentry'}
     ]
   }
 ];
