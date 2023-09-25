@@ -65,6 +65,10 @@
             cursor: pointer;
         }
 
+        #clickButton {
+            cursor:pointer;
+        }
+
         button:hover {
             background-color: #ccc; /* Slightly darker gray on hover */
         }
@@ -75,7 +79,7 @@
     <div class="navbar" style="padding-left: 10px; padding-right: 10px;">
         <nav>
             <div class="navbar-buttons">
-                <img class="navbar-logo" src="assets/P.png" style="width: 50px; height: 50px; margin: 0%; padding: 0px" alt="Image" />
+                <img routerLink="/dash"class="navbar-logo" id="clickButton" src="assets/P.png" style="width: 50px; height: 50px; margin: 0%; padding: 0px" alt="Image" />
                 <button routerLink="/dash/todo">My Tasks</button>
                 &nbsp;
                 &nbsp;
