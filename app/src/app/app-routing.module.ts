@@ -8,6 +8,7 @@ import { VerifyComponent } from './verify/verify.component';
 import { MapsComponent } from './maps/maps.component';
 import { MusicComponent } from './music/music.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EditprofileComponent } from './editprofile/editprofile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { TodoComponent } from './todo/todo.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   {component: LoginComponent, path: 'login'},
   {component: VerifyComponent, path: 'verify'},
   {component: ForgotPassComponent, path: 'forgotpass'},
+  {component: EditprofileComponent, path: 'editprofile'},
   {component: DashComponent, path: 'dash', 
     children: [
       {component: TodoComponent, path: 'todo'}, 

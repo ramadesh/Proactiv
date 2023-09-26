@@ -21,6 +21,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
+import { EditprofileComponent } from './editprofile/editprofile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AddjournalentryComponent } from './addjournalentry/addjournalentry.comp
     TodoComponent,
     SettingsComponent,
     ProfileComponent,
-    AddjournalentryComponent
+    AddjournalentryComponent,
+    EditprofileComponent
   ],
   imports: [
     BrowserModule,
