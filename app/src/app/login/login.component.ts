@@ -15,6 +15,7 @@ export class LoginComponent {
   public passInput = '';
   public emailInput = '';
   public errorMessage = '';
+  showPassword: boolean = false;
   
   constructor(
     private http: HttpClient, public router: Router,
