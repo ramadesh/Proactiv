@@ -22,6 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
+import { ResetpassComponent } from './resetpass/resetpass.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EditprofileComponent } from './editprofile/editprofile.component';
     SettingsComponent,
     ProfileComponent,
     AddjournalentryComponent,
-    EditprofileComponent
+    EditprofileComponent,
+    ResetpassComponent
   ],
   imports: [
     BrowserModule,

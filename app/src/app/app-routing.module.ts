@@ -13,6 +13,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { TodoComponent } from './todo/todo.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
+import { ResetpassComponent } from './resetpass/resetpass.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   {component: LoginComponent, path: 'login'},
   {component: VerifyComponent, path: 'verify'},
   {component: ForgotPassComponent, path: 'forgotpass'},
+  {component: ResetpassComponent, path: 'resetpass'},
   {component: EditprofileComponent, path: 'editprofile'},
   {component: DashComponent, path: 'dash', 
     children: [
