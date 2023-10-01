@@ -60,7 +60,7 @@ app.post('/userpass', async (req, res) => {
   if (!existingUser) {
     // Save the data to MongoDB
     newData.save()
-    .then(savedData => {
+    .then(savedData => {w
       res.status(200).json(savedData); // Return the saved data as the response
 
       sgMail.setApiKey("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");
@@ -104,8 +104,44 @@ app.get('/userpass', async (req, res) => {
       res.status(500).json({ error: 'Failed to retrieve user data' });
     }
   });
-  
-  
+
+app.get('/profile', async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const user = await UserPass.findOne({ userId });
+    if (!user) {
+      // If no matching user is found, return a 404 status code
+      return res.status(404).json({ message: 'Username not found' });
+    }
+    // If a matching user is found, return the user data
+    console.log('User found: ' + user);
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error searching for user:', error);
+    res.status(500).json({ error: 'Failed to retrieve profile data' });
+  }
+})
+
+app.put('/profile', async (req, res) => {
+  let { pass, userId, email, school, birthday } = req.body;
+  const updatedProfile = { pass : pass, userId : userId, email: email, school: school, birthday: birthday };
+  const filter = { userId : userId };
+
+  await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {
+    if(data === null){
+      // If no matching profile is found, return a 404 status code
+      console.log('Error: profile not found');
+      return res.status(404).json({ message: 'Error: profile not found' });
+    }
+    // If a matching profile is found, return the profile data
+    console.log(data._doc);
+    res.status(200).json(data._doc);
+  }).catch((error) => {
+    console.error('Error updating the profile:', error);
+    res.status(500).json({ error: 'Failed to update profile data' });
+  });
+})
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server listening on port ${port} :)`);
