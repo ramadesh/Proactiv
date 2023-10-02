@@ -51,7 +51,7 @@ export class RegisterComponent {
         let span = document.createElement("div");
         span.classList.add('strength');
         strengthBar.appendChild(span);
-        console.log(strengthBar)
+        // console.log(strengthBar)
 
         let spanRef = document.getElementsByClassName("strength") as HTMLCollectionOf<HTMLElement>
         for (let j = 0; j < spanRef.length; j++) {
