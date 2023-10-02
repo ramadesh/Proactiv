@@ -46,6 +46,7 @@
         .dropdown {
             float: right;
             overflow: hidden;
+            direction: rtl;
         }
 
         .dropdown .dropbtn {
@@ -59,10 +60,12 @@
 
         .dropdown-content {
             display: none;
-            direction:ltr;
             position: absolute;
+            right: 10px;
+            flex-direction: column;
+            justify-content: space-around;
             background-color: gray;
-            min-width: 160px;
+            min-width: 120px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
         }
@@ -72,7 +75,7 @@
         }
 
         .dropdown:hover .dropdown-content {
-            display: block;
+            display: flex;
         }
 
         .background {
@@ -128,12 +131,6 @@
                 &nbsp;
                 &nbsp;
                 <button routerLink="/dash/music">My Music</button>
-                &nbsp;
-                &nbsp;
-                <button routerLink="/dash/profile">Profile</button>
-                &nbsp;
-                &nbsp;
-                <button routerLink="/dash/settings">Settings</button>
                 &nbsp;
                 &nbsp;
                 <button routerLink="/dash/addjournalentry">Add Journal Entry</button>
