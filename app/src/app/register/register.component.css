@@ -1,0 +1,22 @@
+#strength-bar {
+    background-color: white;
+    height: 10px;
+    position: relative;
+    border-radius: 0 0 5px 5px;
+    /* width: 200px; */
+}
+
+.strength {
+    width: 25%;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    background-color: black;
+    bottom: 5px;
+}
+#message {
+    width:  100%;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}

@@ -5,11 +5,19 @@ import { min } from 'rxjs';
 import { DataService } from "../data.service";
 import { Subscription } from 'rxjs';
 
+let parameters = {
+  count : false,
+  numbers : false,
+  letters: false,
+  special: false
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
   
   public usernameInput = '';
@@ -21,6 +29,61 @@ export class RegisterComponent {
   
 
   constructor(private http: HttpClient, public data: DataService, public router: Router) {
+  }
+
+  strengthChecker() {
+    let password = this.passInput
+
+    parameters.letters = (/[A-Za-z]+/.test(password))? true:false
+    parameters.numbers = (/[0-9]+/.test(password))? true:false
+    parameters.special = (/[!@#$%^&*()_+\[\]:;,.?~\\/-]+/.test(password))? true:false
+    parameters.count = (password.length >= 8)? true:false
+
+    let strengthBar = document.getElementById("strength-bar")
+    let message = document.getElementById("message")
+    // console.log(strengthBar)
+    if (strengthBar) {
+      strengthBar.innerHTML = '';
+      let barlength = Object.values(parameters).filter(value=>value)
+      // console.log(barlength)
+    
+      for (let i = 0; i < barlength.length; i++) {
+        let span = document.createElement("div");
+        span.classList.add('strength');
+        strengthBar.appendChild(span);
+        console.log(strengthBar)
+
+        let spanRef = document.getElementsByClassName("strength") as HTMLCollectionOf<HTMLElement>
+        for (let j = 0; j < spanRef.length; j++) {
+          switch(spanRef.length - 1) {
+            case 0:
+              spanRef[j].style.background = "#ff3e36"
+              if (message) {
+                message!.textContent = "Your password is very weak"
+              }
+              break
+            case 1:
+              spanRef[j].style.background = "#ff691f"
+              if (message) {
+                message!.textContent = "Your password is weak"
+              }
+              break
+            case 2:
+              spanRef[j].style.background = "#ffda36"
+              if (message) {
+                message!.textContent = "Your password is good"
+              }
+              break
+            case 3:
+              spanRef[j].style.background = "#0be881"
+              if (message) {
+                message!.textContent = "Your password is strong"
+              }
+              break
+          }
+        }
+      }
+    }
   }
   
   signup() {
@@ -51,9 +114,6 @@ export class RegisterComponent {
       console.log('User saved to the database.', response);
     }, (error) => {
       alert(error.error.error)
-      //console.error('Error:', error.error.message);
-       
-      // this.toastr.error('Invalid username or password', 'Login Error');
     })
     }
   }
