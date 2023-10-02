@@ -34,6 +34,47 @@
             margin-right: 20px; /* Add some spacing between the logo and buttons */
         }
 
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: right;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+        }
+
+        .dropdown-content {
+            display: none;
+            direction:ltr;
+            position: absolute;
+            background-color: gray;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a:hover {
+            background-color: lightgray;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         .background {
             background: linear-gradient(to bottom, lavender, lightblue);
             position: fixed;
@@ -98,12 +139,15 @@
                 <button routerLink="/dash/addjournalentry">Add Journal Entry</button>
             </div>
         </nav>
-        
-        <button (click)="logout()">
-            <span class="ml-3">
-                Log Out
-            </span>
-        </button>
+
+        <div class="dropdown">
+            <img class="dropbtn" id="clickButton" src="assets/ProfileIcon.png" style="width: 50px; height: 50px; margin: 0%; padding: 0px" alt="Image" />
+            <div class="dropdown-content">
+                <a href="#" routerLink="/dash/profile" routerLinkActive="active">Profile</a>
+                <a href="#" routerLink="/dash/settings" routerLinkActive="active">Settings</a>
+                <a href="#" (click)="logout()">Log Out</a>
+            </div>
+        </div>
     </div>
 
     <router-outlet></router-outlet>
