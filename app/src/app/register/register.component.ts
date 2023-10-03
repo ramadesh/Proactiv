@@ -25,11 +25,15 @@ export class RegisterComponent {
   public emailInput = '';
   public schoolInput = '';
   public bdayInput = '';
+  public monthInput: string = '';
+  public dayInput: string = '';
+  public yearInput: string = '';
+
   showPassword: boolean = false;
-  
 
   constructor(private http: HttpClient, public data: DataService, public router: Router) {
   }
+
 
   strengthChecker() {
     let password = this.passInput
@@ -86,6 +90,11 @@ export class RegisterComponent {
     }
   }
   
+  updateBdayInput() {
+    // Combine the selected month, day, and year into a single bdayInput
+    this.bdayInput = `${this.monthInput}/${this.dayInput}/${this.yearInput}`;
+  }
+
   signup() {
     console.log("username: " + this.usernameInput);
     console.log("pass: " + this.passInput);
@@ -93,8 +102,12 @@ export class RegisterComponent {
     this.data.user = this.usernameInput;
     console.log("school: " + this.schoolInput);
     console.log("bday: " + this.bdayInput);
+    
+    if ((this.passInput == "") || (this.usernameInput == "") || (this.emailInput == "") || (this.monthInput == null) || (this.dayInput == "") || (this.yearInput == "") || (this.schoolInput == "")) {
+      alert("Please fill in all the fields");
+    } else {
 
-    var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+      var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     var minChars = 8;
     var maxChars = 14;
 
@@ -112,9 +125,13 @@ export class RegisterComponent {
       
       // Log a message when the registration is successfully saved
       console.log('User saved to the database.', response);
+      this.router.navigate(["/verify"]);
     }, (error) => {
       alert(error.error.error)
     })
     }
+    }
+
+    
   }
 }
