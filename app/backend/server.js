@@ -107,7 +107,7 @@ app.get('/userpass', async (req, res) => {
 app.get('/profile', async (req, res) => {
   const { userId } = req.query;
   try {
-    const user = await UserPass.findOne({ userId });
+    const user = await UserPass.findOne({ userId , deleted: false});
     if (!user) {
       // If no matching user is found, return a 404 status code
       return res.status(404).json({ message: 'Username not found' });
@@ -124,7 +124,7 @@ app.get('/profile', async (req, res) => {
 app.put('/profile', async (req, res) => {
   let { pass, userId, email, school, birthday } = req.body;
   const updatedProfile = { pass : pass, userId : userId, email: email, school: school, birthday: birthday };
-  const filter = { userId : userId };
+  const filter = { userId : userId , deleted: false};
 
   await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {
     if(data === null){
