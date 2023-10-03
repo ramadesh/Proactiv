@@ -13,5 +13,4 @@ export class DashComponent {
     this.router.navigate(["/login"]);
     console.log("You've been successfully logged out.");
   }
-
 }

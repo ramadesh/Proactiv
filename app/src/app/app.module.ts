@@ -22,6 +22,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
+// import { AuthService } from './auth.service';
+// import { SpotifyService } from './spotify.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,12 @@ import { ResetpassComponent } from './resetpass/resetpass.component';
     FormsModule,
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['https://api.spotify.com'],
+        sendAccessToken: true,
+      },
+    }),
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

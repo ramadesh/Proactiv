@@ -22,6 +22,7 @@ const routes: Routes = [
   {component: VerifyComponent, path: 'verify'},
   {component: ForgotPassComponent, path: 'forgotpass'},
   {component: ResetpassComponent, path: 'resetpass'},
+  { path: 'callback', component: DashComponent },
   //{component: EditprofileComponent, path: 'editprofile'},
   {component: DashComponent, path: 'dash', 
     children: [
