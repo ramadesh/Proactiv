@@ -26,10 +26,10 @@ export class RegisterComponent {
   public schoolInput = '';
   public bdayInput = '';
   showPassword: boolean = false;
-  
 
   constructor(private http: HttpClient, public data: DataService, public router: Router) {
   }
+
 
   strengthChecker() {
     let password = this.passInput
@@ -93,8 +93,10 @@ export class RegisterComponent {
     this.data.user = this.usernameInput;
     console.log("school: " + this.schoolInput);
     console.log("bday: " + this.bdayInput);
-
-    var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    if ((this.passInput == "") || (this.usernameInput == "") || (this.emailInput == "") || (this.bdayInput == "") || (this.schoolInput == "")) {
+      alert("Please fill in all the fields");
+    } else {
+      var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     var minChars = 8;
     var maxChars = 14;
 
@@ -112,9 +114,13 @@ export class RegisterComponent {
       
       // Log a message when the registration is successfully saved
       console.log('User saved to the database.', response);
+      this.router.navigate(["/navigate"]);
     }, (error) => {
       alert(error.error.error)
     })
     }
+    }
+
+    
   }
 }
