@@ -28,6 +28,10 @@ const dataSchema = new mongoose.Schema({
   },
   token: {
     type: String
+  },
+  deleted: {
+    type: Boolean,
+    default: false
   }
 });
 

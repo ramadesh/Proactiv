@@ -29,11 +29,6 @@ export class SettingsComponent {
   getProfile() {
     this.profileService.getProfile().subscribe((profile) => {
       this.profile = profile;
-      console.log("username: " + this.profile.userId);
-      console.log("pass: " + this.profile.pass);
-      console.log("email: " + this.profile.email);
-      console.log("school: " + this.profile.school);
-      console.log("bday: " + this.profile.birthday);
     })
   }
 
@@ -52,5 +47,13 @@ export class SettingsComponent {
       })
 
     }
+  }
+
+  deleteUser() {
+    this.profileService.deleteProfile().subscribe((message) => {
+      localStorage.removeItem("username");
+      console.log(message);
+    })
+    this.router.navigate(["/login"]);
   }
 }

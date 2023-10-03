@@ -60,7 +60,7 @@ app.post('/userpass', async (req, res) => {
   if (!existingUser) {
     // Save the data to MongoDB
     newData.save()
-    .then(savedData => {w
+    .then(savedData => {
       res.status(200).json(savedData); // Return the saved data as the response
 
       sgMail.setApiKey("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");
@@ -71,7 +71,6 @@ app.post('/userpass', async (req, res) => {
         text: 'Here is your unique token: ' + token + '\nPaste this onto the Proactiv Web app.',
       };
       sgMail.send(msg);
-
 
     })
     .catch(error => {
@@ -90,7 +89,7 @@ app.get('/userpass', async (req, res) => {
   
     try {
       // Search for a user in the database with the provided userId and pass
-      const user = await UserPass.findOne({ userId, pass });
+      const user = await UserPass.findOne({ userId, pass , deleted: false});
   
       if (!user) {
         // If no matching user is found, return a 404 status code
@@ -139,6 +138,26 @@ app.put('/profile', async (req, res) => {
   }).catch((error) => {
     console.error('Error updating the profile:', error);
     res.status(500).json({ error: 'Failed to update profile data' });
+  });
+})
+
+app.put('/profile/delete', async (req, res) => {
+  let { userId } = req.body;
+  const updatedProfile = { userId : userId, deleted : true };
+  const filter = { userId : userId };
+
+  await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true , strict: false }).then((data) => {
+    if(data === null){
+      // If no matching profile is found, return a 404 status code
+      console.log('Error: profile not found for profile deletion');
+      return res.status(404).json({ message: 'Error: profile not found for profile deletion' });
+    }
+    // If a matching profile is found, return the profile data
+    console.log(data._doc);
+    res.status(200).json({ message: 'Profile successfully deleted' });
+  }).catch((error) => {
+    console.error('Error deleting the profile:', error);
+    res.status(500).json({ error: 'Failed to delete profile' });
   });
 })
 
