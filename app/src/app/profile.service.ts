@@ -32,7 +32,7 @@ export class ProfileService {
       });
     }
 
-    return this.http.put<Profile>('http://localhost:5002/profile', {pass: profile.pass, userId: profile.userId, email: profile.email, birthday: profile.birthday});
+    return this.http.put<Profile>('http://localhost:5002/profile', {pass: profile.pass, userId: profile.userId, email: profile.email, birthday: profile.birthday, secQ: profile.secQ});
   }
 
   deleteProfile(): Observable<Profile> {

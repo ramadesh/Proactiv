@@ -3,4 +3,5 @@ export interface Profile {
     pass : string;
     email : string;
     birthday : string;
+    secQ: string;
 }

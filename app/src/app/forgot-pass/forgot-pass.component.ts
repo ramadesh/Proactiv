@@ -18,7 +18,8 @@ export class ForgotPassComponent {
     userId:  '',
     pass: '',
     email: '',
-    birthday: ''
+    birthday: '',
+    secQ: ''
   }
   public usernameInput = '';
   public secQInput = '';
@@ -29,7 +30,7 @@ export class ForgotPassComponent {
       localStorage.setItem("username", this.usernameInput);
       this.profileService.getProfile().subscribe((profile) => {
         this.profile = profile;
-        console.log("user found: "+ profile.birthday);
+        console.log("user found: "+ profile.secQ);
       })
     } 
   }

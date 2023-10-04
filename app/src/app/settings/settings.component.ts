@@ -15,7 +15,8 @@ export class SettingsComponent {
     userId : '',
     pass : '',
     email : '',
-    birthday : ''
+    birthday : '',
+    secQ: ''
   };
   showPassword: boolean = false;
 
