@@ -19,7 +19,7 @@ let parameters = {
 })
 
 export class RegisterComponent {
-  
+  public displayNameInput = '';
   public usernameInput = '';
   public passInput = '';
   public emailInput = '';

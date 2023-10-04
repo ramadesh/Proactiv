@@ -38,11 +38,9 @@
           <h1 class="text-2xl xl:text-3xl font-extrabold">
             Register for Proactiv
           </h1>
-          <div class="w-full flex-1 mt-8">
-
-          
-
+          <div class="w-full flex-1">
             <div class="mx-auto max-w-xs">
+              <input [(ngModel)]="displayNameInput" id="displayNameInput" name="displayNameInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter display name" required>
               <input [(ngModel)]="emailInput" id="emailInput" name="emailInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter email" required>
               <input [(ngModel)]="schoolInput" id="schoolInput" name="schoolInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter school" required>
               <br>
