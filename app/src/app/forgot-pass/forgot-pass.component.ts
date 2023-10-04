@@ -30,7 +30,10 @@ export class ForgotPassComponent {
       localStorage.setItem("username", this.usernameInput);
       this.profileService.getProfile().subscribe((profile) => {
         this.profile = profile;
-        console.log("user found: "+ profile.secQ);
+        //console.log("user found: "+ profile.secQ);
+        if (profile.secQ !== this.secQInput) {
+          alert("Fields don't match!");
+        }
       })
     } 
   }
