@@ -103,10 +103,9 @@ export class RegisterComponent {
     console.log("email: " + this.emailInput);
     this.data.user = this.usernameInput;
     console.log("security question birth city: " + this.secQInput);
-    console.log("school: " + this.schoolInput);
     console.log("bday: " + this.bdayInput);
 
-    if ((this.passInput == "") || (this.usernameInput == "") || (this.emailInput == "") || (this.monthInput == null) || (this.dayInput == "") || (this.yearInput == "") || (this.schoolInput == "") || (this.displayNameInput == "") || (this.secQInput == "")) {
+    if ((this.passInput == "") || (this.usernameInput == "") || (this.emailInput == "") || (this.monthInput == null) || (this.dayInput == "") || (this.yearInput == "") || (this.displayNameInput == "") || (this.secQInput == "")) {
       alert("Please fill in all the fields");
     } else {
 
@@ -123,7 +122,6 @@ export class RegisterComponent {
             this.usernameInput = ''; // Clear the input fields
             this.passInput = '';
             this.emailInput = '';
-            this.schoolInput = '';
             this.secQInput = '';
             this.displayNameInput = '';
 
