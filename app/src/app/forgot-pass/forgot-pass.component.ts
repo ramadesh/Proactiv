@@ -16,6 +16,7 @@ export class ForgotPassComponent {
 
   }
   profile: Profile = {
+    displayName: '',
     userId:  '',
     pass: '',
     email: '',

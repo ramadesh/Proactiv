@@ -12,6 +12,7 @@ import { Profile } from '../profile';
 })
 export class SettingsComponent {
   profile : Profile = {
+    displayName: '',
     userId : '',
     pass : '',
     email : '',

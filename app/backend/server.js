@@ -122,8 +122,8 @@ app.get('/profile', async (req, res) => {
 })
 
 app.put('/profile', async (req, res) => {
-  let { pass, userId, email, birthday } = req.body;
-  const updatedProfile = { pass : pass, userId : userId, email: email, birthday: birthday };
+  let { displayName, pass, userId, email, birthday } = req.body;
+  const updatedProfile = { displayName: displayName, pass : pass, userId : userId, email: email, birthday: birthday };
   const filter = { userId : userId , deleted: false};
 
   await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {
