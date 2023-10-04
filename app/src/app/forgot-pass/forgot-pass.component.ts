@@ -1,5 +1,8 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProfileService } from '../profile.service';
+import { Profile } from '../profile';
 
 @Component({
   selector: 'app-forgot-pass',
@@ -8,14 +11,32 @@ import { FormsModule } from '@angular/forms';
 })
 export class ForgotPassComponent {
 
+  constructor(private http: HttpClient, private profileService : ProfileService) {
+
+  }
+  profile: Profile = {
+    userId:  '',
+    pass: '',
+    email: '',
+    birthday: ''
+  }
   public usernameInput = '';
   public secQInput = '';
-  reset() {
+  async reset() {
     if (this.usernameInput == "" || this.secQInput == "") {
       alert("Please fill in all the fields");
-    }
+    } else {
+      localStorage.setItem("username", this.usernameInput);
+      this.profileService.getProfile().subscribe((profile) => {
+        this.profile = profile;
+        console.log("user found: "+ profile.birthday);
+      })
+    } 
+  }
+  
+}
 
-    /* DONT REMOVE THIS CODE COMMENT PLEASE - RAMA
+ /* DONT REMOVE THIS CODE COMMENT PLEASE - RAMA
     if (this.emailInput.indexOf('@') != -1) {
       var at = this.emailInput.indexOf('@');
       var afterAt = this.emailInput.substring(at + 1, this.emailInput.length);
@@ -32,6 +53,3 @@ export class ForgotPassComponent {
       alert("Please input a valid email.");
     }
     */
-    
-  }
-}
