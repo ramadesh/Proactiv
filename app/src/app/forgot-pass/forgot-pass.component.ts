@@ -8,9 +8,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class ForgotPassComponent {
 
-  public emailInput = '';
+  public usernameInput = '';
+  public secQInput = '';
   reset() {
-    
+    if (this.usernameInput == "" || this.secQInput == "") {
+      alert("Please fill in all the fields");
+    }
+
+    /* DONT REMOVE THIS CODE COMMENT PLEASE - RAMA
     if (this.emailInput.indexOf('@') != -1) {
       var at = this.emailInput.indexOf('@');
       var afterAt = this.emailInput.substring(at + 1, this.emailInput.length);
@@ -26,6 +31,7 @@ export class ForgotPassComponent {
     else {
       alert("Please input a valid email.");
     }
+    */
     
   }
 }

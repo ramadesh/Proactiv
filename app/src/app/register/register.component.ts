@@ -24,6 +24,7 @@ export class RegisterComponent {
   public passInput = '';
   public emailInput = '';
   public schoolInput = '';
+  public secQInput = '';
   public bdayInput = '';
   public monthInput: string = '';
   public dayInput: string = '';
