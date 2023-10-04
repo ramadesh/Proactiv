@@ -50,11 +50,11 @@ app.use((req, res, next) => {
 
 app.post('/userpass', async (req, res) => {
   
-  let { pass, userId, email, school, birthday, token } = req.body;
+  let { displayName, pass, userId, email, birthday, token, secQ } = req.body;
   token = shortid.generate();
   
   // Create a new instance of the Data model
-  const newData = new UserPass({ pass, userId, email, school, birthday, token });
+  const newData = new UserPass({ displayName, pass, userId, email, birthday, token, secQ });
 
   const existingUser = await UserPass.findOne({userId:userId});
   if (!existingUser) {
@@ -122,8 +122,8 @@ app.get('/profile', async (req, res) => {
 })
 
 app.put('/profile', async (req, res) => {
-  let { pass, userId, email, school, birthday } = req.body;
-  const updatedProfile = { pass : pass, userId : userId, email: email, school: school, birthday: birthday };
+  let { pass, userId, email, birthday } = req.body;
+  const updatedProfile = { pass : pass, userId : userId, email: email, birthday: birthday };
   const filter = { userId : userId , deleted: false};
 
   await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {

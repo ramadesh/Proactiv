@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Define the schema for your data
 const dataSchema = new mongoose.Schema({
+  displayName: {
+    type: String,
+    required: true
+  },
   pass: {
     type: String,
     required: true
@@ -11,10 +15,6 @@ const dataSchema = new mongoose.Schema({
     required: true
   },
   email: {
-    type: String,
-    required: true
-  },
-  school: {
     type: String,
     required: true
   },
@@ -32,7 +32,12 @@ const dataSchema = new mongoose.Schema({
   deleted: {
     type: Boolean,
     default: false
+  }, 
+  secQ: {
+    type: String,
+    required: true
   }
+  
 });
 
 // Create the model using the schema
