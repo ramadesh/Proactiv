@@ -11,10 +11,13 @@ import { Router } from '@angular/router';
 })
 export class VerifyComponent {
   userVerify: string;
+  tokenVerify: string;
   subscription: Subscription = new Subscription;
+  public tokenInput = "";
 
   constructor(private http: HttpClient, public data: DataService, public router: Router) { 
     this.userVerify = data.user;
+    this.tokenVerify = data.token;
 
   }
 
@@ -22,6 +25,7 @@ export class VerifyComponent {
 
   ngOnInit() {
     console.log(this.userVerify);
+    console.log(this.tokenVerify);
   }
 
   // ngOnDestroy() {
@@ -30,9 +34,12 @@ export class VerifyComponent {
 
   verify() {
     console.log(this.userVerify);
-    if (this.userVerify != null)
+    if (this.userVerify != null && this.tokenVerify == this.tokenInput)
     {
+      alert("token accepted");
       this.router.navigate(["/dash"]);
+    } else {
+      alert("invalid token or token mismatch");
     }
   }
   

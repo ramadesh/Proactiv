@@ -125,6 +125,11 @@ export class RegisterComponent {
       
       // Log a message when the registration is successfully saved
       console.log('User saved to the database.', response);
+      var jsonString = JSON.stringify(response);
+      var jsonObj = JSON.parse(jsonString);
+      var tokenJson = jsonObj.token;
+      this.data.token = tokenJson;
+      
       this.router.navigate(["/verify"]);
     }, (error) => {
       alert(error.error.error)
