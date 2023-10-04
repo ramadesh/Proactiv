@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-pass',
@@ -11,7 +12,7 @@ import { Profile } from '../profile';
 })
 export class ForgotPassComponent {
 
-  constructor(private http: HttpClient, private profileService : ProfileService) {
+  constructor(private http: HttpClient, private profileService : ProfileService, public router: Router) {
 
   }
   profile: Profile = {
@@ -33,6 +34,8 @@ export class ForgotPassComponent {
         //console.log("user found: "+ profile.secQ);
         if (profile.secQ !== this.secQInput) {
           alert("Fields don't match!");
+        } else {
+          this.router.navigate(["/dash"]);
         }
       })
     } 
