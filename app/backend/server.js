@@ -104,6 +104,24 @@ app.get('/userpass', async (req, res) => {
     }
   });
 
+  app.post('/userpass/login', async (req, res) => {
+    const { userId, pass } = req.body;
+  
+    // Search for a user in the database with the provided userId and pass
+    await UserPass.findOne({ userId, pass , deleted: false}).then((data) => {
+      if (data == null) {
+        // If no matching user is found, return a 404 status code
+        return res.status(404).json({ message: 'Incorrect username or password' });
+      }
+  
+      // If a matching user is found, return the user data
+      res.status(200).json(data._doc);
+    }).catch((error) => {
+      console.error('Error searching for user:', error);
+      res.status(500).json({ error: 'Failed to retrieve user data' });
+    });
+  });
+
 app.get('/profile', async (req, res) => {
   const { userId } = req.query;
   try {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,28 +20,22 @@ export class LoginComponent {
   
   constructor(
     private http: HttpClient, public router: Router,
-    private toastr: ToastrService 
+    private toastr: ToastrService, public auth: AuthService 
     ) {}
 
   login() {
-   
-    const params = new HttpParams()
-    .set('userId', this.usernameInput)
-    .set('pass', this.passInput);
-
-    this.http.get<any>('http://localhost:5002/userpass', { params })
+    this.auth.login(this.usernameInput, this.passInput)
     .subscribe(
       (response) => {
         // Handle the response data here
+        console.log('Login successful');
         localStorage.setItem("username", this.usernameInput);
         this.router.navigate(["/dash"]);
       },
       (error) => {
         console.error('Error:', error.error.message);
-        this.errorMessage = error.error.message
-        // this.toastr.error('Invalid username or password', 'Login Error');
+        this.errorMessage = error.error.message;
       }
     );
   }
-
 }
