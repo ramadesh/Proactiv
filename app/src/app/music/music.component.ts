@@ -1,10 +1,15 @@
 import { Component, OnInit} from '@angular/core';
+import { DataService } from '../data.service';
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.css']
 })
 export class MusicComponent implements OnInit {
+   constructor(public data: DataService) {
+
+   }
+
   clientId = "032af492417046df8648790eb9711f7e";
   isButtonVisible = true
   userProfile: any
@@ -63,6 +68,7 @@ export class MusicComponent implements OnInit {
   populateUI(profile: any) {
     if (profile) {
       this.userProfile = profile
+      this.data.spotifyProfilePic = profile.images[1]?.url;
       // let name = document.getElementById("displayName")
       // console.log(profile.display_name)
       // document.getElementById("displayName")!.textContent = profile.display_name
