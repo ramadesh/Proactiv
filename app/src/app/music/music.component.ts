@@ -68,15 +68,7 @@ export class MusicComponent implements OnInit {
   populateUI(profile: any) {
     if (profile) {
       this.userProfile = profile
-      this.data.spotifyProfilePic = profile.images[1]?.url;
-      // let name = document.getElementById("displayName")
-      // console.log(profile.display_name)
-      // document.getElementById("displayName")!.textContent = profile.display_name
-      // if (profile.images[0]) {
-      //     const profileImage = new Image(500, 500);
-      //     profileImage.src = profile.images[0].url;
-      //     document.getElementById("picture")!.appendChild(profileImage);
-      // }
+      this.data.spotifyProfilePic = profile.images[1]?.url
     }
   }
 
