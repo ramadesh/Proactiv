@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DashComponent } from './dash/dash.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
@@ -23,6 +23,7 @@ import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { AuthInterceptor } from './auth_interceptor';
 // import { AuthService } from './auth.service';
 // import { SpotifyService } from './spotify.service';
 
@@ -56,7 +57,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
       },
     }),
   ],
-  providers: [DataService],
+  providers: [DataService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
