@@ -57,4 +57,14 @@ export class SettingsComponent {
     })
     this.router.navigate(["/login"]);
   }
+
+  confirmDeletion(): void {
+    const isConfirmed = window.confirm('Are you sure you want to delete your account?');
+
+    if (isConfirmed) {
+      this.deleteUser()
+    } else {
+      console.log('Deletion canceled.');
+    }
+  }
 }
