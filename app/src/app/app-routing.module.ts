@@ -13,6 +13,7 @@ import { PastjournalsComponent } from './pastjournals/pastjournals.component';
 import { TodoComponent } from './todo/todo.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,15 +22,15 @@ const routes: Routes = [
   {component: VerifyComponent, path: 'verify'},
   {component: ForgotPassComponent, path: 'forgotpass'},
   {component: ResetpassComponent, path: 'resetpass'},
-  {component: DashComponent, path: 'dash', 
+  {component: DashComponent, path: 'dash', canActivate:[authGuard],
     children: [
-      {component: TodoComponent, path: 'todo'}, 
+      {component: TodoComponent, path: 'todo', canActivate:[authGuard]}, 
       {component: MapsComponent, path: 'maps'},
-      {component: MusicComponent, path: 'music'},
-      {component: ProfileComponent, path: 'profile'},
-      {component: SettingsComponent, path: 'settings'},
+      {component: MusicComponent, path: 'music', canActivate:[authGuard]},
+      {component: ProfileComponent, path: 'profile', canActivate:[authGuard]},
+      {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
       {component: PastjournalsComponent, path: ''},
-      {component: AddjournalentryComponent, path: 'addjournalentry'}
+      {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]}
     ]
   }
 ];
