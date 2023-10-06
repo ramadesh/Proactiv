@@ -62,37 +62,44 @@ function checkIfAuthenticated(req, res, next) {
 
 app.post('/userpass', async (req, res) => {
   
-  let { displayName, pass, userId, email, birthday, token, secQ } = req.body;
-  token = shortid.generate();
-  
   // Create a new instance of the Data model
-  const newData = new UserPass({ displayName, pass, userId, email, birthday, token, secQ });
+  let newUser = new UserPass();
+  newUser.displayName = req.body.displayName;
+  newUser.userId = req.body.userId;
+  newUser.email = req.body.email;
+  newUser.birthday = req.body.birthday;
+  newUser.token = shortid.generate();
+  newUser.secQ = req.body.secQ;
+  newUser.setPassword(req.body.pass);
 
-  const existingUser = await UserPass.findOne({userId:userId});
-  if (!existingUser) {
-    // Save the data to MongoDB
-    newData.save()
-    .then(savedData => {
-      res.status(200).json(savedData); // Return the saved data as the response
+  await UserPass.findOne({ userId:newUser.userId }).then((data) => {
+    if (data == null) {
+      // Save the data to MongoDB
+      newUser.save().then(savedData => {
+        res.status(200).json(savedData); // Return the saved data as the response
 
-      sgMail.setApiKey("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");
-      const msg = {
-        to: email,
-        from: 'proactivapp2023@gmail.com',
-        subject: 'Verify your Proactiv account!',
-        text: 'Here is your unique token: ' + token + '\nPaste this onto the Proactiv Web app.',
-      };
-      sgMail.send(msg);
+        sgMail.setApiKey("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");
+        const msg = {
+          to: newUser.email,
+          from: 'proactivapp2023@gmail.com',
+          subject: 'Verify your Proactiv account!',
+          text: 'Here is your unique token: ' + newUser.token + '\nPaste this onto the Proactiv Web app.',
+        };
+        sgMail.send(msg);
 
-    })
-    .catch(error => {
-      console.error('Failed to save data:', error);
-      res.status(500).json({ error: 'Failed to save data' });
-    });
-  } else {
-    console.log("Username already exists")
-  res.status(404).json({ error: 'Username already taken!' })
-  }
+      })
+      .catch(error => {
+        console.error('Failed to save data:', error);
+        res.status(500).json({ error: 'Failed to save data' });
+      });
+    } else {
+      console.log("Username already exists")
+      res.status(404).json({ error: 'Username already taken!' })
+    }
+  }).catch((error) => {
+    console.error('Error registering new user:', error);
+    res.status(500).json({ error: 'Failed to register user data' });
+  });
 });
 
 app.route('/userpass')
@@ -121,20 +128,28 @@ app.route('/userpass')
     const { userId, pass } = req.body;
   
     // Search for a user in the database with the provided userId and pass
-    await UserPass.findOne({ userId, pass , deleted: false}).then((data) => {
+    await UserPass.findOne({ userId, deleted: false}).then((data) => {
       if (data == null) {
         // If no matching user is found, return a 404 status code
         return res.status(404).json({ message: 'Incorrect username or password' });
       }
-      
-      const jwtBearerToken = jwt.sign(userId, 'secret');
-      console.log(jwtBearerToken);
 
-      // If a matching user is found, return the user data
-      res.status(200).json({
-        idToken: jwtBearerToken, 
-        expiresIn: 120
-      });
+      let user = new UserPass();
+      user.pass = data._doc.pass;
+      user.salt = data._doc.salt;
+      if (user.validPassword(req.body.pass)) { 
+        const jwtBearerToken = jwt.sign(userId, 'secret');
+        // If a matching user is found, return the user data
+        return res.status(200).json({
+          idToken: jwtBearerToken, 
+          expiresIn: 120
+        });
+      } 
+
+      return res.status(400).send({ 
+          message : "Wrong Password"
+      }); 
+      
     }).catch((error) => {
       console.error('Error searching for user:', error);
       res.status(500).json({ error: 'Failed to retrieve user data' });
@@ -153,12 +168,32 @@ async function getProfile(req, res) {
     }
     // If a matching user is found, return the user data
     console.log('User found: ' + user);
+    user.pass = '';
     res.status(200).json(user);
   } catch (error) {
     console.error('Error searching for user:', error);
     res.status(500).json({ error: 'Failed to retrieve profile data' });
   }
 }
+
+//TO BE DELETED(security risk)
+app.get('profile/forgotpass', async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const user = await UserPass.findOne({ userId, deleted: false});
+    if (!user) {
+      // If no matching user is found, return a 404 status code
+      return res.status(404).json({ message: 'Username not found' });
+    }
+    // If a matching user is found, return the user data
+    console.log('User found: ' + user);
+    user.pass = '';
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error searching for user:', error);
+    res.status(500).json({ error: 'Failed to retrieve profile data' });
+  }
+});
 
 app.route('/profile')
   .put(checkIfAuthenticated, updateProfile);

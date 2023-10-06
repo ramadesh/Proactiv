@@ -24,7 +24,7 @@ import { AddjournalentryComponent } from './addjournalentry/addjournalentry.comp
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AuthInterceptor } from './auth_interceptor';
-// import { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -57,7 +57,7 @@ import { AuthInterceptor } from './auth_interceptor';
       },
     }),
   ],
-  providers: [DataService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [DataService, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

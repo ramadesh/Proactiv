@@ -36,7 +36,7 @@ export class ForgotPassComponent {
         if (profile.secQ !== this.secQInput) {
           alert("Fields don't match!");
         } else {
-          this.router.navigate(["/dash"]);
+          this.router.navigate( ["/dash"]);
         }
       })
     } 

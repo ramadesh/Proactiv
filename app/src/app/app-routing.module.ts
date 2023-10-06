@@ -25,7 +25,7 @@ const routes: Routes = [
   {component: DashComponent, path: 'dash', canActivate:[authGuard],
     children: [
       {component: TodoComponent, path: 'todo', canActivate:[authGuard]}, 
-      {component: MapsComponent, path: 'maps'},
+      {component: MapsComponent, path: 'maps', canActivate:[authGuard]},
       {component: MusicComponent, path: 'music', canActivate:[authGuard]},
       {component: ProfileComponent, path: 'profile', canActivate:[authGuard]},
       {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
