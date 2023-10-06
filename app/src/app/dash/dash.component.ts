@@ -13,6 +13,7 @@ export class DashComponent {
   }
   
   public spotifyProfilePic = this.data.spotifyProfilePic;
+
   
   logout() {
     this.router.navigate(["/login"]);
