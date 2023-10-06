@@ -1,0 +1,12 @@
+.spotifyPfp {
+    border-radius: 50px;
+    max-width: 350px;
+    max-height: 350px;
+    margin-left: 1%;
+    margin-top: 3%;
+}
+
+label {
+    margin-top: 3%;
+    margin-left: 1%;  
+}

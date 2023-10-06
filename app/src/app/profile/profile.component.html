@@ -1,1 +1,12 @@
-<p>profile works!</p>
+<div class="mx-auto max-w-xs">
+    
+    <img class="spotifyPfp" [src]="spotifyProfilePic || 'assets/ProfileIcon.png'" alt="Image" />
+    <br>
+    <label style="font-size: 50px; font-weight: 700;">{{profile.displayName}}</label>
+    <br>
+    <label style="font-size: 25px; font-weight: 200;">@{{profile.userId}}</label>
+    <br>
+    <label style="font-size: 20px;">{{profile.email}}</label>
+    <br>
+    <label style="font-size: 20px;">{{profile.birthday}}</label>
+</div>

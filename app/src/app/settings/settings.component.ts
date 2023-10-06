@@ -25,6 +25,7 @@ export class SettingsComponent {
 
   ngOnInit(): void {
     this.getProfile();
+    console.log(this.getProfile());
   }
 
   getProfile() {
