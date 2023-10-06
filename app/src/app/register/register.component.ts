@@ -31,6 +31,10 @@ export class RegisterComponent {
   public yearInput: string = '';
 
   showPassword: boolean = false;
+  containsLetters = false
+  containsNumbers = false
+  containsSpecialCharacters = false
+  length = false
 
   constructor(private http: HttpClient, public data: DataService, public router: Router) {
   }
@@ -46,17 +50,15 @@ export class RegisterComponent {
 
     let strengthBar = document.getElementById("strength-bar")
     let message = document.getElementById("message")
-    // console.log(strengthBar)
     if (strengthBar) {
       strengthBar.innerHTML = '';
       let barlength = Object.values(parameters).filter(value => value)
-      // console.log(barlength)
+      let values = Object.values(parameters)
 
       for (let i = 0; i < barlength.length; i++) {
         let span = document.createElement("div");
         span.classList.add('strength');
         strengthBar.appendChild(span);
-        // console.log(strengthBar)
 
         let spanRef = document.getElementsByClassName("strength") as HTMLCollectionOf<HTMLElement>
         for (let j = 0; j < spanRef.length; j++) {
@@ -87,6 +89,16 @@ export class RegisterComponent {
               break
           }
         }
+
+        this.length = values[0] ? true : false;
+        this.containsNumbers = values[1] ? true : false;
+        this.containsLetters = values[2] ? true : false;
+        this.containsSpecialCharacters = values[3] ? true : false
+
+        if (message!.textContent == "Your password is strong") {
+          document.getElementById("message2")!.textContent = ""
+        }
+
       }
     }
   }

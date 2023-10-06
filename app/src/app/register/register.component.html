@@ -16,6 +16,12 @@
       body {
         font-family: "Inter", sans-serif;
       }
+
+      .passList {
+        font-size: 14px; /* Adjust the font size as per your preference */
+        margin-bottom: 8px; /* Optional: Reduce margin bottom */
+        padding-left: 10px; /* Optional: Adjust left padding */
+      }
     </style>
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
@@ -66,11 +72,19 @@
               <input [(ngModel)]="usernameInput" id="usernameInput" name="usernameInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter username" required>
               <div class="mt-5">
                 <input [(ngModel)]="passInput" id="passInput" name="passInput" [type]="showPassword ? 'text' : 'password'" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" placeholder="Enter password" (input)="strengthChecker()"required>
-                <div id="strength-bar">
-                  <!-- <span class="strength"></span> -->
-                </div>
+                <div id="strength-bar"></div>
               </div>
               <p id="message">  </p>
+              <div id="passReq">
+                <p id="message2">Password must contain:</p>
+                <ul class="passList">
+                  <li *ngIf="!containsLetters">At least one uppercase or lowecase letter</li>
+                  <li *ngIf="!containsNumbers">At least one number</li>
+                  <li *ngIf="!containsSpecialCharacters">At least one special character</li>
+                  <li *ngIf="!length">Minimum length of 8 characters</li>
+                </ul>
+              </div>
+              
               <div class="mt-2 d-flex justify-content-end align-items-center">
                 <input type="checkbox" [(ngModel)]="showPassword">
                 <label class="ml-2 text-sm">Show Password</label>
