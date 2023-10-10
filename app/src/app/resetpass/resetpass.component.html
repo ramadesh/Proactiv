@@ -49,8 +49,12 @@
             </div>
 
             <div class="mx-auto max-w-xs">
-                <input [(ngModel)]="newPassInput" id="newPassInput" name="newPassInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter new password" (input)="strengthChecker()" required>
-                <input [(ngModel)]="confirmInput" id="confirmInput" name="confirmInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Confirm new password" required>
+                <input [(ngModel)]="newPassInput" id="newPassInput" name="newPassInput" [type]="showPassword ? 'text' : 'password'" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter new password" (input)="strengthChecker()" required>
+                <input [(ngModel)]="confirmInput" id="confirmInput" name="confirmInput" [type]="showPassword ? 'text' : 'password'" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Confirm new password" required>
+                <div class="mt-2 d-flex justify-content-end align-items-center">
+                  <input type="checkbox" [(ngModel)]="showPassword">
+                  <label class="ml-2 text-sm">Show Password</label>
+                </div>
                 <div id="strength-bar"></div>
                 <p id="message">  </p>
                 <br>

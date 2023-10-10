@@ -176,25 +176,6 @@ async function getProfile(req, res) {
   }
 }
 
-app.put('/profile/verifySecQ', async (req, res) => {
-  const { userId, secQ } = req.body;
-
-  await UserPass.findOne({ userId, secQ, deleted: false}).then((data) => {
-    if (data == null) {
-      // If no matching user is found, return false
-      console.log('User not found with matching security question');
-      res.status(200).json(false);
-    } else {
-      // If a matching user is found, return true
-      console.log('User found with matching security question');
-      res.status(200).json(true);
-    }
-  }).catch((error) => {
-    console.error('Error verifying answer to security question:', error);
-    res.status(500).json({ error: 'Failed to verify answer to security question' });
-  });
-});
-
 app.route('/profile')
   .put(checkIfAuthenticated, updateProfile);
 async function updateProfile(req, res) {
@@ -238,6 +219,45 @@ async function deleteProfile(req, res) {
     res.status(500).json({ error: 'Failed to delete profile' });
   });
 }
+
+app.put('/profile/verifySecQ', async (req, res) => {
+  const { userId, secQ } = req.body;
+
+  await UserPass.findOne({ userId, secQ, deleted: false}).then((data) => {
+    if (data == null) {
+      // If no matching user is found, return false
+      res.status(200).json(false);
+    } else {
+      // If a matching user is found, return true
+      res.status(200).json(true);
+    }
+  }).catch((error) => {
+    console.error('Error verifying answer to security question:', error);
+    res.status(500).json({ error: 'Failed to verify answer to security question' });
+  });
+});
+
+app.put('/profile/resetPass', async (req, res) => {
+  let newUser = new UserPass();
+  newUser.userId = req.body.userId;
+  newUser.setPassword(req.body.pass);
+  const updatedProfile = { pass: newUser.pass };
+  const filter = { userId : newUser.userId , deleted: false};
+
+  await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {
+    if(data === null){
+      // If no matching profile is found, return a 404 status code
+      console.log('Error: profile not found for resetting password');
+      return res.status(404).json(false);
+    }
+
+    console.log(data._doc);
+    res.status(200).json(true);
+  }).catch((error) => {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ error: 'Failed to reset password' });
+  });
+});
 
 // Start the server
 app.listen(port, () => {

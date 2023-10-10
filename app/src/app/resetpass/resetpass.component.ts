@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProfileService } from '../profile.service';
+import { Router } from '@angular/router';
 
 let parameters = {
   count: false,
@@ -13,12 +15,15 @@ let parameters = {
 })
 
 export class ResetpassComponent {
+  length = false
   newPassInput = '';
   confirmInput = '';
   containsLetters = false
   containsNumbers = false
   containsSpecialCharacters = false
-  length = false
+  showPassword: boolean = false;
+
+  constructor(private profileService : ProfileService, public router: Router) { }
 
   strengthChecker() {
     let password = this.newPassInput
@@ -84,6 +89,20 @@ export class ResetpassComponent {
   }
 
   resetPass() {
-    
+    this.profileService.resetPassword(this.newPassInput).subscribe((success) => {
+      if(success) {
+        console.log("Password successfully reset");
+        alert('Password successfully reset');
+        this.router.navigate( ["/login"]);
+      } else {
+        console.log("Failed to reset password");
+        alert('Failed to reset password, please try again.');
+        this.router.navigate( ["/forgotpass"]);
+      }
+      localStorage.removeItem("username");
+    }, (message) => {
+      console.log('Error: ' + message);
+      alert('Error: failed to reset password');
+    })
   }
 }

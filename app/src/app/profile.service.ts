@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Profile } from './profile';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -47,15 +47,28 @@ export class ProfileService {
     return this.http.put<Profile>('http://localhost:5002/profile/delete', {userId: username});
   }
 
-  verifySecQ(username : String, secQ : String): Observable<Boolean> {
+  verifySecQ(username : string, secQ : string): Observable<Boolean> {
     if(username == null) {
       return new Observable(function subscribe(subsriber) {
           console.log("Profile Service Error: username not found");
           subsriber.error("User not found");
       });
     }
-    console.log("username: " + username);
-    console.log("secQ: " + secQ);
+    
+    localStorage.setItem("username", username);
     return this.http.put<Boolean>('http://localhost:5002/profile/verifySecQ', {userId: username, secQ: secQ});
+  }
+
+  resetPassword(password: string): Observable<Boolean> {
+    const username = localStorage.getItem("username");
+    if(username == null) {
+      /*return new Observable(function subscribe(subsriber) {
+          console.log("Profile Service Error: username not found");
+          subsriber.error("User not found");
+      });*/
+      return of(false);
+    }
+
+    return this.http.put<Boolean>('http://localhost:5002/profile/resetPass', {userId: username, pass: password});
   }
 }
