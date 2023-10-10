@@ -25,7 +25,24 @@ export class ForgotPassComponent {
   }
   public usernameInput = '';
   public secQInput = '';
+  
   async reset() {
+    if (this.usernameInput == "" || this.secQInput == "") {
+      alert("Please fill in all the fields");
+    } else {
+      this.profileService.verifySecQ(this.usernameInput, this.secQInput).subscribe((verified) => {
+        if (!verified) {
+          alert("Incorrect username or security answer.");
+        } else {
+          this.router.navigate( ["/resetpass"]);
+        }
+      })
+    }
+  }
+
+}
+
+  /*async reset() {
     if (this.usernameInput == "" || this.secQInput == "") {
       alert("Please fill in all the fields");
     } else {
@@ -40,9 +57,7 @@ export class ForgotPassComponent {
         }
       })
     } 
-  }
-  
-}
+  }*/
 
  /* DONT REMOVE THIS CODE COMMENT PLEASE - RAMA
     if (this.emailInput.indexOf('@') != -1) {

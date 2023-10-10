@@ -176,23 +176,23 @@ async function getProfile(req, res) {
   }
 }
 
-//TO BE DELETED(security risk)
-app.get('profile/forgotpass', async (req, res) => {
-  const { userId } = req.query;
-  try {
-    const user = await UserPass.findOne({ userId, deleted: false});
-    if (!user) {
-      // If no matching user is found, return a 404 status code
-      return res.status(404).json({ message: 'Username not found' });
+app.put('/profile/verifySecQ', async (req, res) => {
+  const { userId, secQ } = req.body;
+
+  await UserPass.findOne({ userId, secQ, deleted: false}).then((data) => {
+    if (data == null) {
+      // If no matching user is found, return false
+      console.log('User not found with matching security question');
+      res.status(200).json(false);
+    } else {
+      // If a matching user is found, return true
+      console.log('User found with matching security question');
+      res.status(200).json(true);
     }
-    // If a matching user is found, return the user data
-    console.log('User found: ' + user);
-    user.pass = '';
-    res.status(200).json(user);
-  } catch (error) {
-    console.error('Error searching for user:', error);
-    res.status(500).json({ error: 'Failed to retrieve profile data' });
-  }
+  }).catch((error) => {
+    console.error('Error verifying answer to security question:', error);
+    res.status(500).json({ error: 'Failed to verify answer to security question' });
+  });
 });
 
 app.route('/profile')
