@@ -180,7 +180,15 @@ app.route('/profile')
   .put(checkIfAuthenticated, updateProfile);
 async function updateProfile(req, res) {
   let { displayName, pass, userId, email, birthday } = req.body;
-  const updatedProfile = { displayName: displayName, pass : pass, userId : userId, email: email, birthday: birthday };
+  let updatedProfile = { };
+  if(req.body.pass != null && req.body.pass.length != 0) {
+    let newUser = new UserPass();
+    newUser.setPassword(req.body.pass);
+    updatedProfile = { displayName: displayName, salt: newUser.salt, pass : newUser.pass, email: email, birthday: birthday };
+  } else {
+    updatedProfile = { displayName: displayName, email: email, birthday: birthday };
+  }
+  
   const filter = { userId : userId , deleted: false};
 
   await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {

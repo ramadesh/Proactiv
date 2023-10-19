@@ -40,7 +40,7 @@ export class SettingsComponent {
     var minChars = 8;
     var maxChars = 14;
 
-    if (this.profile.pass.length < minChars || this.profile.pass.length > maxChars || !regularExpression.test(this.profile.pass)) {
+    if (this.profile.pass.length != 0 && (this.profile.pass.length < minChars || this.profile.pass.length > maxChars || !regularExpression.test(this.profile.pass))) {
       alert("Password must be minimum 8 characters, maximum 14 characters long and must contain at least one number and one special character.");
     } else {
       // Send the new user to the backend
