@@ -62,11 +62,10 @@ export class ProfileService {
   resetPassword(password: string): Observable<Boolean> {
     const username = localStorage.getItem("username");
     if(username == null) {
-      /*return new Observable(function subscribe(subsriber) {
+      return new Observable(function subscribe(subsriber) {
           console.log("Profile Service Error: username not found");
           subsriber.error("User not found");
-      });*/
-      return of(false);
+      });
     }
 
     return this.http.put<Boolean>('http://localhost:5002/profile/resetPass', {userId: username, pass: password});

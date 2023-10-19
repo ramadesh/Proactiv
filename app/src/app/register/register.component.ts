@@ -36,9 +36,7 @@ export class RegisterComponent {
   containsSpecialCharacters = false
   length = false
 
-  constructor(private http: HttpClient, public data: DataService, public router: Router) {
-  }
-
+  constructor(private http: HttpClient, public data: DataService, public router: Router) { }
 
   strengthChecker() {
     let password = this.passInput

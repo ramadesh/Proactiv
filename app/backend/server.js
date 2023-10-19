@@ -147,7 +147,7 @@ app.route('/userpass')
       } 
 
       return res.status(400).send({ 
-          message : "Wrong Password"
+          message : 'Incorrect username or password'
       }); 
       
     }).catch((error) => {
@@ -241,7 +241,7 @@ app.put('/profile/resetPass', async (req, res) => {
   let newUser = new UserPass();
   newUser.userId = req.body.userId;
   newUser.setPassword(req.body.pass);
-  const updatedProfile = { pass: newUser.pass };
+  const updatedProfile = { salt: newUser.salt, pass: newUser.pass };
   const filter = { userId : newUser.userId , deleted: false};
 
   await UserPass.findOneAndUpdate(filter, updatedProfile, { new : true }).then((data) => {
