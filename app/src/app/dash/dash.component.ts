@@ -13,7 +13,11 @@ export class DashComponent {
   constructor(private router: Router, public data: DataService, private auth: AuthService) { }
   
   public spotifyProfilePic = this.data.spotifyProfilePic;
+  showNote = false;
 
+  toggleNote() {
+    this.showNote = !(this.showNote);
+  }
   
   logout() {
     this.auth.logout();
