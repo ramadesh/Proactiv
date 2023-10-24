@@ -13,6 +13,7 @@ export class MusicComponent implements OnInit {
   clientId = "032af492417046df8648790eb9711f7e";
   isButtonVisible = true
   userProfile: any
+  playlists: any
 
   async ngOnInit() {
     const url = window.location.href;
@@ -20,7 +21,6 @@ export class MusicComponent implements OnInit {
     const codeIndex = url.indexOf('code=');
     if (codeIndex !== -1) {
       this.isButtonVisible = false
-      console.log("there is a code!!!!") 
       const startIndex = codeIndex + 5; 
       const endIndex = url.indexOf('&', startIndex) !== -1 ? url.indexOf('&', startIndex) : url.length;
       const code = url.substring(startIndex, endIndex);
@@ -55,23 +55,29 @@ export class MusicComponent implements OnInit {
   }
 
   async fetchProfile(token: string) {
-      // TODO: Call Web API
-      const result = await fetch("https://api.spotify.com/v1/me", {
+      const profile = await fetch("https://api.spotify.com/v1/me", {
+        method: "GET", headers: { Authorization: `Bearer ${token}` }
+      });
+      const playlists = await fetch("https://api.spotify.com/v1/me/playlists", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
       });
 
-      const data = await result.json()
-      this.populateUI(data);
-      return data;
+      const playlistData = await playlists.json()
+      const profileData = await profile.json()
+
+      this.populateUI(profileData, playlistData);
+
+      // return data;
   }
 
-  populateUI(profile: any) {
+  populateUI(profile: any, playlist: any) {
     if (profile) {
       this.userProfile = profile
       this.data.spotifyProfilePic = profile.images[1]?.url
+      console.log(playlist)
+      this.playlists = playlist
     }
   }
-
 
   async connectToSpotify() {
     const url = window.location.href;
@@ -82,7 +88,6 @@ export class MusicComponent implements OnInit {
     } 
 
     async function redirectToAuthCodeFlow(clientId: string) {
-        // TODO: Redirect to Spotify authorization page
         const verifier = generateCodeVerifier(128);
         const challenge = await generateCodeChallenge(verifier);
 
@@ -92,7 +97,7 @@ export class MusicComponent implements OnInit {
         params.append("client_id", clientId);
         params.append("response_type", "code");
         params.append("redirect_uri", "http://localhost:4200/dash/music");
-        params.append("scope", "user-read-private user-read-email");
+        params.append("scope", "user-read-private user-read-email playlist-read-private");
         params.append("code_challenge_method", "S256");
         params.append("code_challenge", challenge);
 

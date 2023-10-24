@@ -1,3 +1,32 @@
+<style>
+    /* playlist.component.css */
+  .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .playlist-item {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .playlist-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .playlist-name {
+    font-weight: bold;
+  }
+
+</style>
 <button class="btn btn-success" id="spotify-btn" (click)="connectToSpotify()"
   *ngIf="isButtonVisible">
   Connect to Spotify
@@ -6,4 +35,11 @@
 <div *ngIf="userProfile" class="profile-container">
   <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
   <h3>Welcome {{ userProfile.display_name }} </h3>
+</div>
+
+<div class="playlist-grid">
+  <div *ngFor="let playlist of playlists.items" class="playlist-item">
+    <img [src]="playlist.images[1]?.url" alt="Playlist Image" class="playlist-image">
+    <span class="playlist-name">{{ playlist.name }}</span>
+  </div>
 </div>
