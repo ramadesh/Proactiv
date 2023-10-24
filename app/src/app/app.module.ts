@@ -25,6 +25,8 @@ import { ResetpassComponent } from './resetpass/resetpass.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AuthInterceptor } from './auth_interceptor';
 import { AuthService } from './auth.service';
+import { NoteComponent } from './note/note.component';
+import { MatCardModule } from '@angular/material/card';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -41,13 +43,15 @@ import { AuthService } from './auth.service';
     SettingsComponent,
     ProfileComponent,
     AddjournalentryComponent,
-    ResetpassComponent
+    ResetpassComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatCardModule,
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     OAuthModule.forRoot({

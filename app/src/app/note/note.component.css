@@ -1,0 +1,7 @@
+#noteBox {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    height: 200px;
+    width: 300px;
+}
