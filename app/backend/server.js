@@ -173,7 +173,7 @@ app.route('/userpass')
     const userId = req.query.userId; // Assuming the userId is sent as a query parameter
 
     ToDo.find({ userId })
-      .sort({ timestamp: -1 }) // Sort the data in descending order based on timestamp
+      .sort({ active: 1 }) // Sort the data in descending order based on timestamp
       .then(data => {
         res.status(200).json(data);
       })
