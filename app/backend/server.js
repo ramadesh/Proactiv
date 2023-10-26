@@ -169,6 +169,20 @@ app.route('/userpass')
     }
   });
 
+  app.get('/todo', (req, res) => {
+    const userId = req.query.userId; // Assuming the userId is sent as a query parameter
+
+    ToDo.find({ userId })
+      .sort({ timestamp: -1 }) // Sort the data in descending order based on timestamp
+      .then(data => {
+        res.status(200).json(data);
+      })
+      .catch(error => {
+        console.error('Failed to retrieve todos:', error);
+        res.status(500).json({ error: 'Failed to retrieve todos' });
+      });
+  });
+
   
 app.route('/profile')
   .get(checkIfAuthenticated, getProfile);
