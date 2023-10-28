@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NoteService } from '../note.service';
 
 @Component({
   selector: 'app-note',
@@ -8,5 +9,29 @@ import { Component } from '@angular/core';
 
 export class NoteComponent {
   noteText = '';
+
+  constructor(private noteService: NoteService) { }
   
+  ngOnInit(): void {
+    this.getNote();
+    console.log("Note Text: " + this.noteText);
+  }
+
+  getNote() {
+    this.noteService.getNote().subscribe((note) => {
+      this.noteText = note;
+    })
+  }
+
+  saveNote() {
+    this.noteService.updateNote(this.noteText).subscribe((success) => {
+      if(success) {
+        console.log('Note updated sucessfully');
+        alert("Notes successfully saved.");
+      } else {
+        console.log('Failed to update note');
+        alert("Failed to save notes.");
+      }
+    })
+  }
 }

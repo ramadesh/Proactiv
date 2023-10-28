@@ -27,6 +27,7 @@ import { AuthInterceptor } from './auth_interceptor';
 import { AuthService } from './auth.service';
 import { NoteComponent } from './note/note.component';
 import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -52,6 +53,7 @@ import { MatCardModule } from '@angular/material/card';
     HttpClientModule,
     FormsModule,
     MatCardModule,
+    DragDropModule,
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     OAuthModule.forRoot({

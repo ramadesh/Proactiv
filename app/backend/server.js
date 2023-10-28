@@ -14,9 +14,11 @@ const port = 5002;
 const sgMail = require('@sendgrid/mail');
 const shortid = require('shortid');
 const ToDo = require('./todo');
+var notes = require('./notes.js');
 
 app.use(cors());
 app.use(express.json());
+app.use('/note', notes);
 
 app.get('/', async(req, res) => {
     res.status(200).send({
