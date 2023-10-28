@@ -9,6 +9,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { checkIfAuthenticated } = require('./checkAuthentication.js');
+
 const UserPass = require('./userpass');
 const port = 5002;
 const sgMail = require('@sendgrid/mail');
@@ -52,7 +54,7 @@ app.use((req, res, next) => {
   }
 });
 
-function checkIfAuthenticated(req, res, next) {
+/*function checkIfAuthenticated(req, res, next) {
   const token = req.headers['authorization'];
   try {
     const decode = jwt.verify(token, 'secret');
@@ -61,7 +63,7 @@ function checkIfAuthenticated(req, res, next) {
     console.log(error.message);
     res.status(401).json({ error: 'User not authorized' });
   }
-}
+}*/
 
 app.post('/userpass', async (req, res) => {
   

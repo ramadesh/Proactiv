@@ -14,7 +14,6 @@ export class NoteComponent {
   
   ngOnInit(): void {
     this.getNote();
-    console.log("Note Text: " + this.noteText);
   }
 
   getNote() {

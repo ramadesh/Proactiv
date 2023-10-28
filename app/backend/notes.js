@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 const UserPass = require('./userpass');
+const { checkIfAuthenticated } = require('./checkAuthentication.js');
 
 
-router.get('/', async function(req, res){
+router.get('/', checkIfAuthenticated, async function(req, res){
     const { userId } = req.query;
     const filter = { userId : userId, deleted: false};
     const projection = { "note" : 1 };
@@ -15,7 +16,7 @@ router.get('/', async function(req, res){
             return res.status(404).json({ message: 'Error: user not found' });
         }
         // If a matching user is found, return note
-        console.log(data._doc.note);
+        console.log("Note: " + data._doc.note);
         res.status(200).json(data._doc.note);
     }).catch((error) => {
         console.error('Error getting note text:', error);
@@ -23,7 +24,7 @@ router.get('/', async function(req, res){
     });
  });
 
- router.put('/', async function(req, res){
+ router.put('/', checkIfAuthenticated, async function(req, res){
     let { userId, note } = req.body;
     const filter = { userId : userId, deleted: false};
 
@@ -34,7 +35,7 @@ router.get('/', async function(req, res){
           return res.status(404).json({ message: 'Error: user not found' });
         }
         // If a matching user is found, return the profile data
-        console.log(data._doc.note);
+        console.log("Note: " + data._doc.note);
         res.status(200).json(data._doc.note);
       }).catch((error) => {
         console.error('Error updating note:', error);
