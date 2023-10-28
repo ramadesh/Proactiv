@@ -10,7 +10,7 @@
     display: inline-block;
     position: relative;
     height: 100%;
-    background-color: black;
+    background-color: rgb(31, 22, 22);
     bottom: 5px;
 }
 #message {

@@ -13,6 +13,7 @@ const UserPass = require('./userpass');
 const port = 5002;
 const sgMail = require('@sendgrid/mail');
 const shortid = require('shortid');
+const ToDo = require('./todo');
 
 app.use(cors());
 app.use(express.json());
@@ -109,7 +110,7 @@ app.route('/userpass')
   
     try {
       // Search for a user in the database with the provided userId and pass
-      const user = await UserPass.findOne({ userId, pass , deleted: false});
+      const user = await UserPass.findOne({ userId, pass, deleted: false});
   
       if (!user) {
         // If no matching user is found, return a 404 status code
@@ -156,6 +157,33 @@ app.route('/userpass')
     });
   });
 
+  app.post('/todo', async (req, res) => {
+    const { userId, todo, due } = req.body;
+    const newTodo = new ToDo({ userId, todo, due });
+    try {
+      const savedTodo = await newTodo.save();
+      res.status(201).json(savedTodo);
+    } catch (error) {
+      console.error('Error saving post:', error);
+      res.status(500).send('Error saving post');
+    }
+  });
+
+  app.get('/todo', (req, res) => {
+    const userId = req.query.userId; // Assuming the userId is sent as a query parameter
+
+    ToDo.find({ userId })
+      .sort({ active: 1 }) // Sort the data in descending order based on timestamp
+      .then(data => {
+        res.status(200).json(data);
+      })
+      .catch(error => {
+        console.error('Failed to retrieve todos:', error);
+        res.status(500).json({ error: 'Failed to retrieve todos' });
+      });
+  });
+
+  
 app.route('/profile')
   .get(checkIfAuthenticated, getProfile);
 async function getProfile(req, res) {
