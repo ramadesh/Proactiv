@@ -11,6 +11,19 @@ import onResize from 'simple-element-resize-detector';
 export class MapsComponent {
   private map?: H.Map;
 
+  
+  constructor() {
+    this.zoom = 2;
+    this.lat = 0;
+    this.long = 0;
+    this.address = "";
+  }
+
+  zoom = 2;
+  lat: number;
+  long: number;
+  address: string;
+
   @ViewChild('map') mapDiv?: ElementRef; 
 
   ngAfterViewInit(): void {
@@ -36,5 +49,16 @@ export class MapsComponent {
       });
       this.map = map;
     }
+  }
+
+  search() {
+    if(this.map) {
+      this.map.setZoom(this.zoom);
+      this.map.setCenter({lat: this.lat, lng: this.long});
+    }
+  }
+
+  searchAddress() {
+
   }
 }

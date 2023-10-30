@@ -1,2 +1,19 @@
-<p>maps works!</p>
 <div #map id="map"></div>
+<div>
+    Zoom: 
+    <input [(ngModel)] = "zoom" />
+</div>
+<div>
+    Latitude: 
+    <input [(ngModel)] = "lat" />
+</div>
+<div>
+    Longtitude: 
+    <input [(ngModel)] = "long" />
+</div>
+<button (click)="search()">Apply</button>
+<div>
+    Address: 
+    <input [(ngModel)] = "address" />
+    <button (click)="searchAddress()">Search</button>
+</div>
