@@ -26,6 +26,29 @@
     font-weight: bold;
   }
 
+  .playlist-creation {
+    margin-top: 10px; /* Add margin between the welcome message and the button */
+  }
+
+  #create-playlist-btn {
+  background-color: #4CAF50; /* Green background color */
+  border: none; /* Remove border */
+  color: white; /* White text color */
+  padding: 14px 20px; /* Padding inside the button */
+  text-align: center; /* Center text horizontally */
+  text-decoration: none; /* Remove underline from text */
+  display: inline-block; /* Display as a block element */
+  font-size: 16px; /* Font size */
+  margin: 10px; /* Add margin around the button */
+  cursor: pointer; /* Cursor style on hover */
+  border-radius: 5px; /* Optional: Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#create-playlist-btn:hover {
+  background-color: #45a049; /* Darker green color on hover */
+}
+
 </style>
 <button class="btn btn-success" id="spotify-btn" (click)="connectToSpotify()"
   *ngIf="isButtonVisible">
@@ -35,7 +58,14 @@
 <div *ngIf="userProfile" class="profile-container">
   <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
   <h3>Welcome {{ userProfile.display_name }} </h3>
+  <div class="playlist-creation">
+    <button id="create-playlist-btn" (click)="createPlaylist()">Create Playlist</button>
+  </div>
 </div>
+<!-- 
+<div *ngIf="userProfile" class="playlist-creation">
+  <button id="create-playlist-btn" (click)="createPlaylist()">Create Playlist</button>
+</div> -->
 
 <div class="playlist-grid">
   <div *ngFor="let playlist of playlists.items" class="playlist-item">

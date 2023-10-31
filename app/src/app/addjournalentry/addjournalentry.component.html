@@ -1,1 +1,62 @@
-<p>addjournalentry works!</p>
+<link
+    href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+    rel="stylesheet"
+/>
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+    rel="stylesheet"
+/>
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1"
+/>
+<style>
+    body {
+    font-family: "Inter", sans-serif;
+    }
+    
+</style>
+<script
+    src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
+    defer
+></script>
+
+    <div class="mx-auto max-w-xl">
+      <label for="JournalEntry.title" class="block text-md font-medium text-gray-600">Title</label>
+      <input [(ngModel)]="JournalEntry.title" id="JournalEntry.title" name="JournalEntry.title" class="w-full px-3 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white h-60">
+    
+    
+   
+      <label for="JournalEntry.content" class="block text-md font-medium text-gray-600">Content</label>
+      <textarea [(ngModel)]="JournalEntry.content" id="JournalEntry.content" name="JournalEntry.content" class="w-full px-3 py-5 h-40 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white h-32"></textarea>
+    
+    
+    <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="saveEntry()">
+      Save Entry
+    </button>
+</div>
+
+<div *ngFor= "let je of journals" class="mx-auto max-w-xl">
+    <mat-card class="example-card w-full">
+        <mat-card-header>
+          <mat-card-title>{{ je.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p> {{ je.content }} </p>
+        </mat-card-content>
+        <button class="mt-5 w-1/4 mb-2 ml-2 tracking-wide font-semibold bg-indigo-500 text-gray-100  py-4 rounded-md hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="deleteEntry(je.title)">
+            Delete
+          </button>
+      </mat-card>
+      <div>
+        <style>
+          div {
+            padding: 5px;
+          }
+          </style>
+      </div>
+      
+</div>
+  
+  
+            

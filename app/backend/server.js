@@ -16,6 +16,7 @@ const port = 5002;
 const sgMail = require('@sendgrid/mail');
 const shortid = require('shortid');
 const ToDo = require('./todo');
+const JournalEntry = require('./journalEntry');
 var notes = require('./notes.js');
 
 app.use(cors());
@@ -297,6 +298,65 @@ app.put('/profile/resetPass', async (req, res) => {
     console.error('Error resetting password:', error);
     res.status(500).json({ error: 'Failed to reset password' });
   });
+});
+
+app.post('/JournalEntry', async (req, res) => {
+  // console.log("CAN YOU HEAR MEEEE");
+  const { userId, title, content} = req.body;
+  const newJournalEntry = new JournalEntry({ userId, title, content });
+  try {
+    console.log('saved successfully')
+    const savedJournalEntry = await newJournalEntry.save();
+    res.status(201).json(savedJournalEntry);
+  } catch (error) {
+    console.error('Error saving entry:', error);
+    res.status(500).send('Error saving entry');
+  }
+});
+
+app.get('/JournalEntry', (req, res) => {
+  // console.log(req.query)
+  const user = req.query.userId; // Assuming the userId is sent as a query parameter
+
+  JournalEntry.find({ userId:user })
+    .sort({ active: 1 }) // Sort the data in descending order based on timestamp
+    .then(data => {
+      // console.log("sending: ", data, "for user: ", user)
+      res.status(200).json(data);
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
+});
+
+app.put('/JournalEntry', (req, res) => {
+  const { userIdentity, title, content} = req.body;  
+  const filter = { userId: userIdentity, title: title };
+  const update = { content: content };
+  JournalEntry.findOneAndUpdate(filter, update)
+    .then(data => {
+      console.log("Succeeded in updating entry");
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
+});
+
+app.delete('/JournalEntry', (req, res) => {
+  // console.log(req.query)
+  const { userId, title} = req.query;  
+  const filter = { userId: userId, title: title };
+  // console.log(filter)
+  JournalEntry.deleteOne(filter)
+    .then(data => {
+      console.log("Succeeded in deleting entry");
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
 });
 
 // Start the server

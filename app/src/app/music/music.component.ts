@@ -14,6 +14,8 @@ export class MusicComponent implements OnInit {
   isButtonVisible = true
   userProfile: any
   playlists: any
+  newPlaylistName: string = '';
+  token: any
 
   async ngOnInit() {
     const url = window.location.href;
@@ -25,8 +27,8 @@ export class MusicComponent implements OnInit {
       const endIndex = url.indexOf('&', startIndex) !== -1 ? url.indexOf('&', startIndex) : url.length;
       const code = url.substring(startIndex, endIndex);
       
-      const accessToken = await this.getAccessToken(this.clientId, code);
-      this.fetchProfile(accessToken);
+      this.token = await this.getAccessToken(this.clientId, code);
+      this.fetchProfile(this.token);
 
     } else {
       console.log("there is no code")
@@ -74,8 +76,36 @@ export class MusicComponent implements OnInit {
     if (profile) {
       this.userProfile = profile
       this.data.spotifyProfilePic = profile.images[1]?.url
-      console.log(playlist)
       this.playlists = playlist
+    }
+  }
+
+  async createPlaylist() {
+    const userId = this.userProfile.id
+    const playlistName = prompt('Enter playlist name:');
+    const description = prompt('Enter playlist description (optional):');
+    const isPublic = confirm('Make the playlist public?');
+
+    const bodyData = {
+      name: playlistName,
+      description: description,
+      public: isPublic
+    };
+
+    if (playlistName) {
+      console.log(userId + " " + playlistName)
+
+      const create = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify(bodyData) 
+      });
+
+      const response = await create.json()
+      console.log(response);
     }
   }
 
@@ -97,7 +127,7 @@ export class MusicComponent implements OnInit {
         params.append("client_id", clientId);
         params.append("response_type", "code");
         params.append("redirect_uri", "http://localhost:4200/dash/music");
-        params.append("scope", "user-read-private user-read-email playlist-read-private");
+        params.append("scope", "user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private");
         params.append("code_challenge_method", "S256");
         params.append("code_challenge", challenge);
 
