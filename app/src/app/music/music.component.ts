@@ -15,8 +15,6 @@ export class MusicComponent implements OnInit {
   userProfile: any
   playlists: any
   newPlaylistName: string = '';
-  token: any
-
   async ngOnInit() {
     const url = window.location.href;
 
@@ -27,11 +25,17 @@ export class MusicComponent implements OnInit {
       const endIndex = url.indexOf('&', startIndex) !== -1 ? url.indexOf('&', startIndex) : url.length;
       const code = url.substring(startIndex, endIndex);
       
-      this.token = await this.getAccessToken(this.clientId, code);
-      this.fetchProfile(this.token);
+      const token = await this.getAccessToken(this.clientId, code);
+      localStorage.setItem("spotify_access_token", token);
+      this.fetchProfile(token);
 
+    } else if (localStorage.getItem("spotify_access_token") !== "") {
+      console.log("there is token in local storage")
+      this.isButtonVisible = false
+      const access_token = localStorage.getItem("spotify_access_token")!
+      this.fetchProfile(access_token);
     } else {
-      console.log("there is no code")
+      console.log("no connection to spotify")
     }
   }
 
@@ -68,8 +72,6 @@ export class MusicComponent implements OnInit {
       const profileData = await profile.json()
 
       this.populateUI(profileData, playlistData);
-
-      // return data;
   }
 
   populateUI(profile: any, playlist: any) {
@@ -98,7 +100,7 @@ export class MusicComponent implements OnInit {
       const create = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${localStorage.getItem("spotify_access_token")}`,
           "Content-Type": "application/json" 
         },
         body: JSON.stringify(bodyData) 
