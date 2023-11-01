@@ -63,18 +63,13 @@
   </div>
 </div>
 
-<div class="playlist-grid">
-  <div *ngIf="playlists">
-    <div *ngFor="let playlist of playlists.items" class="playlist-item">
-      <img [src]="playlist.images[1]?.url" alt="Playlist Image" class="playlist-image">
-      <span class="playlist-name">{{ playlist.name }}</span>
-    </div>
-  </div>
-</div>
-
-<!-- <div class="playlist-grid">
+<div *ngIf="playlists" class="playlist-grid">
   <div *ngFor="let playlist of playlists.items" class="playlist-item">
-    <img [src]="playlist.images[1]?.url" alt="Playlist Image" class="playlist-image">
+    <!-- <img [src]="playlist.images[0]?.url" alt="Playlist Image" class="playlist-image"> -->
+    <img *ngIf="playlist.images.length > 0" [src]="playlist.images[0]?.url" alt="Playlist Image" class="playlist-image">
+
+    <img *ngIf="playlist.images.length === 0" src="assets/music.png" alt="Playlist Image" class="playlist-image">
+
     <span class="playlist-name">{{ playlist.name }}</span>
   </div>
-</div> -->
+</div>
