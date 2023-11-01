@@ -80,17 +80,6 @@ export class MusicComponent implements OnInit {
       this.data.spotifyProfilePic = profile.images[1]?.url
       this.playlists = playlist
       console.log(playlist)
-
-      for (const item in playlist.items) {
-        if (playlist.items[item].images.length == 0) {
-          // playlist.items[item].images[0] = { 
-          //   height: 640,
-          //   url: "app/src/app/music/music.png",
-          //   width : 640
-          // }
-          console.log(playlist.items[item].images)
-        }
-      }
     }
   }
 
