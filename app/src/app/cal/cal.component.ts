@@ -8,6 +8,8 @@ import * as moment from 'moment';
 })
 export class CalComponent {
   // Define the data for your calendar, e.g., tasks for each day.
+  public currentDate = moment(); // Initialize with the current date
+
   public tasksData: Record<string, string[]> = {
     '2023-11-01': ['Task 1', 'Task 2'],
     '2023-11-15': ['Task 3'],
@@ -32,17 +34,28 @@ export class CalComponent {
   }
 
   // Function to generate the calendar grid
+  goToPreviousMonth() {
+    this.currentDate.subtract(1, 'month');
+    // Update the calendar based on the new this.currentDate
+  }
+
+  // Function to navigate to the next month
+  goToNextMonth() {
+    this.currentDate.add(1, 'month');
+    // Update the calendar based on the new this.currentDate
+  }
+
   generateCalendar() {
     // Generate your calendar logic here. You can use moment.js for date manipulation.
 
-    // Example logic for generating a calendar grid using moment.js
-    const currentDate = moment('2023-11-01', 'YYYY-MM-DD');
-    const endDate = moment('2023-11-30', 'YYYY-MM-DD');
+    // Example logic for generating a calendar grid for the current month
+    const startDate = this.currentDate.clone().startOf('month');
+    const endDate = this.currentDate.clone().endOf('month');
     const calendarDays: string[] = [];
 
-    while (currentDate.isSameOrBefore(endDate, 'day')) {
-      calendarDays.push(currentDate.format('YYYY-MM-DD'));
-      currentDate.add(1, 'day');
+    while (startDate.isSameOrBefore(endDate, 'day')) {
+      calendarDays.push(startDate.format('YYYY-MM-DD'));
+      startDate.add(1, 'day');
     }
 
     return calendarDays;
