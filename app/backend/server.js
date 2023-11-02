@@ -18,10 +18,13 @@ const shortid = require('shortid');
 const ToDo = require('./todo');
 const JournalEntry = require('./journalEntry');
 var notes = require('./notes.js');
+var schedule = require('./scheduleRouter.js');
 
 app.use(cors());
 app.use(express.json());
 app.use('/note', notes);
+app.use('/schedule', schedule);
+
 
 app.get('/', async(req, res) => {
     res.status(200).send({
@@ -54,17 +57,6 @@ app.use((req, res, next) => {
     next();
   }
 });
-
-/*function checkIfAuthenticated(req, res, next) {
-  const token = req.headers['authorization'];
-  try {
-    const decode = jwt.verify(token, 'secret');
-    next();
-  } catch(error) {
-    console.log(error.message);
-    res.status(401).json({ error: 'User not authorized' });
-  }
-}*/
 
 app.post('/userpass', async (req, res) => {
   
