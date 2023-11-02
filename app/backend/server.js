@@ -17,6 +17,7 @@ const sgMail = require('@sendgrid/mail');
 const shortid = require('shortid');
 const ToDo = require('./todo');
 const JournalEntry = require('./journalEntry');
+const JournalPrompt = require('./journalPrompt')
 var notes = require('./notes.js');
 var schedule = require('./scheduleRouter.js');
 
@@ -323,12 +324,14 @@ app.get('/JournalEntry', (req, res) => {
 });
 
 app.put('/JournalEntry', (req, res) => {
-  const { userIdentity, title, content} = req.body;  
-  const filter = { userId: userIdentity, title: title };
+  const { userId, title, content} = req.body;  
+  const filter = { userId: userId, title: title };
+  console.log(filter)
   const update = { content: content };
   JournalEntry.findOneAndUpdate(filter, update)
     .then(data => {
       console.log("Succeeded in updating entry");
+      console.log(data)
     })
     .catch(error => {
       console.error('Failed to retrieve entries:', error);
@@ -344,6 +347,19 @@ app.delete('/JournalEntry', (req, res) => {
   JournalEntry.deleteOne(filter)
     .then(data => {
       console.log("Succeeded in deleting entry");
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
+});
+app.get('/JournalPrompt', (req, res) => {
+  // console.log(filter)
+  var random = Math.floor(Math.random() * 50)
+  JournalPrompt.findOne().skip(random)
+    .then(data => {
+      console.log("sending: ", data)
+      res.status(200).json(data);
     })
     .catch(error => {
       console.error('Failed to retrieve entries:', error);

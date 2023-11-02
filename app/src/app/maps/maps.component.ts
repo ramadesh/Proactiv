@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { Component, ViewChild, ElementRef, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import H from '@here/maps-api-for-javascript';
 import onResize from 'simple-element-resize-detector';
+=======
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+>>>>>>> be97c6d426d985e73d364cd29d6b9fbb7ed6a3ce
 
 @Component({
   selector: 'app-maps',
@@ -9,6 +15,7 @@ import onResize from 'simple-element-resize-detector';
 })
 
 export class MapsComponent {
+<<<<<<< HEAD
   @Output() notify = new EventEmitter();
 
   private map?: H.Map;
@@ -105,4 +112,18 @@ export class MapsComponent {
       }, alert);
     }
   }
+=======
+  query: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Coffee+near+me')
+  constructor(private sanitizer: DomSanitizer) {
+  }
+  coffee() {
+    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Coffee+near+me')
+
+  }
+  libraries() {
+    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Libraries+near+me')
+  }
+  
+
+>>>>>>> be97c6d426d985e73d364cd29d6b9fbb7ed6a3ce
 }
