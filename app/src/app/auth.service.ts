@@ -26,12 +26,15 @@ export class AuthService {
     localStorage.setItem("username", this.username);
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem("spotify_access_token", "");
   }
 
   logout() {
     localStorage.removeItem("username");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
+    localStorage.removeItem("verifier");
+    localStorage.removeItem("spotify_access_token");
   }
 
   public isLoggedIn() {

@@ -1,10 +1,10 @@
 <style>
-    /* playlist.component.css */
   .playlist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
+    /* position: relative; */
   }
 
   .playlist-item {
@@ -26,6 +26,29 @@
     font-weight: bold;
   }
 
+  .playlist-creation {
+    margin-top: 10px; 
+  }
+
+  #create-playlist-btn {
+  background-color: #4CAF50; 
+  border: none; 
+  color: white; 
+  padding: 14px 20px;
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block; 
+  font-size: 16px; 
+  margin: 10px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+  transition: background-color 0.3s ease; 
+}
+
+#create-playlist-btn:hover {
+  background-color: #45a049; 
+}
+
 </style>
 <button class="btn btn-success" id="spotify-btn" (click)="connectToSpotify()"
   *ngIf="isButtonVisible">
@@ -35,11 +58,22 @@
 <div *ngIf="userProfile" class="profile-container">
   <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
   <h3>Welcome {{ userProfile.display_name }} </h3>
+  <div class="playlist-creation">
+    <button id="create-playlist-btn" (click)="createPlaylist()">Create Playlist</button>
+  </div>
 </div>
 
-<div class="playlist-grid">
+<div *ngIf="playlists" class="playlist-grid">
   <div *ngFor="let playlist of playlists.items" class="playlist-item">
-    <img [src]="playlist.images[1]?.url" alt="Playlist Image" class="playlist-image">
+
+    <a *ngIf="playlist.images.length === 0" [href]="playlist.uri">
+      <img *ngIf="playlist.images.length === 0" src="assets/music.png" alt="Playlist Image" class="playlist-image">
+    </a>
+
+    <a *ngIf="playlist.images.length > 0" [href]="playlist.uri">
+      <img *ngIf="playlist.images.length > 0" [src]="playlist.images[0]?.url" alt="Playlist Image" class="playlist-image">
+    </a>
+
     <span class="playlist-name">{{ playlist.name }}</span>
   </div>
 </div>
