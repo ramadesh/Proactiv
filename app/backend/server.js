@@ -158,8 +158,8 @@ app.route('/userpass')
   });
 
   app.post('/todo', async (req, res) => {
-    const { userId, todo, due } = req.body;
-    const newTodo = new ToDo({ userId, todo, due });
+    const { userId, todo, due, active } = req.body;
+    const newTodo = new ToDo({ userId, todo, due, active });
     try {
       const savedTodo = await newTodo.save();
       res.status(201).json(savedTodo);
@@ -171,9 +171,15 @@ app.route('/userpass')
 
   app.get('/todo', (req, res) => {
     const userId = req.query.userId; // Assuming the userId is sent as a query parameter
+    const due = req.query.due;
+    
+    let query = { userId };
 
-    ToDo.find({ userId })
-      .sort({ active: 1 }) // Sort the data in descending order based on timestamp
+    if (due) {
+      query.due = due;
+    }
+
+  ToDo.find(query)
       .then(data => {
         res.status(200).json(data);
       })

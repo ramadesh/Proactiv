@@ -14,6 +14,7 @@ import { TodoComponent } from './todo/todo.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { authGuard } from './auth.guard';
+import { CalComponent } from './cal/cal.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -30,7 +31,8 @@ const routes: Routes = [
       {component: ProfileComponent, path: 'profile', canActivate:[authGuard]},
       {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
       {component: PastjournalsComponent, path: ''},
-      {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]}
+      {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]},
+      {component: CalComponent, path: 'cal', canActivate:[authGuard]}
     ]
   }
 ];

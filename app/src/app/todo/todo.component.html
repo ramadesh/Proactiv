@@ -1,20 +1,15 @@
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-</head>
-<body>
-    <div class="todo-container">
+<div class="todo-container">
         <h1>To-Do List</h1>
         <div class="input-container">
-            <input type="text" id="task" placeholder="Enter a task...">
-            <input type="date" id="due-date">
-            <button id="add-button">Add</button>
+            <input [(ngModel)]="taskInput" type="text" id="taskInput" placeholder="Enter a task...">
+            <input [(ngModel)]="dueDate" type="date" id="dueDate">
+            <button id="add-button" (click)="addTask()">Add</button>
         </div>
-        <ul id="task-list">
-            <!-- Tasks will be added dynamically here -->
-        </ul>
-    </div>
-</body>
+        <h1>Tasks</h1>
+        <div>
+            <li *ngFor="let task of tasks">
+                <ul>Task: {{task.todo}}</ul>
+            </li>
+        </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="calendar">
+    <div class="calendar-header">
+      <h2>November 2023</h2>
+    </div>
+    <div class="calendar-grid">
+      <div
+        class="calendar-day"
+        *ngFor="let date of generateCalendar()"
+        (click)="showTasksForDate(date)"
+        [class.selected]="date === selectedDate"
+      >
+        {{ date | date: 'dd' }}
+      </div>
+    </div>
+    <div class="task-panel">
+      <ul class="task-list" *ngIf="selectedDate">
+        <li *ngFor="let task of tasksData[selectedDate]">
+          {{ task }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

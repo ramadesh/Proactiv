@@ -27,6 +27,7 @@ import { AuthInterceptor } from './auth_interceptor';
 import { AuthService } from './auth.service';
 import { NoteComponent } from './note/note.component';
 import { MatCardModule } from '@angular/material/card';
+import { CalComponent } from './cal/cal.component';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { MatCardModule } from '@angular/material/card';
     ProfileComponent,
     AddjournalentryComponent,
     ResetpassComponent,
-    NoteComponent
+    NoteComponent,
+    CalComponent
   ],
   imports: [
     BrowserModule,

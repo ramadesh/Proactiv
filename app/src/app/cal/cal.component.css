@@ -1,0 +1,43 @@
+/* Basic styling for the calendar component */
+.calendar {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 20px;
+}
+
+.calendar-header {
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.calendar-day {
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.calendar-day:hover {
+    background-color: #f0f0f0;
+}
+
+.task-panel {
+    display: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Adjust styles as needed */
