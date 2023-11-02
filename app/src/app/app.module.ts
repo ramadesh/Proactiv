@@ -27,6 +27,7 @@ import { AuthInterceptor } from './auth_interceptor';
 import { AuthService } from './auth.service';
 import { NoteComponent } from './note/note.component';
 import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalComponent } from './cal/cal.component';
 // import { SpotifyService } from './spotify.service';
 
@@ -54,6 +55,7 @@ import { CalComponent } from './cal/cal.component';
     HttpClientModule,
     FormsModule,
     MatCardModule,
+    DragDropModule,
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     OAuthModule.forRoot({

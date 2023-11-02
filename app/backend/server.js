@@ -9,14 +9,23 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { checkIfAuthenticated } = require('./checkAuthentication.js');
+
 const UserPass = require('./userpass');
 const port = 5002;
 const sgMail = require('@sendgrid/mail');
 const shortid = require('shortid');
 const ToDo = require('./todo');
+const JournalEntry = require('./journalEntry');
+const JournalPrompt = require('./journalPrompt')
+var notes = require('./notes.js');
+var schedule = require('./scheduleRouter.js');
 
 app.use(cors());
 app.use(express.json());
+app.use('/note', notes);
+app.use('/schedule', schedule);
+
 
 app.get('/', async(req, res) => {
     res.status(200).send({
@@ -49,17 +58,6 @@ app.use((req, res, next) => {
     next();
   }
 });
-
-function checkIfAuthenticated(req, res, next) {
-  const token = req.headers['authorization'];
-  try {
-    const decode = jwt.verify(token, 'secret');
-    next();
-  } catch(error) {
-    console.log(error.message);
-    res.status(401).json({ error: 'User not authorized' });
-  }
-}
 
 app.post('/userpass', async (req, res) => {
   
@@ -299,6 +297,80 @@ app.put('/profile/resetPass', async (req, res) => {
     console.error('Error resetting password:', error);
     res.status(500).json({ error: 'Failed to reset password' });
   });
+});
+
+app.post('/JournalEntry', async (req, res) => {
+  // console.log("CAN YOU HEAR MEEEE");
+  const { userId, title, content} = req.body;
+  const newJournalEntry = new JournalEntry({ userId, title, content });
+  try {
+    console.log('saved successfully')
+    const savedJournalEntry = await newJournalEntry.save();
+    res.status(201).json(savedJournalEntry);
+  } catch (error) {
+    console.error('Error saving entry:', error);
+    res.status(500).send('Error saving entry');
+  }
+});
+
+app.get('/JournalEntry', (req, res) => {
+  // console.log(req.query)
+  const user = req.query.userId; // Assuming the userId is sent as a query parameter
+
+  JournalEntry.find({ userId:user })
+    .sort({ active: 1 }) // Sort the data in descending order based on timestamp
+    .then(data => {
+      // console.log("sending: ", data, "for user: ", user)
+      res.status(200).json(data);
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
+});
+
+app.put('/JournalEntry', (req, res) => {
+  const { userId, title, content} = req.body;  
+  const filter = { userId: userId, title: title };
+  console.log(filter)
+  const update = { content: content };
+  JournalEntry.findOneAndUpdate(filter, update)
+    .then(data => {
+      console.log("Succeeded in updating entry");
+      console.log(data)
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
+});
+
+app.delete('/JournalEntry', (req, res) => {
+  // console.log(req.query)
+  const { userId, title} = req.query;  
+  const filter = { userId: userId, title: title };
+  // console.log(filter)
+  JournalEntry.deleteOne(filter)
+    .then(data => {
+      console.log("Succeeded in deleting entry");
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
+});
+app.get('/JournalPrompt', (req, res) => {
+  // console.log(filter)
+  var random = Math.floor(Math.random() * 50)
+  JournalPrompt.findOne().skip(random)
+    .then(data => {
+      console.log("sending: ", data)
+      res.status(200).json(data);
+    })
+    .catch(error => {
+      console.error('Failed to retrieve entries:', error);
+      res.status(500).json({ error: 'Failed to retrieve entries' });
+    });
 });
 
 // Start the server

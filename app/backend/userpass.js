@@ -41,6 +41,10 @@ const dataSchema = new mongoose.Schema({
   salt: {
     type: String,
     required: true
+  },
+  note: {
+    type: String,
+    default: ""
   }
   
 });

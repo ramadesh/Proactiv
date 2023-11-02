@@ -11,7 +11,6 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-
   public usernameInput = '';
   public passInput = '';
   public emailInput = '';
