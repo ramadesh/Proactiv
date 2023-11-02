@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import H from '@here/maps-api-for-javascript';
-import onResize from 'simple-element-resize-detector';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-maps',
@@ -9,56 +9,16 @@ import onResize from 'simple-element-resize-detector';
 })
 
 export class MapsComponent {
-  private map?: H.Map;
+  query: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Coffee+near+me')
+  constructor(private sanitizer: DomSanitizer) {
+  }
+  coffee() {
+    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Coffee+near+me')
 
+  }
+  libraries() {
+    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Libraries+near+me')
+  }
   
-  constructor() {
-    this.zoom = 2;
-    this.lat = 0;
-    this.long = 0;
-    this.address = "";
-  }
 
-  zoom = 2;
-  lat: number;
-  long: number;
-  address: string;
-
-  @ViewChild('map') mapDiv?: ElementRef; 
-
-  ngAfterViewInit(): void {
-    if (!this.map && this.mapDiv) {
-      // Instantiate a platform, default layers and a map as usual.
-      const platform = new H.service.Platform({
-        apikey: 'Gp22nP47_8DVr0x_MirjZ1j_17DO750FyVbz7lQNJic'
-      });
-      const layers = platform.createDefaultLayers();
-      const map = new H.Map(
-        this.mapDiv.nativeElement,
-        // Add type assertion to the layers object... 
-        // ...to avoid any Type errors during compilation.
-        (layers as any).vector.normal.map,
-        {
-          pixelRatio: window.devicePixelRatio,
-          center: {lat: 0, lng: 0},
-          zoom: 2,
-        },
-      );
-      onResize(this.mapDiv.nativeElement, () => {
-        map.getViewPort().resize();
-      });
-      this.map = map;
-    }
-  }
-
-  search() {
-    if(this.map) {
-      this.map.setZoom(this.zoom);
-      this.map.setCenter({lat: this.lat, lng: this.long});
-    }
-  }
-
-  searchAddress() {
-
-  }
 }
