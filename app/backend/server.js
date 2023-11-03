@@ -167,7 +167,7 @@ app.route('/userpass')
     }
   });
   app.patch('/todo/:id', async (req, res) => {
-    const id = req.query.id;
+    const id = req.params.id;
     console.log(id);
     try {
         const updatedTodo = await ToDo.findByIdAndUpdate(
