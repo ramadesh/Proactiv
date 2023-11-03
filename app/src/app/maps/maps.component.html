@@ -14,7 +14,48 @@
     body {
     font-family: "Inter", sans-serif;
     }
-    
+
+    .weather-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .weather-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 16px;
+      padding: 16px;
+      width: 180px;
+      text-align: center;
+    }
+
+    .city-name {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .weather-info {
+      margin-top: 16px;
+    }
+
+    .temperature {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #777777;
+    }
+
+    .bottom-right {
+      position: fixed;
+      bottom: 65px;
+      right: 40px;
+    }
 </style>
 <script
     src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
@@ -39,4 +80,14 @@
   [src]="query"
   allowfullscreen>
 </iframe>
+</div>
+
+<div class="weather-container bottom-right">
+  <div class="weather-card">
+    <div class="city-name">{{ this.city }}</div>
+    <div class="weather-info">
+      <div class="temperature">{{ this.temperature }}°F</div>
+      <div class="description">{{ this.weatherDescription }}</div>
+    </div>
+  </div>
 </div>
