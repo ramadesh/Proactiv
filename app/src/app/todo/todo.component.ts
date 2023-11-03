@@ -32,6 +32,16 @@ export class TodoComponent {
     this.getTasks();
   }
 
+  remove(task: any) {
+    console.log(task._id);
+    this.http.patch('http://localhost:5002/todo/' + task._id, {})
+    .subscribe(response => {
+      console.log(response);
+    }, (error) => {
+      // Handle errors
+    });
+    this.getTasks();
+  }
   getTasks() {
     let params = new HttpParams().set('userId', this.userID!);
     this.http.get('http://localhost:5002/todo', { params })

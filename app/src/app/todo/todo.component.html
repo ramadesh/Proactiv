@@ -7,9 +7,8 @@
             <button id="add-button" (click)="addTask()">Add</button>
         </div>
         <h1>Tasks</h1>
-        <div>
-            <li *ngFor="let task of tasks">
-                <ul>Task: {{task.todo}}</ul>
-            </li>
+        <div *ngFor="let task of tasks">
+            <p style="text-decoration: line-through;" *ngIf="task.active == 0">{{task.todo}}</p>
+            <button style="background-color: red" *ngIf="task.active == 1" (click)="remove(task)" type="checkbox">Task: {{task.todo}}</button>
         </div>
 </div>

@@ -166,6 +166,27 @@ app.route('/userpass')
       res.status(500).send('Error saving post');
     }
   });
+  app.patch('/todo/'+req.query.id, async (req, res) => {
+    const id = req.query.id;
+    console.log(id);
+    try {
+        const updatedTodo = await ToDo.findByIdAndUpdate(
+            id,
+            { $set: { active: 0 } }, // Use the $set operator to update the "active" field
+            { new: true } // This option returns the updated document
+        );
+
+        if (!updatedTodo) {
+            return res.status(404).json({ error: 'ToDo not found' });
+        }
+
+        res.json(updatedTodo);
+    } catch (error) {
+        console.error('Error updating ToDo:', error);
+        res.status(500).send('Error updating ToDo: ' + error.message); // Log the error message
+    }
+});
+
 
   app.get('/todo', (req, res) => {
     const userId = req.query.userId; // Assuming the userId is sent as a query parameter

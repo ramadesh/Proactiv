@@ -32,7 +32,7 @@ const routes: Routes = [
       {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
       {component: PastjournalsComponent, path: ''},
       {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]},
-      {component: CalComponent, path: 'cal', canActivate:[authGuard]}
+      {component: CalComponent, path: 'cal'}
     ]
   }
 ];
