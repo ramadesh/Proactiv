@@ -1,0 +1,35 @@
+<h2>Schedule</h2>
+
+<div>
+    <label for="title">Title: </label>
+    <input [(ngModel)]="title" id="title"/>
+    <br />
+    <label for="details">Details: </label>
+    <input [(ngModel)]="details" id="details"/>
+    <br />
+    <label for="start-date">Start Date: </label>
+    <input [(ngModel)]="startDate" id="start-date" type="datetime-local"/>
+    <br />
+    <label for="end-date">End Date: </label>
+    <input [(ngModel)]="endDate" id="end-date" type="datetime-local"/>
+    <br />
+    <button (click)="addEvent()">Submit</button>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let event of events">
+    <button [class.selected]="event === selectedEvent" type="button" (click)="onSelect(event)">
+      <span class="badge">{{event.eventId}}</span>
+      <span class="name">{{event.title}}</span>
+    </button>
+  </li>
+</ul>
+
+<div *ngIf="selectedEvent">
+  <h2>{{selectedEvent.title | uppercase }} Details</h2>
+  <div>id: {{selectedEvent.eventId}}</div>
+  <div>
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" [(ngModel)]="selectedEvent.title" placeholder="title">
+  </div>
+</div>

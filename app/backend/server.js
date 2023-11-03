@@ -166,7 +166,7 @@ app.route('/userpass')
       res.status(500).send('Error saving post');
     }
   });
-  app.patch('/todo/'+req.query.id, async (req, res) => {
+  app.patch('/todo/:id', async (req, res) => {
     const id = req.query.id;
     console.log(id);
     try {

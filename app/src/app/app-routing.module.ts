@@ -15,6 +15,7 @@ import { AddjournalentryComponent } from './addjournalentry/addjournalentry.comp
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { authGuard } from './auth.guard';
 import { CalComponent } from './cal/cal.component';
+//import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,13 +27,14 @@ const routes: Routes = [
   {component: DashComponent, path: 'dash', canActivate:[authGuard],
     children: [
       {component: TodoComponent, path: 'todo', canActivate:[authGuard]}, 
+      //{component: ScheduleComponent, path: 'schedule', canActivate:[authGuard]}, 
       {component: MapsComponent, path: 'maps', canActivate:[authGuard]},
       {component: MusicComponent, path: 'music', canActivate:[authGuard]},
       {component: ProfileComponent, path: 'profile', canActivate:[authGuard]},
       {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
       {component: PastjournalsComponent, path: ''},
       {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]},
-      {component: CalComponent, path: 'cal'}
+      {component: CalComponent, path: 'calendar', canActivate:[authGuard]}
     ]
   }
 ];
