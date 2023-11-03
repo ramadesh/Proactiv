@@ -37,10 +37,11 @@ export class TodoComponent {
     this.http.patch('http://localhost:5002/todo/' + task._id, {})
     .subscribe(response => {
       console.log(response);
+      this.getTasks();
     }, (error) => {
       // Handle errors
     });
-    this.getTasks();
+    
   }
   getTasks() {
     let params = new HttpParams().set('userId', this.userID!);
