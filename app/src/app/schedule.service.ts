@@ -34,6 +34,18 @@ export class ScheduleService {
     return this.http.get<Schedule>('http://localhost:5002/schedule/' + eventId, { params });
   }
 
+  getScheduleEventsForDate(date : string): Observable<Schedule[]> {
+    const username = localStorage.getItem("username");
+    if(username == null) {
+      return new Observable(function subscribe(subsriber) {
+          console.log("Schedule Service Error: username not found");
+          subsriber.error("User not found");
+      });
+    }
+    const params = new HttpParams().set('userId', username).set('date', date);
+    return this.http.get<Schedule[]>('http://localhost:5002/schedule/', { params });
+  }
+
   createScheduleEvent(scheduleEvent : Schedule): Observable<Schedule> {
     if(scheduleEvent == null) {
       return new Observable(function subscribe(subsriber) {

@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ScheduleService } from '../schedule.service';
 import * as moment from 'moment';
 
 @Component({
@@ -9,13 +10,14 @@ import * as moment from 'moment';
 })
 export class CalComponent {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private scheduleService: ScheduleService) {
 
   }
   // Define the data for your calendar, e.g., tasks for each day.
   public currentDate = moment(); // Initialize with the current date
   public userID = localStorage.getItem("username");
   public tasks: any = [];
+  public schedule: any = [];
 
   selectedDate: string | null = null;
 
@@ -24,19 +26,9 @@ export class CalComponent {
   showTasksForDate(dateKey: string) {
     this.selectedDate = dateKey;
     this.getTasks();
-    
+    this.getSchedule();
   }
 
-  // Function to generate the calendar grid
-  goToPreviousMonth() {
-    this.currentDate.subtract(1, 'month');
-    
-  }
-
-  // Function to navigate to the next month
-  goToNextMonth() {
-    this.currentDate.add(1, 'month');
-  }
   getTasks() {
     let params = new HttpParams().set('userId', this.userID!)
     .set('due', this.selectedDate!);
@@ -49,6 +41,31 @@ export class CalComponent {
     });
   }
 
+  getSchedule() {
+    if(this.selectedDate != null) {
+      this.scheduleService.getScheduleEventsForDate(this.selectedDate).subscribe((events) => {
+        if(events != null) {
+          this.schedule.length = 0;
+          events.forEach((e) => {
+            this.schedule.push(e);
+          });
+        }
+      })
+    }
+  }
+
+  // Function to navigate to the previous month
+  goToPreviousMonth() {
+    this.currentDate.subtract(1, 'month');
+    
+  }
+
+  // Function to navigate to the next month
+  goToNextMonth() {
+    this.currentDate.add(1, 'month');
+  }
+  
+  // Function to generate the calendar grid
   generateCalendar() {
   
     const startDate = this.currentDate.clone().startOf('month');

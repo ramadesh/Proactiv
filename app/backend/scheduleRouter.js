@@ -24,22 +24,32 @@ router.get('/:id', checkIfAuthenticated, async function(req, res){
 });
 
 router.get('/', checkIfAuthenticated, async function(req, res){
-    const { userId } = req.query;
-    const filter = { userId : userId };
+    const userId = req.query.userId;
+    const date = req.query.date;
     const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1 };
+    var filter = {};
+    if(date == undefined) {
+        filter = { userId : userId }; 
+    } else {
+        const datePlusOne = new Date(date + "Z");
+        datePlusOne.setDate(datePlusOne.getDate() + 1);
+        const datePlusOneStr = datePlusOne.toISOString();
+        filter = { userId : userId, start : { $gte : date, $lte : datePlusOneStr }, end : { $lte : datePlusOneStr } };
+    }
     await ScheduleEvent.find(filter, projection).then((data) => {
         if(data === null){
-            // If no matching user is found, return a 404 status code
-            console.log('Error: user not found');
-            return res.status(404).json({ message: 'Error: user not found' });
+            // If no matching event is found, return a 404 status code
+            console.log('Error: event not found');
+            return res.status(404).json({ message: 'Error: event not found' });
         }
-        // If a matching user is found, return note
+        // If a matching user is found, return their schedule
         console.log(data);
         res.status(200).json(data);
     }).catch((error) => {
         console.error('Error getting all schedule events for the given user:', error);
         res.status(500).json({ error: 'Failed to get all schedule events for the given user' });
     });
+    
 });
  
 router.post('/', checkIfAuthenticated, async function(req, res){

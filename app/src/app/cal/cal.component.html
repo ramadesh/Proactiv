@@ -15,8 +15,8 @@
     >
       {{ date.substring(8,10) }}
     </div>
-    
   </div>
+
   <br>
   <div *ngIf="tasks.length > 0">
     <!-- Task list based on the selected date -->
@@ -26,6 +26,16 @@
     </ul>
   </div>
   <div *ngIf="tasks.length == 0"><p>No tasks for this day.</p></div>
+
+  <br>
+  <div *ngIf="schedule.length > 0">
+    <!-- Schedule based on the selected date -->
+    <u>Schedule for the Day</u>
+    <ul class="task-list" *ngFor="let event of schedule">
+      <li>{{ event.title }}: {{event.start}} - {{event.end}}</li>
+    </ul>
+  </div>
+  <div *ngIf="schedule.length == 0"><p>No scheduled events for the day.</p></div>
 
   
 </div>

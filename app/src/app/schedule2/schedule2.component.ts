@@ -14,8 +14,8 @@ export class Schedule2Component implements OnInit {
   selectedEvent?: Schedule;
   title = "";
   details = "";
-  startDate = moment.now.toString();
-  endDate = moment.now.toString();
+  startDate = "";
+  endDate = "";
 
   constructor(private scheduleService : ScheduleService) { }
 
