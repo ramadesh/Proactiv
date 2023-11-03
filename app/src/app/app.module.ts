@@ -29,6 +29,7 @@ import { NoteComponent } from './note/note.component';
 import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalComponent } from './cal/cal.component';
+import { Schedule2Component } from './schedule2/schedule2.component';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -47,7 +48,8 @@ import { CalComponent } from './cal/cal.component';
     AddjournalentryComponent,
     ResetpassComponent,
     NoteComponent,
-    CalComponent
+    CalComponent,
+    Schedule2Component
   ],
   imports: [
     BrowserModule,

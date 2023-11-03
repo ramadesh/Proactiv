@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const crypto = require('crypto');
+const nanoid = require('nanoid');
 
 // Define the schema for your data
 const scheduleEventSchema = new mongoose.Schema({

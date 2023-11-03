@@ -4,23 +4,41 @@ var router = express.Router();
 const ScheduleEvent = require('./scheduleSchema');
 const { checkIfAuthenticated } = require('./checkAuthentication.js');
 
-//TODO: get singular event & get all events for a single user
+router.get('/:id', checkIfAuthenticated, async function(req, res){
+    const { userId } = req.query;
+    const filter = { userId : userId, eventId : req.params.id};
+    const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1 };
+    await ScheduleEvent.findOne(filter, projection).then((data) => {
+        if(data === null){
+            // If no matching event is found, return a 404 status code
+            console.log('Error: schedule event not found');
+            return res.status(404).json({ message: 'Error: schedule event not found' });
+        }
+        // If a matching schedule event is found, return it
+        console.log(data._doc);
+        res.status(200).json(data._doc);
+    }).catch((error) => {
+        console.error('Error getting schedule event:', error);
+        res.status(500).json({ error: 'Failed to get schedule event' });
+    });
+});
+
 router.get('/', checkIfAuthenticated, async function(req, res){
     const { userId } = req.query;
-    const filter = { userId : userId, deleted: false};
-    const projection = { "note" : 1 };
-    await UserPass.findOne(filter, projection).then((data) => {
+    const filter = { userId : userId };
+    const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1 };
+    await ScheduleEvent.find(filter, projection).then((data) => {
         if(data === null){
             // If no matching user is found, return a 404 status code
             console.log('Error: user not found');
             return res.status(404).json({ message: 'Error: user not found' });
         }
         // If a matching user is found, return note
-        console.log("Note: " + data._doc.note);
-        res.status(200).json(data._doc.note);
+        console.log(data);
+        res.status(200).json(data);
     }).catch((error) => {
-        console.error('Error getting note text:', error);
-        res.status(500).json({ error: 'Failed to get note text' });
+        console.error('Error getting all schedule events for the given user:', error);
+        res.status(500).json({ error: 'Failed to get all schedule events for the given user' });
     });
 });
  
@@ -61,9 +79,9 @@ router.put('/', checkIfAuthenticated, async function(req, res){
     });
 });
 
-router.delete('/', checkIfAuthenticated, async function(req, res) {
-    let { userId, eventId} = req.query;
-    const filter = { userId : userId , eventId : eventId};
+router.delete('/:id', checkIfAuthenticated, async function(req, res) {
+    let { userId } = req.query;
+    const filter = { userId : userId , eventId : req.params.id };
     
     await ScheduleEvent.deleteOne(filter).then((data) => {
         if(data === null){
@@ -72,8 +90,8 @@ router.delete('/', checkIfAuthenticated, async function(req, res) {
             return res.status(404).json({ message: 'Error: user and/or event not found' });
         }
         // If a matching user is found, return the event data
-        console.log(data._doc);
-        res.status(200).json(data._doc);
+        console.log(data.acknowledged);
+        res.status(200).json(data.acknowledged);
     }).catch((error) => {
         console.error('Error deleting schedule event:', error);
         res.status(500).json({ error: 'Failed to delete schedule event' });
