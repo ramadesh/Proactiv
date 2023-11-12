@@ -30,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalComponent } from './cal/cal.component';
 import { Schedule2Component } from './schedule2/schedule2.component';
+import { ToolsComponent } from './tools/tools.component';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { Schedule2Component } from './schedule2/schedule2.component';
     ResetpassComponent,
     NoteComponent,
     CalComponent,
-    Schedule2Component
+    Schedule2Component,
+    ToolsComponent
   ],
   imports: [
     BrowserModule,

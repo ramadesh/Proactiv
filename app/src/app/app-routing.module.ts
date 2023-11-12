@@ -16,6 +16,7 @@ import { ResetpassComponent } from './resetpass/resetpass.component';
 import { authGuard } from './auth.guard';
 import { CalComponent } from './cal/cal.component';
 import { Schedule2Component } from './schedule2/schedule2.component';
+import { ToolsComponent } from './tools/tools.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -34,7 +35,8 @@ const routes: Routes = [
       {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
       {component: PastjournalsComponent, path: ''},
       {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]},
-      {component: CalComponent, path: 'calendar', canActivate:[authGuard]}
+      {component: CalComponent, path: 'calendar', canActivate:[authGuard]},
+      {component: ToolsComponent, path: 'tools', canActivate:[authGuard]}
     ]
   }
 ];
