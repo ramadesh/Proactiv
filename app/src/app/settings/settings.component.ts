@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DataService } from "../data.service";
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,12 +21,15 @@ export class SettingsComponent {
     secQ: ''
   };
   showPassword: boolean = false;
+  darkMode: boolean = false;
 
-  constructor(private http: HttpClient, private profileService: ProfileService, public data: DataService, public router: Router) { }
+  constructor(private http: HttpClient, private profileService: ProfileService, private settingsService: SettingsService, public data: DataService, public router: Router) { }
 
   ngOnInit(): void {
     this.getProfile();
+    this.getDarkMode();
     console.log(this.getProfile());
+    console.log(this.getDarkMode());
   }
 
   getProfile() {
@@ -67,5 +71,22 @@ export class SettingsComponent {
     } else {
       console.log('Deletion canceled.');
     }
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    this.settingsService.updateDarkMode(this.darkMode);
+    var element = document.getElementById("test");
+    console.log("Element: " + element);
+    if(element != null) {
+      console.log("toggle dark mode: element is not null");
+      element.classList.toggle("dark-mode");
+    }
+  }
+
+  getDarkMode() {
+    this.settingsService.getDarkMode().subscribe((mode) => {
+      this.darkMode = mode;
+    })
   }
 }

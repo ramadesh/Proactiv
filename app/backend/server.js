@@ -19,11 +19,13 @@ const ToDo = require('./todo');
 const JournalEntry = require('./journalEntry');
 const JournalPrompt = require('./journalPrompt')
 var notes = require('./notes.js');
+var darkMode = require('./darkMode.js');
 var schedule = require('./scheduleRouter.js');
 
 app.use(cors());
 app.use(express.json());
 app.use('/note', notes);
+app.use('/darkMode', darkMode);
 app.use('/schedule', schedule);
 
 

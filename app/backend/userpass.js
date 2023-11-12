@@ -45,6 +45,10 @@ const dataSchema = new mongoose.Schema({
   note: {
     type: String,
     default: ""
+  }, 
+  darkMode: {
+    type: Boolean,
+    default: false
   }
   
 });
