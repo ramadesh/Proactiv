@@ -59,14 +59,29 @@ router.post('/', checkIfAuthenticated, async function(req, res){
     newEvent.details = req.body.details;
     newEvent.start = req.body.start;
     newEvent.end = req.body.end;
+    const filter = { userId : newEvent.userId, start : { $lt : newEvent.end }, end : { $gt : newEvent.start } };
 
-    newEvent.save().then(savedData => {
-        res.status(200).json(savedData); // Return the saved data as the response
-    })
-    .catch(error => {
-        console.error('Failed to create new schedule item:', error);
-        res.status(500).json({ error: 'Failed to create new schedule event' });
+    await ScheduleEvent.updateMany(filter, { $inc : { "conflicts" : 1 }}, {"multi": true} ).then((data) => {
+        if(data === null){
+            console.log("Schedule Event updateMany returned null");
+            res.status(500).json("Internal Error");
+        }
+
+        console.log(data.modifiedCount);
+        newEvent.conflicts = data.modifiedCount;
+        newEvent.save().then(savedData => {
+            res.status(200).json(savedData); // Return the saved data as the response
+        })
+        .catch(error => {
+            console.error('Failed to create new schedule item:', error);
+            res.status(500).json({ error: 'Failed to create new schedule event' });
+        });
+        
+    }).catch((error) => {
+        console.error('Error updating schedule conflicts during create:', error);
+        res.status(500).json({ error: 'Error: failed to update schedule conflicts during create' });
     });
+    
 });
 
 router.put('/', checkIfAuthenticated, async function(req, res){
@@ -91,21 +106,41 @@ router.put('/', checkIfAuthenticated, async function(req, res){
 
 router.delete('/:id', checkIfAuthenticated, async function(req, res) {
     let { userId } = req.query;
-    const filter = { userId : userId , eventId : req.params.id };
-    
-    await ScheduleEvent.deleteOne(filter).then((data) => {
+    const filter = { userId : userId, eventId : req.params.id};
+    const projection = { "start" : 1, "end" : 1 };
+    await ScheduleEvent.findOne(filter, projection).then(async (data) => {
         if(data === null){
-            // If no matching user is found, return a 404 status code
-            console.log('Error: user and/or event not found');
-            return res.status(404).json({ message: 'Error: user and/or event not found' });
+            // If no matching event is found, return a 404 status code
+            console.log('Error: schedule event not found');
+            return res.status(404).json({ message: 'Error: schedule event not found' });
         }
-        // If a matching user is found, return the event data
-        console.log(data.acknowledged);
-        res.status(200).json(data.acknowledged);
+        
+        console.log(data._doc);
+        const conflictFilter = { userId : userId, start : { $lt : data._doc.end }, end : { $gt : data._doc.start } };
+        await ScheduleEvent.updateMany(conflictFilter, { $inc : { "conflicts" : -1 }}, {"multi": true} ).then(async (data) => {
+            if(data === null){
+                console.log("Schedule Event updateMany returned null");
+                res.status(500).json("Internal Error");
+            }
+
+            await ScheduleEvent.deleteOne(filter).then((data) => {
+                if(data === null){
+                    // If no matching user is found, return a 404 status code
+                    console.log('Error: user and/or event not found');
+                    return res.status(404).json({ message: 'Error: user and/or event not found' });
+                }
+
+                // If a matching user is found, return the event data
+                console.log(data.acknowledged);
+                res.status(200).json(data.acknowledged);
+            })
+        })
     }).catch((error) => {
         console.error('Error deleting schedule event:', error);
         res.status(500).json({ error: 'Failed to delete schedule event' });
     });
+    
+
 });
 
 //export this router to use in our server.js

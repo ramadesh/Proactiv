@@ -29,6 +29,10 @@ const scheduleEventSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  conflicts: {
+    type: Number,
+    default: 0
+  },
   timestamp: {
     type: Date,
     default: Date.now
