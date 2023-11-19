@@ -88,20 +88,58 @@ router.put('/', checkIfAuthenticated, async function(req, res){
     let { userId, eventId, title, details, start, end} = req.body;
     const updatedEvent = { title : title, details : details, start : start , end : end}
     const filter = { userId : userId, eventId : eventId};
+    const projection = { "start" : 1, "end" : 1 };
 
-    await ScheduleEvent.findOneAndUpdate(filter, updatedEvent, {new : true} ).then((data) => {
+    await ScheduleEvent.findOne(filter, projection).then(async (data) => {
         if(data === null){
-            // If no matching user is found, return a 404 status code
-            console.log('Error: user not found');
-            return res.status(404).json({ message: 'Error: user not found' });
+            // If no matching event is found, return a 404 status code
+            console.log('Error: schedule event not found');
+            return res.status(404).json({ message: 'Error: schedule event not found' });
         }
-        // If a matching user is found, return the event data
         console.log(data._doc);
-        res.status(200).json(data._doc);
+        if(start == data._doc.start && end == data._doc.end) {
+            await ScheduleEvent.findOneAndUpdate(filter, updatedEvent, {new : true} ).then((data) => {
+                if(data === null){
+                    // If no matching user is found, return a 404 status code
+                    console.log('Error: user not found');
+                    return res.status(404).json({ message: 'Error: user not found' });
+                }
+                // If a matching user is found, return the event data
+                console.log(data._doc);
+                res.status(200).json(data._doc);
+            })
+        } else {
+            const conflictFilterDec = { userId : userId, eventId : { $ne : eventId }, start : { $lt : data._doc.end }, end : { $gt : data._doc.start } };
+            await ScheduleEvent.updateMany(conflictFilterDec, { $inc : { "conflicts" : -1 }}, {"multi": true} ).then(async (data) => {
+                if(data === null){
+                    console.log("Schedule Event updateMany returned null");
+                    res.status(500).json("Internal Error");
+                }
+                const conflictFilterInc = { userId : userId, eventId : { $ne : eventId }, start : { $lt : end }, end : { $gt : start } };
+                await ScheduleEvent.updateMany(conflictFilterInc, { $inc : { "conflicts" : 1 }}, {"multi": true} ).then(async (data) => {
+                    if(data === null){
+                        console.log("Schedule Event updateMany returned null");
+                        res.status(500).json("Internal Error");
+                    }
+                    updatedEvent.conflicts = data.modifiedCount;
+                    await ScheduleEvent.findOneAndUpdate(filter, updatedEvent, {new : true} ).then((data) => {
+                        if(data === null){
+                            // If no matching user is found, return a 404 status code
+                            console.log('Error: user not found');
+                            return res.status(404).json({ message: 'Error: user not found' });
+                        }
+                        // If a matching user is found, return the event data
+                        console.log(data._doc);
+                        res.status(200).json(data._doc);
+                    })
+                })
+            })
+        }
     }).catch((error) => {
         console.error('Error editing schedule event:', error);
         res.status(500).json({ error: 'Failed to update schedule event' });
     });
+
 });
 
 router.delete('/:id', checkIfAuthenticated, async function(req, res) {
