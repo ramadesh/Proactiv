@@ -33,7 +33,7 @@ const routes: Routes = [
       {component: MusicComponent, path: 'music', canActivate:[authGuard]},
       {component: ProfileComponent, path: 'profile', canActivate:[authGuard]},
       {component: SettingsComponent, path: 'settings', canActivate:[authGuard]},
-      {component: PastjournalsComponent, path: ''},
+      {component: PastjournalsComponent, path: '', canActivate:[authGuard]},
       {component: AddjournalentryComponent, path: 'addjournalentry', canActivate:[authGuard]},
       {component: CalComponent, path: 'calendar', canActivate:[authGuard]},
       {component: ToolsComponent, path: 'tools', canActivate:[authGuard]}
