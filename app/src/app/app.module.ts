@@ -33,6 +33,7 @@ import { Schedule2Component } from './schedule2/schedule2.component';
 import { ToolsComponent } from './tools/tools.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { StopwatchComponent } from './stopwatch/stopwatch.component';
+import { TimerComponent } from './timer/timer.component';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -55,7 +56,8 @@ import { StopwatchComponent } from './stopwatch/stopwatch.component';
     Schedule2Component,
     ToolsComponent,
     CalculatorComponent,
-    StopwatchComponent
+    StopwatchComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
