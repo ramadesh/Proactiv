@@ -30,6 +30,11 @@ export class SettingsComponent {
     this.getDarkMode();
     console.log(this.getProfile());
     console.log(this.getDarkMode());
+    if(!this.darkMode) {
+      document.body.classList.add('light-mode');
+    } else {
+      document.body.classList.add('dark-mode');
+    }
   }
 
   getProfile() {
@@ -76,12 +81,8 @@ export class SettingsComponent {
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
     this.settingsService.updateDarkMode(this.darkMode);
-    var element = document.getElementById("test");
-    console.log("Element: " + element);
-    if(element != null) {
-      console.log("toggle dark mode: element is not null");
-      element.classList.toggle("dark-mode");
-    }
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
   }
 
   getDarkMode() {
