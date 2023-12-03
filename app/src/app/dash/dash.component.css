@@ -31,13 +31,13 @@
 }
 
 .dropdown {
-    float: right;
-    overflow: hidden;
+    position: relative;
+    display: inline-block;
     direction: rtl;
 }
 
 .dropdown .dropbtn {
-    font-size: 16px;
+    font-size: 16px;    
     border: none;
     outline: none;
     color: white;
@@ -50,9 +50,8 @@
     position: absolute;
     right: 10px;
     flex-direction: column;
-    justify-content: space-around;
-    background-color: gray;
-    min-width: 120px;
+    background-color: darkgray;
+    min-width: 60px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -62,7 +61,7 @@
 }
 
 .dropdown:hover .dropdown-content {
-    display: flex;
+    display: block;
 }
 
 .background {
