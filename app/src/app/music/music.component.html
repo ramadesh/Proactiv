@@ -4,17 +4,16 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
-    /* position: relative; */
+    text-align: center;
   }
 
   .playlist-item {
     border: 1px solid #ccc;
     border-radius: 20px;
     padding: 10px;
-    text-align: center;
   }
 
-  .playlist-image {
+  .playlist-image, .profile-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -22,58 +21,91 @@
     margin-bottom: 10px;
   }
 
-  .playlist-name {
+  .playlist-name, .song-details {
     font-weight: bold;
+    margin-bottom: 10px;
   }
 
-  .playlist-creation {
-    margin-top: 10px; 
+  .artists-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* .artist-name {
+    margin: 5px;
+  } */
+
+  .profile-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .create-playlist-box,
+  .currently-playing {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
   }
 
   #create-playlist-btn {
-  background-color: #4CAF50; 
-  border: none; 
-  color: white; 
-  padding: 14px 20px;
-  text-align: center; 
-  text-decoration: none; 
-  display: inline-block; 
-  font-size: 16px; 
-  margin: 10px; 
-  cursor: pointer; 
-  border-radius: 5px; 
-  transition: background-color 0.3s ease; 
-}
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    font-size: 70px;
+    line-height: 150px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 14px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-#create-playlist-btn:hover {
-  background-color: #45a049; 
-}
-
+  #create-playlist-btn:hover {
+    background-color: #45a049;
+  }
 </style>
-<button class="btn btn-success" id="spotify-btn" (click)="connectToSpotify()"
-  *ngIf="isButtonVisible">
+
+<button class="btn btn-success" id="spotify-btn" (click)="connectToSpotify()" *ngIf="isButtonVisible">
   Connect to Spotify
 </button>
 
-<div *ngIf="userProfile" class="profile-container">
-  <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
-  <h3>Welcome {{ userProfile.display_name }} </h3>
-  <div class="playlist-creation">
-    <button id="create-playlist-btn" (click)="createPlaylist()">Create Playlist</button>
-  </div>
-</div>
-
 <div *ngIf="playlists" class="playlist-grid">
+  <div class="playlist-item">
+    <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
+    <p>Welcome {{ userProfile.display_name }} </p>
+  </div>
+
+  <div class="playlist-item create-playlist-box">
+    <div class="playlist-creation">
+      <button id="create-playlist-btn" (click)="createPlaylist()">+</button>
+      <p>Create Playlist</p>
+    </div>
+  </div>
+
+  <div *ngIf="currentlyPlayingData" class="playlist-item currently-playing">
+    <img [src]="currentlyPlayingData.images[0]?.url" alt="Playlist Image" class="playlist-image">
+    <div class="song-details">
+      <p>Currently Playing: {{ currentlyPlayingData.name }}</p>
+    </div>
+    <div class="artists-list">
+      <p>Artists: </p>
+      <span *ngFor="let artist of currentlyPlayingData.artists" class="artist-name">{{ artist.name }}</span>
+    </div>
+  </div>
+
   <div *ngFor="let playlist of playlists.items" class="playlist-item">
-
-    <a *ngIf="playlist.images.length === 0" [href]="playlist.uri">
-      <img *ngIf="playlist.images.length === 0" src="assets/music.png" alt="Playlist Image" class="playlist-image">
+    <a [href]="playlist.uri">
+      <img [src]="playlist.images.length > 0 ? playlist.images[0]?.url : 'assets/music.png'" alt="Playlist Image"
+        class="playlist-image">
     </a>
-
-    <a *ngIf="playlist.images.length > 0" [href]="playlist.uri">
-      <img *ngIf="playlist.images.length > 0" [src]="playlist.images[0]?.url" alt="Playlist Image" class="playlist-image">
-    </a>
-
     <span class="playlist-name">{{ playlist.name }}</span>
   </div>
 </div>
