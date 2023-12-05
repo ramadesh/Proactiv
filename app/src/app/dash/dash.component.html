@@ -21,6 +21,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            color: black;
         }
 
         #clickButton {
@@ -62,8 +63,7 @@
                 &nbsp;
                 <input type="checkbox" [(ngModel)]="showNote" (click)="toggleNote()">
                 &nbsp;
-                <label for="Notes"> Notes </label>
-                
+                <label for="Notes" style = "color: black; height: 15px;"> Notes </label>
             </div>
         </nav>
 
@@ -79,6 +79,6 @@
     <router-outlet></router-outlet>
     <app-note *ngIf="showNote"></app-note>
     
-    <div class="background"></div>  <!--This is the full-width and full-height background -->
+    <!--<div class="background"></div>  This is the full-width and full-height background -->
 </body>
 </html>

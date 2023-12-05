@@ -5,19 +5,30 @@
 
 body.light-mode {
     --text-color: #222;
-    --bkg-color: #fff;
-    --btn-txt-color: white;
-    --btn-bg-color: rgb(11, 88, 160);
+    --bkg-color: lightblue;
+    --input-bg-color: white;
+    --btn-txt-color: black;
+    --btn-bg-color: darkgray;
 }
 
 body.dark-mode {
     --text-color: #eee;
-    --bkg-color: #252222;
+    --bkg-color: #323232;
+    --input-bg-color: gray;
     --btn-txt-color: rgb(46, 43, 43);
-    --btn-bg-color: rgb(20, 211, 195);
+    --btn-bg-color: lightgray;
 }
 
 body {
     background-color: var(--bkg-color);
     color: var(--text-color);
+}
+
+button {
+    background-color: var(--btn-bg-color);
+    color: var(--btn-txt-color);
+}
+
+input {
+    background-color: var(--input-bg-color);
 }
