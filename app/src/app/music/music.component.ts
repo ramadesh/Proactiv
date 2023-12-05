@@ -14,6 +14,7 @@ export class MusicComponent implements OnInit {
   isButtonVisible = true
   userProfile: any
   playlists: any
+  currentlyPlayingData: any
   newPlaylistName: string = '';
   async ngOnInit() {
     const url = window.location.href;
@@ -70,8 +71,8 @@ export class MusicComponent implements OnInit {
 
       const playlistData = await playlists.json()
       const profileData = await profile.json()
-
       this.populateUI(profileData, playlistData);
+      this.getCurrentlyPlaying(token)
   }
 
   populateUI(profile: any, playlist: any) {
@@ -112,6 +113,17 @@ export class MusicComponent implements OnInit {
     }
   }
 
+  async getCurrentlyPlaying(token: string) {
+    const playing = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+        method: "GET", headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const currentlyPlaying = await playing.json()
+      this.currentlyPlayingData = currentlyPlaying.item.album
+    
+      console.log(this.currentlyPlayingData)
+  }
+
   async connectToSpotify() {
     const url = window.location.href;
     const codeIndex = url.indexOf('code=');
@@ -130,7 +142,7 @@ export class MusicComponent implements OnInit {
         params.append("client_id", clientId);
         params.append("response_type", "code");
         params.append("redirect_uri", "http://localhost:4200/dash/music");
-        params.append("scope", "user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private");
+        params.append("scope", "user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private user-read-currently-playing");
         params.append("code_challenge_method", "S256");
         params.append("code_challenge", challenge);
 
