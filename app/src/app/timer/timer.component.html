@@ -1,0 +1,12 @@
+<section class="timer-counter-label">
+    <input [(ngModel)]="hours">
+    :
+    <input [(ngModel)]="minutes">
+    :
+    <input [(ngModel)]="seconds">
+</section>
+<section class="timer-button-container">
+    <button class="btn btn-outline-dark" (click)="toggleTimer()">
+        {{ startText }}
+    </button>
+</section>

@@ -31,6 +31,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalComponent } from './cal/cal.component';
 import { Schedule2Component } from './schedule2/schedule2.component';
 import { ToolsComponent } from './tools/tools.component';
+import { CalculatorComponent } from './calculator/calculator.component';
+import { StopwatchComponent } from './stopwatch/stopwatch.component';
+import { TimerComponent } from './timer/timer.component';
 // import { SpotifyService } from './spotify.service';
 
 @NgModule({
@@ -51,7 +54,10 @@ import { ToolsComponent } from './tools/tools.component';
     NoteComponent,
     CalComponent,
     Schedule2Component,
-    ToolsComponent
+    ToolsComponent,
+    CalculatorComponent,
+    StopwatchComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

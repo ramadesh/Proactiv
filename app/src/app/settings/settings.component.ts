@@ -28,8 +28,6 @@ export class SettingsComponent {
   ngOnInit(): void {
     this.getProfile();
     this.getDarkMode();
-    console.log(this.getProfile());
-    console.log(this.getDarkMode());
   }
 
   getProfile() {
@@ -75,18 +73,23 @@ export class SettingsComponent {
 
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
-    this.settingsService.updateDarkMode(this.darkMode);
-    var element = document.getElementById("test");
-    console.log("Element: " + element);
-    if(element != null) {
-      console.log("toggle dark mode: element is not null");
-      element.classList.toggle("dark-mode");
-    }
+    document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('dark-mode');
+    this.settingsService.updateDarkMode(this.darkMode).subscribe((mode) => {
+      if(mode == null) {
+        console.log("Dark Mode status failed to save.");
+      }
+    });
   }
 
   getDarkMode() {
     this.settingsService.getDarkMode().subscribe((mode) => {
       this.darkMode = mode;
+      if(!this.darkMode) {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.add('dark-mode');
+      }
     })
   }
 }
