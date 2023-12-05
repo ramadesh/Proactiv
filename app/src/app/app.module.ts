@@ -19,7 +19,7 @@ import { MapsComponent } from './maps/maps.component';
 import { TodoComponent } from './todo/todo.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PastjournalsComponent } from './pastjournals/pastjournals.component';
+import { PastjournalsComponent } from './dashcontent/dashcontent.component';
 import { AddjournalentryComponent } from './addjournalentry/addjournalentry.component';
 import { ResetpassComponent } from './resetpass/resetpass.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
