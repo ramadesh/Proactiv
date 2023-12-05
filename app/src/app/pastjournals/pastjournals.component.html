@@ -1,11 +1,10 @@
 <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
     <mat-card-header>
-      <mat-card-title>Past Journal Box</mat-card-title>
-      <mat-card-subtitle>Example Text and Box</mat-card-subtitle>
+      <mat-card-title>{{journals[journals.length - 1].title}}</mat-card-title>
+      <mat-card-subtitle>{{journals[journals.length - 1].timestamp}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>This is how past journals will be displayed.</p>
-      <p>{{longText}}</p>
+      <p>{{journals[journals.length - 1].content}}</p>
     </mat-card-content>
   </mat-card>
 <div>
@@ -17,11 +16,11 @@
 </div>
   <mat-card style="box-shadow: none;" class="example-card">
     <mat-card-header>
-      <mat-card-title>Past Journal Box</mat-card-title>
-      <mat-card-subtitle>Example Text and Box</mat-card-subtitle>
+      <mat-card-title>{{journals[journals.length - 2].title}}</mat-card-title>
+      <mat-card-subtitle>{{journals[journals.length - 2].timestamp}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p>This is how past journals will be displayed.</p>
-      <p>{{longText}}</p>
+      <p>{{journals[journals.length - 2].content}}</p>
     </mat-card-content>
   </mat-card>

@@ -210,6 +210,20 @@ app.route('/userpass')
       });
   });
 
+  app.get('/dashjournals', (req, res) => {
+    const user = req.query.userId; // Assuming the userId is sent as a query parameter
+  
+    JournalEntry.find({ userId:user })
+      .sort({ active: 1 }) // Sort the data in descending order based on timestamp
+      .then(data => {
+        // console.log("sending: ", data, "for user: ", user)
+        res.status(200).json(data);
+      })
+      .catch(error => {
+        console.error('Failed to retrieve entries:', error);
+        res.status(500).json({ error: 'Failed to retrieve entries' });
+      });
+  });
   
 app.route('/profile')
   .get(checkIfAuthenticated, getProfile);
