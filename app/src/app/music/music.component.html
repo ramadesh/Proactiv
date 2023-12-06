@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 <style>
   .playlist-grid {
     display: grid;
@@ -8,7 +9,7 @@
   }
 
   .playlist-item {
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 10px;
   }
@@ -32,10 +33,6 @@
     justify-content: center;
   }
 
-  /* .artist-name {
-    margin: 5px;
-  } */
-
   .profile-container {
     text-align: center;
     margin-bottom: 20px;
@@ -43,7 +40,7 @@
 
   .create-playlist-box,
   .currently-playing {
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 10px;
   }
@@ -77,6 +74,9 @@
   Connect to Spotify
 </button>
 
+
+<!-- <button id="btn btn-success" (click)="playPlaylist()">play playlist</button> -->
+
 <div *ngIf="playlists" class="playlist-grid">
   <div class="playlist-item">
     <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
@@ -85,27 +85,27 @@
 
   <div class="playlist-item create-playlist-box">
     <div class="playlist-creation">
-      <button id="create-playlist-btn" (click)="createPlaylist()">+</button>
+      <button id="create-playlist-btn" (click)="createPlaylist()"><span class="fas fa-heart"></span></button>
       <p>Create Playlist</p>
     </div>
   </div>
 
   <div *ngIf="currentlyPlayingData" class="playlist-item currently-playing">
-    <img [src]="currentlyPlayingData.images[0]?.url" alt="Playlist Image" class="playlist-image">
+    <img [src]="currentlyPlayingData.album.images[0]?.url" alt="Playlist Image" class="playlist-image">
     <div class="song-details">
       <p>Currently Playing: {{ currentlyPlayingData.name }}</p>
     </div>
     <div class="artists-list">
       <p>Artists: </p>
-      <span *ngFor="let artist of currentlyPlayingData.artists" class="artist-name">{{ artist.name }}</span>
+      <span *ngFor="let artist of currentlyPlayingData.album.artists" class="artist-name"> {{ artist.name }}</span>
     </div>
   </div>
 
-  <div *ngFor="let playlist of playlists.items" class="playlist-item">
-    <a [href]="playlist.uri">
+  <div *ngFor="let playlist of playlists.items" class="playlist-item" (click)="playPlaylist(playlist)">
+    <!-- <a [href]="playlist.uri"> -->
       <img [src]="playlist.images.length > 0 ? playlist.images[0]?.url : 'assets/music.png'" alt="Playlist Image"
         class="playlist-image">
-    </a>
+    <!-- </a> -->
     <span class="playlist-name">{{ playlist.name }}</span>
   </div>
 </div>

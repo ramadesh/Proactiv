@@ -119,9 +119,27 @@ export class MusicComponent implements OnInit {
       });
 
       const currentlyPlaying = await playing.json()
-      this.currentlyPlayingData = currentlyPlaying.item.album
-    
-      console.log(this.currentlyPlayingData)
+      this.currentlyPlayingData = currentlyPlaying.item
+  }
+
+  async playPlaylist(playlist: any) {
+    const bodyData = {
+      context_uri: playlist.uri, //"spotify:playlist:0qIwpKFcmksemzlL9dnDYK",
+      position_ms: 0
+    }
+
+    const create = await fetch(`https://api.spotify.com/v1/me/player/play`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("spotify_access_token")}`,
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify(bodyData) 
+      });
+
+      const response = await create.json()
+      console.log(response);
+
   }
 
   async connectToSpotify() {
@@ -142,7 +160,7 @@ export class MusicComponent implements OnInit {
         params.append("client_id", clientId);
         params.append("response_type", "code");
         params.append("redirect_uri", "http://localhost:4200/dash/music");
-        params.append("scope", "user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private user-read-currently-playing");
+        params.append("scope", "user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private user-read-currently-playing user-modify-playback-state");
         params.append("code_challenge_method", "S256");
         params.append("code_challenge", challenge);
 
