@@ -6,17 +6,19 @@
 body.light-mode {
     --text-color: #222;
     --bkg-color: lightblue;
+    /*--input-txt-color: black;
     --input-bg-color: white;
     --btn-txt-color: black;
-    --btn-bg-color: darkgray;
+    --btn-bg-color: lightgray;*/
 }
 
 body.dark-mode {
     --text-color: #eee;
     --bkg-color: #323232;
-    --input-bg-color: gray;
-    --btn-txt-color: rgb(46, 43, 43);
-    --btn-bg-color: lightgray;
+    /*--input-txt-color: black;
+    --input-bg-color: white;
+    --btn-txt-color: black;
+    --btn-bg-color: lightgray;*/
 }
 
 body {
@@ -24,11 +26,12 @@ body {
     color: var(--text-color);
 }
 
-button {
+/*button {
     background-color: var(--btn-bg-color);
     color: var(--btn-txt-color);
 }
 
 input {
     background-color: var(--input-bg-color);
-}
+    color: var(--input-txt-color);
+}*/
