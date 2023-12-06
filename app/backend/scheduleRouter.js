@@ -7,7 +7,7 @@ const { checkIfAuthenticated } = require('./checkAuthentication.js');
 router.get('/:id', checkIfAuthenticated, async function(req, res){
     const { userId } = req.query;
     const filter = { userId : userId, eventId : req.params.id};
-    const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1 };
+    const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1, "conflicts" : 1 };
     await ScheduleEvent.findOne(filter, projection).then((data) => {
         if(data === null){
             // If no matching event is found, return a 404 status code
@@ -26,7 +26,7 @@ router.get('/:id', checkIfAuthenticated, async function(req, res){
 router.get('/', checkIfAuthenticated, async function(req, res){
     const userId = req.query.userId;
     const date = req.query.date;
-    const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1 };
+    const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1, "conflicts" : 1 };
     var filter = {};
     if(date == undefined) {
         filter = { userId : userId }; 

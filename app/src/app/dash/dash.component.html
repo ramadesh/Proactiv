@@ -21,6 +21,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            color: black;
         }
 
         #clickButton {
@@ -35,7 +36,7 @@
 </head>
 
 <body>
-    <div class="navbar" style="padding-left: 10px; padding-right: 10px;">
+    <div class="navbar" style="padding-left: 10px; padding-right: 10px; box-shadow: none;">
         <nav>
             <div class="navbar-buttons">
                 <img routerLink="/dash"class="navbar-logo" id="clickButton" src="assets/P.png" style="width: 50px; height: 50px; margin: 0%; padding: 0px" alt="Image" />
@@ -62,8 +63,7 @@
                 &nbsp;
                 <input type="checkbox" [(ngModel)]="showNote" (click)="toggleNote()">
                 &nbsp;
-                <label for="Notes"> Notes </label>
-                
+                <label for="Notes" style = "color: black; height: 15px;"> Notes </label>
             </div>
         </nav>
 
@@ -79,6 +79,6 @@
     <router-outlet></router-outlet>
     <app-note *ngIf="showNote"></app-note>
     
-    <div class="background"></div>  <!--This is the full-width and full-height background -->
+    <!--<div class="background"></div>  This is the full-width and full-height background -->
 </body>
 </html>

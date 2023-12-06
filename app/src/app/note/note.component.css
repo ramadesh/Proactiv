@@ -6,10 +6,12 @@
     border: 1px solid #ddd;
     background-color: #feffdd;
     box-shadow: 7px 7px 7px rgba(0,0,0,.1);
+    color: black;
 }
 
 textarea {
     border: none;
     outline: none;
     background-color: #feffdd;
+    color: black;
 }

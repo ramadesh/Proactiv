@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Three columns, each taking 1 fraction of available space */
+      gap: 16px; /* Adjust the gap between columns as needed */
+      padding: 16px; /* Add some padding for spacing */
+    }
+
+    .example-card {
+      max-width: 100%; /* Allow cards to take up the full width of their container */
+      margin-bottom: 16px; /* Add space between cards */
+      color: #000;
+    }
+    .user-details {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .user-details img {
+      width: 70px; /* Adjust the image width as needed */
+      height: 70px; /* Adjust the image height as needed */
+      border-radius: 50%; /* Create a circular image */
+      margin-right: 20px;
+      margin-left: 20px;
+      margin-top: 20px;
+
+    }
+
+    .user-details .username {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #000;
+    }
+
+    .user-details .additional-details {
+      font-size: 14px;
+      color: #000; /* Adjust the color as needed */
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
+      <div class="user-details">
+        <img class="spotifyPfp" [src]="spotifyProfilePic || 'assets/ProfileIcon.png'" alt="Image" />
+        <div>
+          <div class="username">{{profile.displayName}}</div>
+          <div class="additional-details">@{{profile.userId}}</div>
+          <div class="additional-details">birthday: {{profile.birthday}}</div>
+          <div class="additional-details">email: {{profile.email}}</div>
+        </div>
+      </div>
+      <!-- Additional content for the "Hello" card -->
+    </mat-card>
+    <!-- Content for the second column -->
+  </div>
+  <div>
+    <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{journals[journals.length - 1].title}}</mat-card-title>
+        <mat-card-subtitle>{{journals[journals.length - 1].timestamp}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{journals[journals.length - 1].content}}</p>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card style="box-shadow: none;" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{journals[journals.length - 2].title}}</mat-card-title>
+        <mat-card-subtitle>{{journals[journals.length - 2].timestamp}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>This is how past journals will be displayed.</p>
+        <p>{{journals[journals.length - 2].content}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div>
+    <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
+      <mat-card-header>
+        <mat-card-title>To Do</mat-card-title>
+        <mat-card-subtitle>to dos displayed here</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let task of tasks">
+          <p *ngIf="task.active == 1">{{task.todo}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card style="box-shadow: none;" class="example-card">
+      <mat-card-header>
+        <mat-card-title>Schedule</mat-card-title>
+        <mat-card-subtitle>schedule displayed here</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>7am</p>
+        <p>8am</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</body>
+</html>
