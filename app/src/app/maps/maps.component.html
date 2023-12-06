@@ -67,6 +67,7 @@
 
   .mt-5 {
     margin-top: 1.25rem;
+    border-style: none;
   }
 
   .tracking-wide {
@@ -133,21 +134,38 @@
   <input [(ngModel)]="searchbarInput" id="searchbarInput" name="searchbarInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter Input" required>
 </button>
 
+<!-- <div class="flex space-x-2">
+
 <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="search()">
   Search
 </button>
 
-<a [href]="staticmap()"> 
-<button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="staticmap()">
+
+<button class="font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="staticmap()">
   Create Static Map
 </button>
-</a>
+
+</div>  -->
 
 <div class="flex space-x-2">
-    <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="coffee()">
+  <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg border-gray-200 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="search()">
+    Search
+  </button>
+  <a class="tracking-wide w-full" [href]="staticmap()"> 
+  <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg border-gray-200 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="staticmap()">
+    Creat Static Map
+  </button>
+  </a>
+  
+</div> 
+
+
+
+<div class="flex space-x-2">
+    <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg border-gray-200 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="coffee()">
       Coffee Shops
     </button>
-    <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="libraries()">
+    <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg border-gray-200 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="libraries()">
       Libraries
     </button>
     

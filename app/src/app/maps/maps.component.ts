@@ -12,12 +12,39 @@ export class MapsComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) {
   }
   coffee() {
-    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Coffee+near+me')
 
+    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Coffee+near+me')
+    console.log("IM HEREEEEE" + this.searchbarInput);
   }
   libraries() {
     this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=Libraries+near+me')
   }
+
+  search() {
+    this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.google.com/maps/embed/v1/search?key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g&q=' + this.searchbarInput )
+  }
+
+  searchbarInput: string = '';
+  staticmap() {
+    //console.log('https://maps.googleapis.com/maps/api/staticmap?center=' + this.searchbarInput + '&zoom=13&size=600x300&key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g')
+    //this.query = this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.googleapis.com/maps/api/staticmap?center=' + this.searchbarInput + '&zoom=13&size=600x300&key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g')
+
+    //const staticLink = `mailto:?subject=Static Link from Proactiv&body=Hello, check this out: https://maps.googleapis.com/maps/api/staticmap?center=&zoom=13&size=600x300&key=YOUR_GOOGLE_MAPS_API_KEY`;
+    //return staticLink;
+    let t = this.searchbarInput.split(' ').join('+')
+
+    const encodedURL = encodeURIComponent(`https://maps.googleapis.com/maps/api/staticmap?center=${t}&zoom=13&size=600x300&key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g`);
+    
+    return`mailto:?subject=Look at this website&body=Hi, I found this website and thought you might like it: ${encodedURL}`;
+
+  }
+
+  //public searchbarInput = '';
+
+  public staticmapInput = '';
+
+  //public staticLink = 'mailto:?subject=look at this website&body=Hi,I found this website and thought you might like hi https://maps.googleapis.com/maps/api/staticmap?center=' + this.searchbarInput + '&zoom=13&size=600x300&key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g';
+
 
   weatherAPIKey = 'bef92f1fa030870057d2956f1544ee5d'
   city = 'West Lafayette';
@@ -41,6 +68,9 @@ export class MapsComponent implements OnInit {
 
     this.getCurrentWeather(lat, lon)
 
+  
+
+        
   }
 
   async getCurrentWeather(lat: number, lon: number) {
@@ -52,6 +82,8 @@ export class MapsComponent implements OnInit {
 
     console.log(currentWeather.weather)
   }
+
+  
 
   
 }
