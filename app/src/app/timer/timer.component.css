@@ -1,3 +1,12 @@
+h1 {
+    font-size: 24pt;
+    margin-bottom: 12px;
+    color: black;
+}
+
 input {
-    width: 3em;
+    display: inline-block;
+    font-size: 32pt;
+    width: 2em;
+    color: black;
 }
