@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 <style>
   .playlist-grid {
     display: grid;
@@ -75,8 +77,6 @@
 </button>
 
 
-<!-- <button id="btn btn-success" (click)="playPlaylist()">play playlist</button> -->
-
 <div *ngIf="playlists" class="playlist-grid">
   <div class="playlist-item">
     <img [src]="userProfile.images[1]?.url" alt="User Profile Image" class="profile-image">
@@ -85,10 +85,33 @@
 
   <div class="playlist-item create-playlist-box">
     <div class="playlist-creation">
-      <button id="create-playlist-btn" (click)="createPlaylist()"><span class="fas fa-heart"></span></button>
-      <p>Create Playlist</p>
+
+      <button mat-raised-button id="create-playlist-btn" (click)="openModal()" *ngIf="playlistButton">+</button>
+      <p>Create a Playlist</p>
+
+      <div *ngIf="showModal">
+        <div mat-dialog-content>
+          <label for="playlistName">Playlist Name:</label>
+          <input matInput type="text" id="playlistName" [(ngModel)]="playlistName" />
+
+          <label for="description">Playlist Description (optional):</label>
+          <input matInput type="text" id="description" [(ngModel)]="description" />
+
+        </div>
+        <div mat-dialog-actions>
+          <button mat-button (click)="closeModal()">Cancel</button>
+          <button mat-button (click)="createPlaylist()">Create</button>
+        </div>
+      </div>
     </div>
   </div>
+  <!-- <div class="playlist-item create-playlist-box">
+    <div class="playlist-creation">
+      <button id="create-playlist-btn" (click)="createPlaylist()">
+      </button>
+      <p>Create Playlist</p>
+    </div>
+  </div> -->
 
   <div *ngIf="currentlyPlayingData" class="playlist-item currently-playing">
     <img [src]="currentlyPlayingData.album.images[0]?.url" alt="Playlist Image" class="playlist-image">
@@ -102,10 +125,8 @@
   </div>
 
   <div *ngFor="let playlist of playlists.items" class="playlist-item" (click)="playPlaylist(playlist)">
-    <!-- <a [href]="playlist.uri"> -->
       <img [src]="playlist.images.length > 0 ? playlist.images[0]?.url : 'assets/music.png'" alt="Playlist Image"
         class="playlist-image">
-    <!-- </a> -->
     <span class="playlist-name">{{ playlist.name }}</span>
   </div>
 </div>

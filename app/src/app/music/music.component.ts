@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { DataService } from '../data.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',
@@ -10,8 +11,23 @@ export class MusicComponent implements OnInit {
 
    }
 
+  showModal: boolean = false;
+  playlistName: string = '';
+  description: string = '';
+
+  openModal(): void {
+    this.playlistButton = false;
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.playlistButton = true
+  }
+
   clientId = "032af492417046df8648790eb9711f7e";
   isButtonVisible = true
+  playlistButton = true
   userProfile: any
   playlists: any
   currentlyPlayingData: any
@@ -86,18 +102,14 @@ export class MusicComponent implements OnInit {
 
   async createPlaylist() {
     const userId = this.userProfile.id
-    const playlistName = prompt('Enter playlist name:');
-    const description = prompt('Enter playlist description (optional):');
-    const isPublic = confirm('Make the playlist public?');
 
     const bodyData = {
-      name: playlistName,
-      description: description,
-      public: isPublic
+      name: this.playlistName,
+      description: this.description
     };
 
-    if (playlistName) {
-      console.log(userId + " " + playlistName)
+    if (this.playlistName) {
+      console.log(userId + " " + this.playlistName)
 
       const create = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
         method: "POST",
@@ -111,6 +123,8 @@ export class MusicComponent implements OnInit {
       const response = await create.json()
       console.log(response);
     }
+
+    this.closeModal()
   }
 
   async getCurrentlyPlaying(token: string) {
