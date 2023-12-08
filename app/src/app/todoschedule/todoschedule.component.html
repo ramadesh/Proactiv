@@ -51,7 +51,7 @@
       <p style="text-decoration: line-through; color: black;" *ngIf="task.active == 0">{{task.todo}}</p>
       <div>
         <input *ngIf="task.active == 1" (click)="remove(task)" type="checkbox">
-        <p *ngIf="task.active == 1" style="display: inline-block; margin-left: 5px;">Task: {{task.todo}}</p>
+        <p *ngIf="task.active == 1" style="display: inline-block; color: black; margin-left: 5px;">Task: {{task.todo}}</p>
       </div>
     </div>
 </div>
