@@ -16,6 +16,7 @@ export class Schedule2Component implements OnInit {
   details = "";
   startDate = "";
   endDate = "";
+  add="addId";
 
   constructor(private scheduleService : ScheduleService) { }
 
@@ -40,6 +41,7 @@ export class Schedule2Component implements OnInit {
     newEvent.details = this.details;
     newEvent.start = this.startDate;
     newEvent.end = this.endDate;
+    newEvent.conflictEvents = [];
 
     console.log(this.events);
 
@@ -79,5 +81,29 @@ export class Schedule2Component implements OnInit {
 
   onSelect(myEvent: ScheduleEvent): void {
     this.selectedEvent = myEvent;
+    this.collapseToggle(myEvent.eventId);
+    this.scheduleService.getScheduleConflictsForEvent(myEvent.eventId).subscribe((data) => {
+      if(data != null) {
+        myEvent.conflictEvents = [];
+        data.forEach((e) => {
+          myEvent.conflictEvents.push(e);
+        });
+      }
+    })
+  }
+
+  collapseToggle(eventId: string) {
+    var element = <HTMLElement> document.getElementById(eventId);
+    if(element != null) {
+      element.classList.toggle("active");
+      var content = <HTMLElement> element.nextElementSibling;
+      if(content != null) {
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      }
+    }
   }
 }

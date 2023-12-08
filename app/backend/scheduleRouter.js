@@ -25,30 +25,58 @@ router.get('/:id', checkIfAuthenticated, async function(req, res){
 
 router.get('/', checkIfAuthenticated, async function(req, res){
     const userId = req.query.userId;
+    const eventId = req.query.eventId;
     const date = req.query.date;
     const projection = { "userId" : 1, "eventId" : 1, "title" : 1, "details" : 1, "start" : 1, "end" : 1, "conflicts" : 1 };
     var filter = {};
-    if(date == undefined) {
-        filter = { userId : userId }; 
+    if(eventId != undefined) {
+        const eventFilter = { userId : userId, eventId : eventId};
+        const eventProjection = { "start" : 1, "end" : 1 };
+        await ScheduleEvent.findOne(eventFilter, eventProjection).then(async (data) => {
+            if(data === null){
+                // If no matching event is found, return a 404 status code
+                console.log('Error: schedule event not found');
+                return res.status(404).json({ message: 'Error: schedule event not found' });
+            }
+            console.log(data._doc);
+            conflictFilter = { userId : userId, eventId : { $ne : eventId }, start : { $lt : data._doc.end }, end : { $gt : data._doc.start } };
+            await ScheduleEvent.find(conflictFilter, projection ).then((data) => {
+                if(data === null){
+                    // If no matching event is found, return a 404 status code
+                    console.log('Error: event not found');
+                    return res.status(404).json({ message: 'Error: event not found' });
+                }
+                // If a matching user is found, return their schedule
+                console.log(data);
+                res.status(200).json(data);
+            })
+        }).catch((error) => {
+            console.error('Error getting all conflicts for a given event and user', error);
+            res.status(500).json({ error: 'Failed to get all conflicts for a given event and user' });
+        });
     } else {
-        const datePlusOne = new Date(date + "Z");
-        datePlusOne.setDate(datePlusOne.getDate() + 1);
-        const datePlusOneStr = datePlusOne.toISOString();
-        filter = { userId : userId, start : { $gte : date, $lte : datePlusOneStr }, end : { $lte : datePlusOneStr } };
-    }
-    await ScheduleEvent.find(filter, projection).then((data) => {
-        if(data === null){
-            // If no matching event is found, return a 404 status code
-            console.log('Error: event not found');
-            return res.status(404).json({ message: 'Error: event not found' });
+        if(date != undefined) {
+            const datePlusOne = new Date(date);
+            datePlusOne.setDate(datePlusOne.getDate() + 1);
+            const datePlusOneStr = datePlusOne.toISOString();
+            filter = { userId : userId, start : { $lte : datePlusOneStr }, end : { $gte : date } };
+        } else {
+            filter = { userId : userId };
         }
-        // If a matching user is found, return their schedule
-        console.log(data);
-        res.status(200).json(data);
-    }).catch((error) => {
-        console.error('Error getting all schedule events for the given user:', error);
-        res.status(500).json({ error: 'Failed to get all schedule events for the given user' });
-    });
+        await ScheduleEvent.find(filter, projection ).then((data) => {
+            if(data === null){
+                // If no matching event is found, return a 404 status code
+                console.log('Error: event not found');
+                return res.status(404).json({ message: 'Error: event not found' });
+            }
+            // If a matching user is found, return their schedule
+            console.log(data);
+            res.status(200).json(data);
+        }).catch((error) => {
+            console.error('Error getting all schedule events for the given user:', error);
+            res.status(500).json({ error: 'Failed to get all schedule events for the given user' });
+        });
+    }
     
 });
  
@@ -177,7 +205,6 @@ router.delete('/:id', checkIfAuthenticated, async function(req, res) {
         console.error('Error deleting schedule event:', error);
         res.status(500).json({ error: 'Failed to delete schedule event' });
     });
-    
 
 });
 

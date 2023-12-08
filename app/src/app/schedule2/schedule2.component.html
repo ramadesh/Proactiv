@@ -1,53 +1,69 @@
 <h1>Schedule</h1>
 
-<h2>Add schedule event</h2>
-<div>
-    <label for="title1">Title: </label>
-    <input [(ngModel)]="title" id="title1"/>
-    <br />
-    <label for="details1">Details: </label>
-    <input [(ngModel)]="details" id="details1"/>
-    <br />
-    <label for="start-date1">Start Date: </label>
-    <input [(ngModel)]="startDate" id="start-date1" type="datetime-local"/>
-    <br />
-    <label for="end-date1">End Date: </label>
-    <input [(ngModel)]="endDate" id="end-date1" type="datetime-local"/>
-    <br />
+<button type="button" title="Add new schedule event" id="addId" class="collapsible" style="width:auto; margin-left: 40px;" (click)="collapseToggle(add)">Add</button>
+<div class="content" style="margin-left: 40px;">
+    <h2>Add New Schedule Event</h2>
+
+    <div class="row">
+        <label class = "col" for="title1">Title </label>
+        <input class = "col" [(ngModel)]="title" id="title1"/>
+    </div>
+    <br/>
+    <div class="row" >
+        <label class = "col" for="details1">Details </label>
+        <textarea class = "col" [(ngModel)]="details" id="details1"></textarea>
+    </div>
+    <br/>
+    <div class="row" >
+        <label class = "col" for="start-date1">Start Date </label>
+        <input class = "col" [(ngModel)]="startDate" id="start-date1" type="datetime-local"/>
+    </div>
+    <br/>
+    <div class="row" >
+        <label class = "col" for="end-date1">End Date </label>
+        <input class = "col" [(ngModel)]="endDate" id="end-date1" type="datetime-local"/>
+    </div>
+    <br/>
     <button (click)="addEvent()">Add</button>
 </div>
 
-<h2>Scheduled events</h2>
-<div *ngIf="events.length > 0">
-    <ul class="scheduledEvents">
-        <li *ngFor="let event of events">
-        <button [class.selected]="event === selectedEvent" type="button" (click)="onSelect(event)">
+<div *ngIf="events.length > 0" style="margin-top: 20px;">
+    <ul *ngFor="let event of events">
+        <button type="button" id={{event.eventId}} class="collapsible" (click)="onSelect(event)">
             <span class="name">{{event.title}}</span>
         </button>
-        </li>
+        <div class="content">
+            <div class="row">
+                <label class="col" for="title2">Title </label>
+                <input class="col" id="title2" [(ngModel)]="event.title" placeholder="title">
+            </div>
+            <br />
+            <div class="row">
+                <label class="col" for="details2">Details </label>
+                <textarea class="col" id="details2" [(ngModel)]="event.details" placeholder="details"></textarea>
+            </div>
+            <br />
+            <div class="row">
+                <label class="col" for="start2">Start Date </label>
+                <input class="col" id="start2" [(ngModel)]="event.start" type="datetime-local" placeholder="start">
+            </div>
+            <br />
+            <div class="row">
+                <label class="col" for="end2">End Date </label>
+                <input class="col" id="end2" [(ngModel)]="event.end" type="datetime-local" placeholder="end">
+            </div>
+            <br />
+            <div class="row">
+                <button class="col" (click)="saveEvent()">Save</button>
+                <button class="col" (click)="deleteEvent()">Delete</button>
+            </div>
+            <br />
+            <label>Conflicts</label>
+            <li *ngFor="let ce of event.conflictEvents" style="margin-left: 30px;">
+                {{ce.title}}
+            </li>
+            
+        </div>
     </ul>
 </div>
 <div *ngIf="events.length == 0"><p>No events scheduled.</p></div>
-
-<div *ngIf="selectedEvent">
-    <h2>{{selectedEvent.title }}</h2>
-    <div>
-        <label for="title2">Title: </label>
-        <input id="title2" [(ngModel)]="selectedEvent.title" placeholder="title">
-        <br />
-        <label for="details2">Details: </label>
-        <input id="details2" [(ngModel)]="selectedEvent.details" placeholder="details">
-        <br />
-        <label for="start2">Start Date: </label>
-        <input id="start2" [(ngModel)]="selectedEvent.start" type="datetime-local" placeholder="start">
-        <br />
-        <label for="end2">End Date: </label>
-        <input id="end2" [(ngModel)]="selectedEvent.end" type="datetime-local" placeholder="end">
-        <br />
-        <button (click)="saveEvent()">Save</button>
-        <button (click)="deleteEvent()">Delete</button>
-    </div>
-</div>
-
-
-

@@ -14,7 +14,10 @@
     .example-card {
       max-width: 100%; /* Allow cards to take up the full width of their container */
       margin-bottom: 16px; /* Add space between cards */
-      color: #000;
+      /*border-color: #000;
+      border-width: 1px; */
+      border-radius: 10px;
+      color: #000
     }
     .user-details {
       display: flex;
@@ -47,7 +50,7 @@
 </head>
 <body>
   <div>
-    <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
+    <mat-card style="margin-top: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;" class="example-card">
       <div class="user-details">
         <img class="spotifyPfp" [src]="spotifyProfilePic || 'assets/ProfileIcon.png'" alt="Image" />
         <div>
@@ -57,35 +60,46 @@
           <div class="additional-details">email: {{profile.email}}</div>
         </div>
       </div>
+      
       <!-- Additional content for the "Hello" card -->
+    </mat-card>
+    <mat-card style="margin-top: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;" class="example-card">
+      <mat-card-header>
+        <mat-card-title style="font-weight: 600;">{{ this.city }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="temperature">{{ this.temperature }}°F</div>
+        <div class="description">{{ this.weatherDescription }}</div>
+      </mat-card-content>
+      
     </mat-card>
     <!-- Content for the second column -->
   </div>
   <div>
-    <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
+    <mat-card style="margin-top: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; position: relative;" class="example-card">
       <mat-card-header>
-        <mat-card-title>{{journals[journals.length - 1].title}}</mat-card-title>
+        <mat-card-title style="font-weight: 600;">{{journals[journals.length - 1].title}}</mat-card-title>
         <mat-card-subtitle>{{journals[journals.length - 1].timestamp}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>{{journals[journals.length - 1].content}}</p>
       </mat-card-content>
+      
     </mat-card>
-  
-    <mat-card style="box-shadow: none;" class="example-card">
+
+    <mat-card style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;" class="example-card">
       <mat-card-header>
-        <mat-card-title>{{journals[journals.length - 2].title}}</mat-card-title>
+        <mat-card-title style="font-weight: 600;">{{journals[journals.length - 2].title}}</mat-card-title>
         <mat-card-subtitle>{{journals[journals.length - 2].timestamp}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>This is how past journals will be displayed.</p>
         <p>{{journals[journals.length - 2].content}}</p>
       </mat-card-content>
     </mat-card>
   </div>
 
   <div>
-    <mat-card style="margin-top: 10px; box-shadow: none;" class="example-card">
+    <mat-card style="margin-top: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;" class="example-card">
       <mat-card-header>
         <mat-card-title>To Do</mat-card-title>
         <mat-card-subtitle>to dos displayed here</mat-card-subtitle>
@@ -96,7 +110,7 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <mat-card style="box-shadow: none;" class="example-card">
+    <mat-card style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;" class="example-card">
       <mat-card-header>
         <mat-card-title>Schedule</mat-card-title>
         <mat-card-subtitle>schedule displayed here</mat-card-subtitle>

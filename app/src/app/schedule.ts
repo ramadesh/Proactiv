@@ -5,4 +5,7 @@ export interface Schedule {
     details : string;
     start : string;
     end : string;
+    conflictEvents : Schedule[];
+    startDisplayStr : string;
+    endDisplayStr: string;
 }

@@ -1,41 +1,77 @@
-<div class="calendar">
-  <div class="calendar-header">
-    <button style="border: 1px solid #ccc; background-color: #fff; border-radius: 5px;" (click)="goToPreviousMonth()"><</button>
-    &nbsp;
-    <button style="border: 1px solid #ccc; background-color: #fff; border-radius: 5px;" (click)="goToNextMonth()">></button>
-    <h2>{{ currentDate.format('MMMM YYYY') }}</h2>
-  </div>
-  <div class="calendar-grid">
-    <!-- Calendar grid generation logic based on this.currentDate -->
-    <div
-      class="calendar-day"
-      *ngFor="let date of generateCalendar()"
-      (click)="showTasksForDate(date)"
-      [class.selected]="date === selectedDate"
-    >
-      {{ date.substring(8,10) }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 20px;
+      padding-bottom: 20px;
+      display: flex;
+      height: calc(100vh - 100px);
+    }
+
+    .card {
+      flex: 1;
+      height: 100%;
+      box-sizing: border-box;
+      border: black;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" style="background-color: transparent;"> 
+    <div class="calendar">
+      <div class="calendar-header">
+        <button style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-width: 0px; background-color: #fff; border-radius: 5px;" (click)="goToPreviousMonth()"><</button>
+        &nbsp;
+        <button style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border-width: 0px; background-color: #fff; border-radius: 5px;te" (click)="goToNextMonth()">></button>
+        <h2 style="padding-top: 10px; padding-bottom: 10px;">{{ currentDate.format('MMMM YYYY') }}</h2>
+      </div>
+      <div class="calendar-grid">
+       
+        <div
+          class="calendar-day"
+          *ngFor="let date of generateCalendar()"
+          (click)="showTasksForDate(date)"
+          [class.selected]="date === selectedDate"
+        >
+          {{ date.substring(8,10) }}
+        </div>
+      </div>
     </div>
   </div>
-
-  <br>
-  <div *ngIf="tasks.length > 0">
-    <!-- Task list based on the selected date -->
-    <u>Tasks for the Day</u>
-    <ul class="task-list" *ngFor="let task of tasks">
-      <li>{{ task.todo }}</li>
-    </ul>
-  </div>
-  <div *ngIf="tasks.length == 0"><p>No tasks for this day.</p></div>
-
-  <br>
-  <div *ngIf="schedule.length > 0">
-    <!-- Schedule based on the selected date -->
-    <u>Schedule for the Day</u>
-    <ul class="task-list" *ngFor="let event of schedule">
-      <li>{{ event.title }}: {{event.start}} - {{event.end}}</li>
-    </ul>
-  </div>
-  <div *ngIf="schedule.length == 0"><p>No scheduled events for the day.</p></div>
-
+  <div class="card" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; padding-left: 20px; padding-top: 20px">
+    <div *ngIf="tasks.length > 0">
+      <!-- Task list based on the selected date -->
+      <u style="font-size: larger; color: black;">Tasks for the Day</u>
+      <ul style="color: black;" class="task-list" *ngFor="let task of tasks">
+        <li>{{ task.todo }}</li>
+      </ul>
+    </div>
+    <div *ngIf="tasks.length == 0"><p style="font-size: larger; color: black;">No tasks for this day.</p></div>
   
-</div>
+    <br>
+    <div *ngIf="schedule.length > 0">
+      <!-- Schedule based on the selected date -->
+      <u style="font-size: larger; color: black;">Schedule for the Day</u>
+      <div class="row">
+        <div class="col">Title</div>
+        <div class="col">Start</div>
+        <div class="col">End</div>
+      </div>
+      <ul style="color: black;" class="task-list" *ngFor="let event of schedule">
+        <div class="row">
+          <div class="col">{{ event.title }}</div>
+          <div class="col">{{ event.startDisplayStr }}</div>
+          <div class="col">{{ event.endDisplayStr }}</div>
+        </div>
+      </ul>
+    </div>
+    <div *ngIf="schedule.length == 0"><p style="font-size: larger; color: black;">No scheduled events for the day.</p></div>
+  
+  </div>
+</body>
+</html>

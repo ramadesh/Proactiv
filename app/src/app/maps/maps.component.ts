@@ -47,24 +47,43 @@ export class MapsComponent implements OnInit {
 
 
   weatherAPIKey = 'bef92f1fa030870057d2956f1544ee5d'
-  city = 'West Lafayette';
-  state = 'IN';
-  countryCode = 'US';
+  city: any
+  // state = 'IN';
+  // countryCode = 'US';
   limit = 5
   temperature: any
   weatherDescription: any
 
+  lat: any
+  lng: any
+
   async ngOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
+        if (position) {
+          // console.log("Latitude: " + position.coords.latitude +
+          //   "Longitude: " + position.coords.longitude);
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+          console.log(this.lat);
+          console.log(this.lng);
+          this.getCurrentWeather(this.lat, this.lng)
+        }
+      },
+        (error: GeolocationPositionError) => console.log(error));
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
     
-    const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.city},${this.state},${this.countryCode}&limit=${this.limit}&appid=${this.weatherAPIKey}`, {
-        method: "GET"
-      })
+    // const data = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${this.city},${this.state},${this.countryCode}&limit=${this.limit}&appid=${this.weatherAPIKey}`, {
+    //     method: "GET"
+    //   })
 
-    const geolocation = await data.json();
-    const lat = geolocation[0].lat
-    const lon = geolocation[0].lon
+    // const geolocation = await data.json();
+    // const lat = geolocation[0].lat
+    // const lon = geolocation[0].lon
 
-    console.log(lat + " " + lon)
+    // console.log(this.lat + " " + this.lng)
 
     this.getCurrentWeather(lat, lon)
 
@@ -86,6 +105,13 @@ export class MapsComponent implements OnInit {
   }
 
   async getCurrentWeather(lat: number, lon: number) {
+    const geocoding = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${this.limit}&appid=${this.weatherAPIKey}`)
+
+    const body = await geocoding.json()
+    this.city = body[0].name
+
+    // console.log(body)
+
     const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.weatherAPIKey}&units=imperial`)
 
     const currentWeather = await data.json()

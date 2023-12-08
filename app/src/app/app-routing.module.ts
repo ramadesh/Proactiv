@@ -17,6 +17,7 @@ import { authGuard } from './auth.guard';
 import { CalComponent } from './cal/cal.component';
 import { Schedule2Component } from './schedule2/schedule2.component';
 import { ToolsComponent } from './tools/tools.component';
+import { TodoscheduleComponent } from './todoschedule/todoschedule.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   {component: DashComponent, path: 'dash', canActivate:[authGuard],
     children: [
       {component: TodoComponent, path: 'todo', canActivate:[authGuard]}, 
-      {component: Schedule2Component, path: 'schedule', canActivate:[authGuard]}, 
+      {component: Schedule2Component, path: 'schedule', canActivate:[authGuard]},
+      {component: TodoscheduleComponent, path: 'todoschedule', canActivate:[authGuard]},  
       {component: MapsComponent, path: 'maps', canActivate:[authGuard]},
       {component: MusicComponent, path: 'music', canActivate:[authGuard]},
       {component: ProfileComponent, path: 'profile', canActivate:[authGuard]},
