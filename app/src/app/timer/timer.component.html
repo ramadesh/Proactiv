@@ -2,20 +2,17 @@
     href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
     rel="stylesheet"
 />
-
-<div class="jumbotron p-8 m-0 bg-inverse">
-    <h1>Timer</h1>
-    <section class="timer-counter-label text-black">
-        <input [(ngModel)]="hours">
-        h
-        <input [(ngModel)]="minutes">
-        m
-        <input [(ngModel)]="seconds">
-        s
-    </section>
-    <section class="timer-button-container">
-        <button class="font-semibold bg-indigo-500 text-gray-100 w-20 mt-4 py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" (click)="toggleTimer()">
-            {{ startText }}
-        </button>
-    </section>
-</div>
+<h1>Timer</h1>
+<section class="timer-counter-label text-black">
+    <input [(ngModel)]="hours">
+    h
+    <input [(ngModel)]="minutes">
+    m
+    <input [(ngModel)]="seconds">
+    s
+</section>
+<section class="timer-button-container">
+    <button class="font-semibold bg-indigo-500 text-gray-100 w-20 mt-4 py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" (click)="toggleTimer()">
+        {{ startText }}
+    </button>
+</section>

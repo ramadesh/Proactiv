@@ -1,12 +1,31 @@
+<style>
+    .card {
+      box-shadow:#adabab  0px 2px 8px 0px;
+      flex: 1;
+      height: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      margin: 0 10px; /* Adjust the margin to set the gap */
+      overflow: auto;
+      padding: 30px;
+    }
+</style>
+
 <div class="row" style="padding: 5%;">
     <div class = "col">
-        <app-calculator></app-calculator>
+        <div class="card">
+            <app-calculator></app-calculator>
+        </div>
     </div>
     <div class = "col">
-        <app-stopwatch></app-stopwatch>
+        <div class="card">
+            <app-stopwatch></app-stopwatch>
+        </div>
     </div>
     <div class = "col">
-        <app-timer></app-timer>
+        <div class="card">
+            <app-timer></app-timer>
+        </div>
     </div>
 </div>
 

@@ -2,23 +2,20 @@
     href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
     rel="stylesheet"
 />
-
-<div class="jumbotron p-12 m-0 bg-inverse">
-    <h1>Stopwatch</h1>
-    <section class="timer-counter-label">
-        <div *ngIf="displayTimer; else elseBlock">  {{displayTimer}} </div>
-        <ng-template #elseBlock> 00:00:00 </ng-template>
-    </section>
-    <section class="timer-button-container">
-        <div style="float: left; padding-right: 5px;">
-            <button class="font-semibold bg-indigo-500 text-gray-100 py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" style="width: 5em" (click)="toggleTimer()">
-                {{ startText }}
-            </button>
-        </div>
-        <div style="float: left; padding-left: 5px;">
-            <button class="font-semibold bg-indigo-500 text-gray-100 py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" style="width: 5em" (click)="resetTimer()">
-                Reset
-            </button>
-        </div>
-    </section>
-</div>
+<h1>Stopwatch</h1>
+<section class="timer-counter-label">
+    <div *ngIf="displayTimer; else elseBlock">  {{displayTimer}} </div>
+    <ng-template #elseBlock> 00:00:00 </ng-template>
+</section>
+<section class="timer-button-container">
+    <div style="float: left; padding-right: 5px;">
+        <button class="font-semibold bg-indigo-500 text-gray-100 py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" style="width: 5em" (click)="toggleTimer()">
+            {{ startText }}
+        </button>
+    </div>
+    <div style="float: left; padding-left: 5px;">
+        <button class="font-semibold bg-indigo-500 text-gray-100 py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" style="width: 5em" (click)="resetTimer()">
+            Reset
+        </button>
+    </div>
+</section>
