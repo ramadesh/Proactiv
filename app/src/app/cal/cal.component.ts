@@ -70,16 +70,26 @@ export class CalComponent {
   
   // Function to generate the calendar grid
   generateCalendar() {
-  
-    const startDate = this.currentDate.clone().startOf('month');
+    const startDate = this.currentDate.clone().startOf('month').startOf('week');
     const endDate = this.currentDate.clone().endOf('month');
     const calendarDays: string[] = [];
-
+  
+    // Determine the first day of the current month
+    const firstDayOfCurrentMonth = this.currentDate.clone().startOf('month');
+  
+    // Iterate through each day of the month
     while (startDate.isSameOrBefore(endDate, 'day')) {
-      calendarDays.push(startDate.format('YYYY-MM-DD'));
+      // Check if the day belongs to the current month
+      if (startDate.isSameOrAfter(firstDayOfCurrentMonth, 'day')) {
+        calendarDays.push(startDate.format('YYYY-MM-DD'));
+      } else {
+        // Add a placeholder for days from the previous month
+        calendarDays.push("");
+      }
+  
       startDate.add(1, 'day');
     }
-
+  
     return calendarDays;
   }
 }

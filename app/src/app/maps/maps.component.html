@@ -17,12 +17,24 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+  .card {
+      box-shadow:#adabab  0px 2px 8px 0px;
+      flex: 1;
+      height: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      margin: 0 20px; /* Adjust the margin to set the gap */
+      overflow: auto;
+      padding: 20px;
+      margin-top: 20px;
+      
+    }
 
   .weather-card {
     background-color: #ffffff;
     color: #000;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     margin: 16px;
     padding: 16px;
     width: 180px;
@@ -125,46 +137,61 @@
     outline: none;
   } */
 
+  button {
+    border: 0px;
+  }
   body {
     font-family: "Inter", sans-serif;
     }
+
 </style>
+<div class="card">
 
-<button class="mt-2 tracking-wide font-semibold  text-gray-100 w-full py-4 rounded-lg  transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="coffee()">
-  <input [(ngModel)]="searchbarInput" id="searchbarInput" name="searchbarInput" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" placeholder="Enter Input" required>
-</button>
-
-<div class="flex space-x-2">
- 
-  <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg border-gray-200 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="search()">
-    Search
-  </button>
-  <a class="tracking-wide w-full" [href]="staticmap()"> 
-  <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg border-gray-200 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="staticmap()">
-    Create Static Map
-  </button>
-  </a>
-  
-</div> 
 
 <p> Current Location: {{this.city}}</p>
 
 <div class="flex space-x-2">
+  <input
+    [(ngModel)]="searchbarInput"
+    id="searchbarInput"
+    name="searchbarInput"
+    class="flex-1 px-5 py-2 rounded-lg font-medium border border-gray-300 text-sm focus:outline-none focus:bg-white mt-2"
+    placeholder="Enter Input"
+    style="padding-left: 10px; width: 80%"
+    required
+  />
+  &nbsp;&nbsp;
+  <button style="padding: 5px;" class="px-3 flex-1 mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="search()">
+    Search
+  </button>
+  &nbsp;&nbsp;
+  <a class="flex-1" [href]="staticmap()">
+    <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 px-3 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" mat-button (click)="staticmap()">
+      Static Map
+    </button>
+  </a>
+</div>
+
+
+</div>
+<div class="card">
+<div class="flex space-x-2">
     <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" style="border-radius: 0px;" mat-button (click)="coffee()">
       Coffee Shops
     </button>
+    &nbsp; &nbsp;&nbsp;&nbsp;
     <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out" style="border-radius: 0px;" mat-button (click)="libraries()">
       Libraries
     </button>
     
   </div> 
-
-  
-  <div id="map" class = "w-screen ">
+</div> 
+<div class="card">
+  <div id="map" class = "w-screen">
       <iframe
       class="w-full"
-      height="500px"
-    frameborder="10" style="border:0; margin-top: 20px;"
+      height="280px"
+    frameborder="10" style="border:0; margin-top: 20px; margin-bottom: 20px"
     referrerpolicy="no-referrer-when-downgrade"
     [src]="query"
     allowfullscreen>
@@ -180,4 +207,5 @@
       <div class="description">{{ this.weatherDescription }}</div>
     </div>
   </div>
+</div>
 </div>
