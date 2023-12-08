@@ -46,11 +46,10 @@
           </h1>
           <div class="w-full flex-1">
             <div class="mx-auto max-w-xs">
-              <input [(ngModel)]="displayNameInput" id="displayNameInput" name="displayNameInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-4" placeholder="Enter display name" required>
-              <input [(ngModel)]="emailInput" id="emailInput" name="emailInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-4" placeholder="Enter email" required>
+              <input [(ngModel)]="displayNameInput" id="displayNameInput" name="displayNameInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" placeholder="Enter display name" required>
+              <input [(ngModel)]="emailInput" id="emailInput" name="emailInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" placeholder="Enter email" required>
               <br>
-              <br>
-              <select [(ngModel)]="monthInput" id="monthInput" name="monthInput" class="w-1/3 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" (change)="updateBdayInput()" required>
+              <select [(ngModel)]="monthInput" id="monthInput" name="monthInput" class="w-1/3 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" (change)="updateBdayInput()" required>
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -65,35 +64,34 @@
                 <option value="12">December</option>
               </select>
               &nbsp;
-              <input [(ngModel)]="dayInput" id="dayInput" name="dayInput" class="w-1/5 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" (change)="updateBdayInput()" required/>
+              <input [(ngModel)]="dayInput" id="dayInput" name="dayInput" class="w-1/5 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" (change)="updateBdayInput()" required/>
               &nbsp;
-              <input [(ngModel)]="yearInput" id="yearInput" name="yearInput" class="w-1/3 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" (change)="updateBdayInput()" required/>
-              <input [(ngModel)]="secQInput" id="seqQInput" name="seqQInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-4" placeholder="Security Question: Enter birth city" required>
-              <input [(ngModel)]="usernameInput" id="usernameInput" name="usernameInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-4" placeholder="Enter username" required>
-              <div class="mt-5">
+              <input [(ngModel)]="yearInput" id="yearInput" name="yearInput" class="w-1/3 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" (change)="updateBdayInput()" required/>
+              <input [(ngModel)]="secQInput" id="seqQInput" name="seqQInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" placeholder="Security Question: Enter birth city" required>
+              <input [(ngModel)]="usernameInput" id="usernameInput" name="usernameInput" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-3" placeholder="Enter username" required>
+              <div class="mt-3">
                 <input [(ngModel)]="passInput" id="passInput" name="passInput" [type]="showPassword ? 'text' : 'password'" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" placeholder="Enter password" (input)="strengthChecker()"required>
                 <div id="strength-bar"></div>
               </div>
-              <p id="message">  </p>
-              <div class="d-flex justify-content-end align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
                 <input type="checkbox" [(ngModel)]="showPassword">
                 <label class="ml-2 text-sm">Show Password</label>
               </div>
+              <small id="message">  </small>
               <div id="passReq">
                 <small id="message2">Password must contain:</small>
                 <ul class="passList">
-                  <small *ngIf="!containsLetters">At least one uppercase or lowecase letter</small>
-                  <br>
-                  <small *ngIf="!containsNumbers">At least one number</small>
-                  <br>
-                  <small *ngIf="!containsSpecialCharacters">At least one special character</small>
-                  <br>
-                  <small *ngIf="!length">Minimum length of 8 characters</small>
+                  <small *ngIf="!containsLetters">At least one uppercase or lowecase letter<br></small>
+
+                  <small *ngIf="!containsNumbers">At least one number<br></small>
+
+                  <small *ngIf="!containsSpecialCharacters">At least one special character<br></small>
+                  <small *ngIf="!length">Minimum length of 8 characters<br></small>
                 </ul>
               </div>
               
               <button
-                class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                 [disabled]="(passInput == null) || (usernameInput == null) || (emailInput == null) || (monthInput == null) || (dayInput == null) || (yearInput == null) || (secQInput == null)"
                 (click)="signup()"
               >

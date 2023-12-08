@@ -44,6 +44,10 @@
         <label for="end2">End Date: </label>
         <input id="end2" [(ngModel)]="selectedEvent.end" type="datetime-local" placeholder="end">
         <br />
+        <label>Conflicts: </label>
+        <li *ngFor="let event of conflicts">
+            {{event.title}}
+        </li>
         <button (click)="saveEvent()">Save</button>
         <button (click)="deleteEvent()">Delete</button>
     </div>
