@@ -1,56 +1,73 @@
-<link
-    href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-    rel="stylesheet"
-/>
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
-    rel="stylesheet"
-/>
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1"
-/>
-
-<style>
-    body {
+<html>
+  <head>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <style>
+      body {
         font-family: "Inter", sans-serif;
-    }
-</style>
+      }
 
-<script
-    src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
-    defer
-></script>
+      .error-message {
+        color: red;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
+      defer
+    ></script>
+  </head>
 
-<div class="lg:w-1/2 xl:w-5/12 sm:p-5">
-    <div class=" flex flex-col items-center">
-    
-        <label id="test">Dark Mode</label>
-        <input type="checkbox" [(ngModel)]="darkMode" (click)="toggleDarkMode()">
+  <body class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+    <div
+      class="m-0 bg-white shadow sm:rounded-lg flex justify-center flex-1"
+    >
+      <div class="lg:w-1/2 xl:w-5/12 sm:p-5">
+        <div>
+          <img
+            src="assets/P.png"
+            class="w-20 mx-auto"
+          />
+        </div>
+        <div class=" flex flex-col items-center">
+          <h1 class="text-2xl xl:text-3xl font-extrabold">
+            Account Settings
+          </h1>
+          <div class="w-full flex-1 mt-3">
+            <div class="mx-auto max-w-xs">
+            <p for="profile.displayName">Display Name</p>
+            <input [(ngModel)]="profile.displayName" style="margin-bottom: 5px" id="profile.displayName" name="profile.displayName" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2">
+            <p for="profile.email" >Email</p>
+            <input [(ngModel)]="profile.email" style="margin-bottom: 5px" id="profile.email" name="profile.email" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2">
+            <p for="profile.birthday">Date of Birth</p>
+            <input [(ngModel)]="profile.birthday" style="margin-bottom: 5px" id="profile.birthday" name="profile.birthday" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2">
+            <p for="profile.userId">Username</p>
+            <input [(ngModel)]="profile.userId" style="margin-bottom: 5px" id="profile.userId" name="profile.userId" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2">
+            <p for="profile.pass">Password</p>
+            <input [(ngModel)]="profile.pass" style="margin-bottom: 5px" id="profile.pass" name="profile.pass" [type]="showPassword ? 'text' : 'password'" class="w-full px-8 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-2">
+            <br>
+            <input type="checkbox" [(ngModel)]="showPassword">
+            &nbsp;
+            <label>Show Password</label>
+            <br>
+            <input type="checkbox" [(ngModel)]="darkMode" (click)="toggleDarkMode()">
+            &nbsp;
+            <label id="test">Dark Mode</label>
 
-        <h1 class="text-2xl xl:text-3xl font-extrabold">
-        Edit Profile
-        </h1>
-        <div class="w-full flex-1 mt-8">
-
-        <div class="mx-auto max-w-xs">
-            <label for="profile.displayName" >Display Name</label>
-            <input [(ngModel)]="profile.displayName" id="profile.displayName" name="profile.displayName" class="w-full px-8 py-2 mb-4 rounded-lg font-medium border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400">
-            <label for="profile.email" >Email</label>
-            <input [(ngModel)]="profile.email" id="profile.email" name="profile.email" class="w-full px-8 py-2 mb-4 rounded-lg font-medium border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400">
-            <label for="profile.birthday">Date of Birth</label>
-            <input [(ngModel)]="profile.birthday" id="profile.birthday" name="profile.birthday" class=" w-full px-8 py-2 mb-4 rounded-lg font-medium border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400">
-            <label for="profile.userId">Username</label>
-            <input [(ngModel)]="profile.userId" id="profile.userId" name="profile.userId" class=" w-full px-8 py-2 mb-4 rounded-lg font-medium border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400">
-            <label for="profile.pass">Password</label>
-            <input [(ngModel)]="profile.pass" id="profile.pass" name="profile.pass" [type]="showPassword ? 'text' : 'password'" class=" w-full px-8 py-2 rounded-lg font-medium border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400">
-            <div class="mt-2 d-flex justify-content-end align-items-center">
-                <input type="checkbox" [(ngModel)]="showPassword">
-                <label class="ml-2 text-sm">Show Password</label>
-            </div>
             <button
             routerLink ="/dash/settings"
-            class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+            class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
             (click)="updateProfile()"
             >
             <svg
@@ -69,21 +86,30 @@
                 Save Profile
             </span>
             </button>
-        </div>
-    </div>
-</div>
-
-<!-- <button
-    class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-    (click)="deleteUser()"
->
-    Delete Account
-</button> -->
-
-<button
-    class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+            <button
+    class="mt-2 tracking-wide font-semibold bg-red-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
     mat-button (click)="confirmDeletion()"
 >
     Delete Account
 </button>
 
+              
+            </div>
+          </div>
+        </div>
+        <p class="mt-6 text-gray-600 text-center">
+            Don't have an account? <a style="text-decoration: underline; color:blue" routerLink="/register" routerLinkActive="active">Register Now</a>
+            </p>
+        <p class="mt-6 text-gray-600 text-center">
+          Forgot Password? Reset it <a style="text-decoration: underline; color:blue" routerLink="/forgotpass" routerLinkActive="active">here</a>
+          </p>
+      </div>
+      <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
+        <div
+          class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+          style="background-image: url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg');"
+        ></div>
+      </div>
+    </div>
+  </body>
+</html>
