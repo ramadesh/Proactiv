@@ -10,6 +10,18 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
+  getScheduleEvent(eventId : String): Observable<Schedule> {
+    const username = localStorage.getItem("username");
+    if(username == null) {
+      return new Observable(function subscribe(subsriber) {
+          console.log("Schedule Service Error: username not found");
+          subsriber.error("User not found");
+      });
+    }
+    const params = new HttpParams().set('userId', username);
+    return this.http.get<Schedule>('http://localhost:5002/schedule/' + eventId, { params });
+  }
+
   getAllScheduleEvents(): Observable<Schedule[]> {
     const username = localStorage.getItem("username");
     if(username == null) {
@@ -22,7 +34,7 @@ export class ScheduleService {
     return this.http.get<Schedule[]>('http://localhost:5002/schedule', { params });
   }
 
-  getScheduleEvent(eventId : String): Observable<Schedule> {
+  getScheduleConflictsForEvent(eventId : string): Observable<Schedule[]> {
     const username = localStorage.getItem("username");
     if(username == null) {
       return new Observable(function subscribe(subsriber) {
@@ -30,8 +42,8 @@ export class ScheduleService {
           subsriber.error("User not found");
       });
     }
-    const params = new HttpParams().set('userId', username);
-    return this.http.get<Schedule>('http://localhost:5002/schedule/' + eventId, { params });
+    const params = new HttpParams().set('userId', username).set('eventId', eventId);
+    return this.http.get<Schedule[]>('http://localhost:5002/schedule/', { params });
   }
 
   getScheduleEventsForDate(date : string): Observable<Schedule[]> {

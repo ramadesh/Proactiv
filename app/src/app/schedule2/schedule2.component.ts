@@ -11,6 +11,7 @@ import * as moment from 'moment';
 })
 export class Schedule2Component implements OnInit {
   events: Schedule[] = [];
+  conflicts: Schedule[] = [];
   selectedEvent?: Schedule;
   title = "";
   details = "";
@@ -79,5 +80,13 @@ export class Schedule2Component implements OnInit {
 
   onSelect(myEvent: ScheduleEvent): void {
     this.selectedEvent = myEvent;
+    this.scheduleService.getScheduleConflictsForEvent(myEvent.eventId).subscribe((data) => {
+      if(data != null) {
+        this.conflicts.length = 0;
+        data.forEach((e) => {
+          this.conflicts.push(e);
+        });
+      }
+    })
   }
 }
