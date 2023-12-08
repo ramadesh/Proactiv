@@ -12,7 +12,37 @@
 />
 <style>
     body {
-    font-family: "Inter", sans-serif;
+      font-family: "Inter", sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      padding: 0 20px; /* Optional: Add some padding on the sides */
+    }
+
+    .form-container,
+    .journal-container {
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 10px;
+      max-width: 100%; /* Optional: Allow containers to take up full width */
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .form-container button,
+    .journal-container mat-card {
+      width: 100%;
+    }
+    button:hover {
+      background-color: #adb5f1;
+    }
+    button{
+      background-color: #6677ea;
+    }
+    mat-card {
+      padding: 20px;
+      border-radius: 10px;
     }
     
 </style>
@@ -21,27 +51,31 @@
     defer
 ></script>
 
-    <div class="mx-auto max-w-xl">
-      <label for="JournalEntry.title" class="block text-md font-medium text-gray-600">Title</label>
-      <div class="flex justify-between">
-        <input [(ngModel)]="JournalEntry.title" id="JournalEntry.title" name="JournalEntry.title" class="w-full px-3 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400 focus:bg-white h-60" />
-        <button class="px-3 py-2 rounded-lg font-medium bg-indigo-500 text-white hover:bg-indigo-700" (click)="getPrompt()">Next</button>
-    </div>    
+<div class="form-container mx-auto max-w-xl">
+  <mat-card class="example-card w-full text-black">
+  <h1 style="font-size: 24px; padding-bottom: 10px;">Journal</h1>
+  <label for="JournalEntry.title" class="block text-md font-medium text-gray-600">Title</label>
+  <div class="flex space-between">
+    <input [(ngModel)]="JournalEntry.title" id="JournalEntry.title" name="JournalEntry.title" style="width: 92%" class="px-3 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-800 text-black text-sm focus:outline-none focus:border-gray-400 focus:bg-white h-60" />
+    &nbsp; &nbsp;
+    <button style="width: 8%" class="px-3 py-2 rounded-lg placeholder-gray-100 font-medium bg-indigo-500 text-white hover:bg-indigo-700" (click)="getPrompt()">Next</button>
+  </div>
     
-      <label for="JournalEntry.content" class="block text-md font-medium text-gray-600">Content</label>
+      <label for="JournalEntry.content" style="width: 100%" class="block text-md font-medium text-gray-600">Content</label>
       <textarea [(ngModel)]="JournalEntry.content" id="JournalEntry.content" name="JournalEntry.content" class="w-full px-3 py-5 h-40 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-black text-sm focus:outline-none focus:border-gray-400 focus:bg-white"></textarea>
     
     <div class="flex space-x-2">
-      <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="saveEntry()">
+      <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="saveEntry()">
         Save Entry
       </button>
-      <button class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="updateEntry()">
+      <button class="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="updateEntry()">
         Update Entry
       </button>
     </div>
+  </mat-card>
 </div>
 
-<div *ngFor= "let je of journals" class="mx-auto max-w-xl">
+<div *ngFor= "let je of journals" class="journal-container mx-auto max-w-xl">
     <mat-card class="example-card w-full text-black">
         <mat-card-header>
           <mat-card-title>{{ je.title }}</mat-card-title>
@@ -49,11 +83,11 @@
         <mat-card-content>
           <p> {{ je.content }} </p>
         </mat-card-content>
-        <div class="flex space-x-2">
-          <button class="w-1/2 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-4 rounded-md hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="editEntry(je.title)">
+        <div class="flex space-x-2" style="width: 20%">
+          <button class="w-1/2 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-3 rounded-md hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="editEntry(je.title)">
             Edit
           </button>
-          <button class="w-1/2 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-4 rounded-md hover-bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="deleteEntry(je.title)">
+          <button class="w-1/2 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-3 rounded-md hover-bg-indigo-700 transition-all duration-300 ease-in-out focus:shadow-outline focus:outline-none" mat-button (click)="deleteEntry(je.title)">
             Delete
           </button>
         </div>

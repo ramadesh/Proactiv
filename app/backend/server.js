@@ -200,7 +200,8 @@ app.route('/userpass')
       query.due = due;
     }
 
-  ToDo.find(query)
+  ToDo.find(query)  
+      .sort({ timestamp: -1 })
       .then(data => {
         res.status(200).json(data);
       })

@@ -11,9 +11,26 @@ export class TodoscheduleComponent {
   public dueDate = '';
   public tasks: any = [];
   public userID = localStorage.getItem("username");
+  add="addId";
+  
   constructor(private http: HttpClient) {
 
   }
+  collapseToggle(eventId: string) {
+    var element = <HTMLElement> document.getElementById(eventId);
+    if(element != null) {
+      element.classList.toggle("active");
+      var content = <HTMLElement> element.nextElementSibling;
+      if(content != null) {
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      }
+    }
+  }
+  
   addTask() {
     
     console.log("user: " + this.userID);

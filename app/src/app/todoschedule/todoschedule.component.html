@@ -12,6 +12,7 @@
     }
 
     .card {
+      box-shadow:#adabab  0px 2px 8px 0px;
       flex: 1;
       height: 100%;
       box-sizing: border-box;
@@ -25,21 +26,35 @@
   <div class="card"> <!-- First Card -->
     
 <div class="todo-container">
-  <h1>To-Do List</h1>
-  <div class="input-container">
-      <input [(ngModel)]="taskInput" type="text" id="taskInput" placeholder="Enter a task...">
-      <input [(ngModel)]="dueDate" type="date" id="dueDate">
-      <button id="add-button" (click)="addTask()">Add</button>
-  </div>
-  <br>
-  <h3>Tasks</h3>
-  <div *ngFor="let task of tasks">
+  <h2>To Do</h2>
+
+  <button type="button" title="Add new schedule event" id="addId" class="collapsible" style="width:auto; margin-left: 40px;" (click)="collapseToggle(add)">Add</button>
+<div class="content" style="margin-left: 40px;">
+    <h3 style="padding-bottom: 10px;">Add New Task</h3>
+
+    <div class="row">
+        <label class = "col" for="title1">Title </label>
+        <input class = "col" [(ngModel)]="taskInput" id="title1"/>
+    </div>
+    <br/>
+    <div class="row" >
+        <label class = "col" for="details1">Due </label>
+        <input class = "col" [(ngModel)]="dueDate" type="date">
+    </div>
+    <br/>
+    <button style="border-radius: 10px; background-color: #6677ea; color: white; padding: 10px; border-width: 0px;" (click)="addTask()">Add</button>
+</div>
+
+<div *ngIf="tasks.length > 0" style="margin-top: 20px;">
+  <h4>Pending Tasks</h4>
+    <div *ngFor="let task of tasks">
       <p style="text-decoration: line-through;" *ngIf="task.active == 0">{{task.todo}}</p>
       <div>
         <input *ngIf="task.active == 1" (click)="remove(task)" type="checkbox">
         <p *ngIf="task.active == 1" style="display: inline-block; margin-left: 5px;">Task: {{task.todo}}</p>
       </div>
-  </div>
+    </div>
+</div>
 </div>
 
   </div>
