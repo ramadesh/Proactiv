@@ -15,6 +15,7 @@ export class DashComponent {
   
   public spotifyProfilePic = this.data.spotifyProfilePic;
   showNote = false;
+  loading = false;
 
   ngOnInit(): void {
     this.settingsService.getDarkMode().subscribe((mode) => {
@@ -31,8 +32,12 @@ export class DashComponent {
   }
   
   logout() {
+    this.loading = true;
+    setTimeout(() => {
     this.auth.logout();
     console.log("You've been successfully logged out.");
     this.router.navigate(["/login"]);
+  }, 750)
   }
+  
 }

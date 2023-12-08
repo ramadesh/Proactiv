@@ -16,6 +16,7 @@ export class LoginComponent {
   public emailInput = '';
   public errorMessage = '';
   showPassword: boolean = false;
+  loading = false;
   
   constructor(
     private http: HttpClient, public router: Router,
@@ -23,6 +24,8 @@ export class LoginComponent {
     ) {}
 
   login() {
+    this.loading = true
+    setTimeout(() => {
     this.auth.login(this.usernameInput, this.passInput)
     .subscribe(
       (response) => {
@@ -35,5 +38,7 @@ export class LoginComponent {
         this.errorMessage = error.error.message;
       }
     );
+    }, 750)
+    
   }
 }

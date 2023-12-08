@@ -68,7 +68,13 @@
             <img class="dropbtn" id="clickButton" [src]="spotifyProfilePic || 'assets/ProfileIcon.png'" style="width: 50px; height: 50px; margin-right: 30px; padding: 6px" alt="Image" />
             <div class="dropdown-content">
                 <a href="#" routerLink="/dash/settings" routerLinkActive="active">Settings</a>
-                <a href="#" (click)="logout()">Log Out</a>
+                <a href="#" (click)="logout()">
+                    <span 
+                    *ngIf ="!loading"
+                    > Log Out </span>
+                    <span *ngIf="loading" class="spinner w-6 h-6 border-t-2 border-b-2 border-gray-200 rounded-full animate-spin"></span>
+
+                </a>
             </div>
         </div>
     </div>

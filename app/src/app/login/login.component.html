@@ -61,8 +61,12 @@
               <button
                 class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                 (click)="login()"
+                [disabled]="loading"
               >
+                <span *ngIf="loading" class="spinner w-6 h-6 border-t-2 border-b-2 border-gray-200 rounded-full animate-spin"></span>
+  
                 <svg
+                  *ngIf="!loading"
                   class="w-6 h-6 -ml-2"
                   fill="none"
                   stroke="currentColor"
@@ -74,7 +78,7 @@
                   <circle cx="8.5" cy="7" r="4" />
                   <path d="M20 8v6M23 11h-6" />
                 </svg>
-                <span class="ml-3">
+                <span  *ngIf="!loading" class="ml-3">
                   Log In
                 </span>
               </button>
