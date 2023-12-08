@@ -47,8 +47,8 @@
     <div *ngIf="tasks.length > 0">
       <!-- Task list based on the selected date -->
       <u style="font-size: larger; color: black;">Tasks for the Day</u>
-      <ul class="task-list" *ngFor="let task of tasks">
-        <li style="color: black;">{{ task.todo }}</li>
+      <ul style="color: black;" class="task-list" *ngFor="let task of tasks">
+        <li>{{ task.todo }}</li>
       </ul>
     </div>
     <div *ngIf="tasks.length == 0"><p style="font-size: larger; color: black;">No tasks for this day.</p></div>
@@ -57,8 +57,17 @@
     <div *ngIf="schedule.length > 0">
       <!-- Schedule based on the selected date -->
       <u style="font-size: larger; color: black;">Schedule for the Day</u>
-      <ul class="task-list" *ngFor="let event of schedule">
-        <li style="color: black;">{{ event.title }}: {{ event.startDisplayStr }} - {{ event.endDisplayStr }}</li>
+      <div class="row">
+        <div class="col">Title</div>
+        <div class="col">Start</div>
+        <div class="col">End</div>
+      </div>
+      <ul style="color: black;" class="task-list" *ngFor="let event of schedule">
+        <div class="row">
+          <div class="col">{{ event.title }}</div>
+          <div class="col">{{ event.startDisplayStr }}</div>
+          <div class="col">{{ event.endDisplayStr }}</div>
+        </div>
       </ul>
     </div>
     <div *ngIf="schedule.length == 0"><p style="font-size: larger; color: black;">No scheduled events for the day.</p></div>
