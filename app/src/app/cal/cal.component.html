@@ -31,7 +31,14 @@
         <h2 style="padding-top: 10px; padding-bottom: 10px;">{{ currentDate.format('MMMM YYYY') }}</h2>
       </div>
       <div class="calendar-grid">
-       
+        <div class="calendar-weekday" style="font-weight: bold;">Sun</div>
+        <div class="calendar-weekday" style="font-weight: bold;">Mon</div>
+        <div class="calendar-weekday" style="font-weight: bold;">Tue</div>
+        <div class="calendar-weekday" style="font-weight: bold;">Wed</div>
+        <div class="calendar-weekday" style="font-weight: bold;">Thu</div>
+        <div class="calendar-weekday" style="font-weight: bold;">Fri</div>
+        <div class="calendar-weekday" style="font-weight: bold;">Sat</div>
+        
         <div
           class="calendar-day"
           *ngFor="let date of generateCalendar()"
