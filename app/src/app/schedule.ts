@@ -6,4 +6,6 @@ export interface Schedule {
     start : string;
     end : string;
     conflictEvents : Schedule[];
+    startDisplayStr : string;
+    endDisplayStr: string;
 }

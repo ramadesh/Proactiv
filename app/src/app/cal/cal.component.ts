@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ScheduleService } from '../schedule.service';
+import { Schedule } from '../schedule';
 import * as moment from 'moment';
 
 @Component({
@@ -17,7 +18,7 @@ export class CalComponent {
   public currentDate = moment(); // Initialize with the current date
   public userID = localStorage.getItem("username");
   public tasks: any = [];
-  public schedule: any = [];
+  public schedule: Schedule[] = [];
 
   selectedDate: string | null = null;
 
@@ -45,8 +46,10 @@ export class CalComponent {
     if(this.selectedDate != null) {
       this.scheduleService.getScheduleEventsForDate(this.selectedDate).subscribe((events) => {
         if(events != null) {
-          this.schedule.length = 0;
+          this.schedule = [];
           events.forEach((e) => {
+            e.startDisplayStr = new Date(e.start).toLocaleString();
+            e.endDisplayStr = new Date(e.end).toLocaleString();
             this.schedule.push(e);
           });
         }
