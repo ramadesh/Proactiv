@@ -2,7 +2,7 @@
 
 <button type="button" title="Add new schedule event" id="addId" class="collapsible" style="width:auto; margin-left: 40px;" (click)="collapseToggle(add)">Add</button>
 <div class="content" style="margin-left: 40px;">
-    <h2>Add New Schedule Event</h2>
+    <h2 style="padding-bottom: 10px;">Add New Schedule Event</h2>
 
     <div class="row">
         <label class = "col" for="title1">Title </label>
@@ -24,7 +24,7 @@
         <input class = "col" [(ngModel)]="endDate" id="end-date1" type="datetime-local"/>
     </div>
     <br/>
-    <button (click)="addEvent()">Add</button>
+    <button style="border-radius: 10px; background-color: #6677ea; color: white; padding: 10px; border-width: 0px;" (click)="addEvent()">Add</button>
 </div>
 
 <div *ngIf="events.length > 0" style="margin-top: 20px;">
@@ -66,4 +66,4 @@
         </div>
     </ul>
 </div>
-<div *ngIf="events.length == 0"><p>No events scheduled.</p></div>
+<div style="padding-top: 24px; padding-left: 24px;"*ngIf="events.length == 0"><p>No events scheduled.</p></div>
