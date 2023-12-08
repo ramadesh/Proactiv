@@ -72,7 +72,7 @@ export class PastjournalsComponent {
   longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
   
   getQuote() {
-    this.http.get<any[]>('https://api.api-ninjas.com/v1/quotes?category=', {headers: new HttpHeaders({'X-Api-Key': 'eQsLqIy5ubK7h64jY9LdMg==MmZC67vyoUW2RF1l'})})
+    this.http.get<any[]>('https://api.api-ninjas.com/v1/quotes?category=hope', {headers: new HttpHeaders({'X-Api-Key': 'eQsLqIy5ubK7h64jY9LdMg==MmZC67vyoUW2RF1l'})})
     .subscribe(response => {
       console.log('Quote: ', response[0]?.quote);
       this.quote.quote = response[0]?.quote;
