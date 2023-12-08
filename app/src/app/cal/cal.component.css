@@ -1,31 +1,45 @@
-/* Basic styling for the calendar component */
+
 .calendar {
     display: flex;
     flex-direction: column;
-    width: 300px;
-    margin: 20px;
+    width: 100%; /* Set to 50% to take up the left half */
+    max-width: 100vw;
+    justify-content: left;
+    height: 50vh;
+    margin: 100px 10; /* Adjust top and bottom margin as needed */
+    box-sizing: border-box;
+    padding: 20px;
 }
+
+.container {
+    display: flex;
+}
+
 
 .calendar-header {
     text-align: center;
 }
 
 .calendar-grid {
+    
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    gap: 20px;
     text-align: center;
 }
 
 .calendar-day {
     cursor: pointer;
-    padding: 5px;
-    border: 1px solid #aaa;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: white;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-radius: 10px;
 }
 
 .calendar-day:hover {
-    background-color: #f0f0f0;
+    background-color: #6677ea;
 }
 
 .task-panel {
