@@ -11,12 +11,12 @@ export class TodoscheduleComponent {
   public dueDate = '';
   public tasks: any = [];
   public userID = localStorage.getItem("username");
-  add="addId";
-  
+  add="addId2";
+
   constructor(private http: HttpClient) {
 
   }
-  collapseToggle(eventId: string) {
+  collapseToggle2(eventId: string) {
     var element = <HTMLElement> document.getElementById(eventId);
     if(element != null) {
       element.classList.toggle("active");
