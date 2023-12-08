@@ -6,6 +6,7 @@ import { DataService } from '../data.service';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
 import { CommonModule } from '@angular/common';
+import { HttpHeaders } from '@angular/common/http';
 
 /**
  * @title Card with sub-title
@@ -40,10 +41,17 @@ export class PastjournalsComponent {
     secQ: ''
   };
 
+  public quote: any = {
+    quote: '',
+    author: ''
+  };
+
   constructor(private http: HttpClient, public data: DataService, private profileService: ProfileService) {
     this.getJournals();
     this.getProfile();
     this.getTasks();
+    console.log("getting quotes")
+    this.getQuote();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
         if (position) {
@@ -63,6 +71,17 @@ export class PastjournalsComponent {
   }
   longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
   
+  getQuote() {
+    this.http.get<any[]>('https://api.api-ninjas.com/v1/quotes?category=', {headers: new HttpHeaders({'X-Api-Key': 'eQsLqIy5ubK7h64jY9LdMg==MmZC67vyoUW2RF1l'})})
+    .subscribe(response => {
+      console.log('Quote: ', response[0]?.quote);
+      this.quote.quote = response[0]?.quote;
+      this.quote.author = response[0]?.author;
+    }, (error) => {
+      // Handle errors
+    });
+  }
+
   getJournals() {
     let params = new HttpParams().set('userId', this.userID!);
     this.http.get('http://localhost:5002/dashjournals', { params })
@@ -104,6 +123,7 @@ export class PastjournalsComponent {
 
     console.log(currentWeather.weather)
   }
+
 
 
 }
