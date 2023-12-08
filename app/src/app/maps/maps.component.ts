@@ -35,7 +35,7 @@ export class MapsComponent implements OnInit {
 
     const encodedURL = encodeURIComponent(`https://maps.googleapis.com/maps/api/staticmap?center=${t}&zoom=13&size=600x300&key=AIzaSyADNbpFpQH0hSdd8RH5p-cLWSzkpX6Y-0g`);
     
-    return`mailto:?subject=Look at this website&body=Hi, I found this website and thought you might like it: ${encodedURL}`;
+    return`mailto:?subject=Static Map from Proactiv!&body= Hello, Meet me here!: ${encodedURL}`;
 
   }
 
@@ -68,7 +68,19 @@ export class MapsComponent implements OnInit {
 
     this.getCurrentWeather(lat, lon)
 
+    let map: google.maps.Map, infoWindow: google.maps.InfoWindow;
+    map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 6,
+    });
+    infoWindow = new google.maps.InfoWindow();
   
+    const locationButton = document.createElement("button");
+  
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("custom-map-control-button");
+  
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
 
         
   }
