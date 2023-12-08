@@ -1,65 +1,55 @@
-.scheduledEvents {
-    margin: 0 0 2em 0;
-    list-style-type: none;
-    padding: 0;
-    width: 15em;
-  }
-  
-  .scheduledEvents li {
-    display: flex;
-  }
-  
-  .scheduledEvents button {
-    flex: 1;
-    cursor: pointer;
-    position: relative;
-    left: 0;
-    background-color: #EEE;
-    margin: .5em;
-    padding: 0;
-    border-radius: 4px;
-    display: flex;
-    align-items: stretch;
-    height: 2em;
-  }
-  
-  .scheduledEvents button:hover {
-    color: #2c3a41;
-    background-color: #e6e6e6;
-    left: .1em;
-  }
-  
-  .scheduledEvents button:active {
-    background-color: #525252;
-    color: #fafafa;
-  }
-  
-  .scheduledEvents button.selected {
-    background-color: black;
-    color: white;
-  }
-  
-  .scheduledEvents button.selected:hover {
-    background-color: #505050;
-    color: white;
-  }
-  
-  .scheduledEvents button.selected:active {
-    background-color: black;
-    color: white;
-  }
-  
-  .scheduledEvents .badge {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color: #405061;
-    line-height: 1em;
-    margin-right: .8em;
-    border-radius: 4px 0 0 4px;
-  }
-  
-  .scheduledEvents .name {
-    align-self: center;
-  }
+h1 {
+  font-size: 32pt;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: 24px;
+  color: black;
+}
+
+input {
+  right: 140px;
+}
+
+textarea {
+  right: 140px;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 20px;
+  width: 25%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 20px;
+  width: 75%;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.collapsible:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 15px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}

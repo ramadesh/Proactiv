@@ -7,5 +7,8 @@ export class ScheduleEvent {
     details : string = "";
     start : string = "";
     end : string = "";
+    conflictEvents : ScheduleEvent[] = [];
+    startDisplayStr : string = "";
+    endDisplayStr : string = "";
     constructor() {}
 }
