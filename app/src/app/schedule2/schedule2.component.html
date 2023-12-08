@@ -53,9 +53,11 @@
                 <input class="col" id="end2" [(ngModel)]="event.end" type="datetime-local" placeholder="end">
             </div>
             <br />
-            <div class="row">
-                <button class="col" (click)="saveEvent()">Save</button>
-                <button class="col" (click)="deleteEvent()">Delete</button>
+            <div class="row" style="padding: 10px;">
+                <button style="border-radius: 10px; background-color: #6677ea; color: white; padding: 10px; border-width: 0px;" class="col" (click)="saveEvent()">Save</button>
+                &nbsp;
+                &nbsp;
+                <button style="border-radius: 10px; background-color: #6677ea; color: white; padding: 10px; border-width: 0px;" class="col" (click)="deleteEvent()">Delete</button>
             </div>
             <br />
             <label>Conflicts</label>
